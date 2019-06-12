@@ -13,7 +13,6 @@ var UserSchema = new Schema({
         required: true,
         max: 100,
         unique: true,
-        isE
     },
     password: {
         type: String,
