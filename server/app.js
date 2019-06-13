@@ -8,16 +8,18 @@ mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb://localhost:27017/hr-system',{ useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    AccountSeeder();
-});
+// db.once('open', function() {
+//     AccountSeeder();
+// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 
 var accountRoute = require("./routes/account.route");
+var profileRoute = require("./routes/profile.route");
 app.use("/",accountRoute);
+app.use("/profile",profileRoute);
 
 
 

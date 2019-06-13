@@ -5,7 +5,7 @@ var Auth = require("../middleware/auth.middleware");
 var AccountController = require("../controllers/account.controller");
 
 
-router.post('/login',AccountController.login);
-router.post('/register',AccountController.register);
+router.post('/login',AccountController.Login);
+router.post('/register',AccountController.Register);
 
 module.exports = router;

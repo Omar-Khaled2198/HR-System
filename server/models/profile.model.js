@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var vacationSchema = require("./vacation.model");
 var Schema = mongoose.Schema;
 
 var ProfileSchema = new Schema({
@@ -15,12 +14,13 @@ var ProfileSchema = new Schema({
         max: 100
     },
     job_title:{
-        type: String
+        type: String,
+        required:true
     },
     profile_picture:{
         type: String
     },
-    vacatons:[vacationSchema]
+    vacations: [{type: mongoose.Schema.Types.ObjectId, ref: 'Vacation'}]
 });
 
 module.exports = mongoose.model('Profile', ProfileSchema);

@@ -14,8 +14,8 @@ const Auth = function(role){
           if (err)
               return res.status(500).send({ auth: false, msg: 'Failed to authenticate token.' });
             
-          if(decoded.role==role){
-              req.id=decoded.id;
+          if(decoded.role==role||role=="*"){
+              req.accountId=decoded.id;
               next();
           }
           else

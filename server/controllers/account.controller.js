@@ -5,7 +5,7 @@ const config = require("../config");
 
 
 
-const register = function (req, res) {
+const Register = function (req, res) {
 
     var passwordHashed = bcrypt.hashSync(req.body.password, config.saltRounds);
     
@@ -27,7 +27,7 @@ const register = function (req, res) {
 }
 
 
-const login = function (req, res) {
+const Login = function (req, res) {
 
     Account.findOne({email: req.body.email}, function (error, account) {
 
@@ -48,4 +48,4 @@ const login = function (req, res) {
 }
 
 
-module.exports = {register,login}
+module.exports = {Register,Login}
