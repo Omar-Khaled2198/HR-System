@@ -2,6 +2,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var AccountSeeder = require("./database/account.seeds");
+var accountRoute = require("./routes/account.route");
+var profileRoute = require("./routes/profile.route");
+var vacationRoute = require("./routes/vacation.route");
+
+
 var app = express();
 
 mongoose.set('useCreateIndex', true);
@@ -16,9 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 
-var accountRoute = require("./routes/account.route");
-var profileRoute = require("./routes/profile.route");
-var vacationRoute = require("./routes/vacation.route");
+
 app.use("/api/",accountRoute);
 app.use("/api/employee",[profileRoute,vacationRoute]);
 

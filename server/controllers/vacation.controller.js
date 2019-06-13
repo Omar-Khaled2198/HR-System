@@ -18,7 +18,14 @@ const RequestVacation = function (req,res){
         if(error)
             return res.status(500).send({msg:"Something went wrong in server."});
 
-        return res.status(200).send({msg:"Requested vacation successfully"});
+        Profile.findById(req.params.id,function(error,profile){
+            
+            profile.vacations.push(vacation._id);
+            profile.save(function(){
+                return res.status(200).send({msg:"Requested vacation successfully"});
+            })
+        })
+        
             
     })
 
@@ -26,6 +33,7 @@ const RequestVacation = function (req,res){
 
 const GetVacations = function(req,res){
 
+    console.log(req.params.id);
     Profile.findById(req.params.id).populate("vacations").exec(function(error,profile){
 
         if(error)
