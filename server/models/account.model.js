@@ -19,7 +19,8 @@ var AccountSchema = new Schema({
         required: true
     },
     profile:{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Profile'
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Profile'
     }
 
 });

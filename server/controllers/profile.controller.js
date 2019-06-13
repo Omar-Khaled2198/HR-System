@@ -20,15 +20,20 @@ const CreateProfile = function (req,res){
             job_title:req.body.job_title
         })
 
-        account.profile=profile._id;
-        account.save(function(error){
+        profile.save(function(error){
+
+            account.profile=profile._id;
+            account.save(function(error){
             
             if(error)
                 return res.status(500).send({msg:"Something went wrong in server."});
 
             return res.status(200).send({msg:"Profile created successfully."})
+        })
 
         })
+
+        
     })
 }
 
@@ -43,7 +48,7 @@ const GetProfile = function (req,res){
             return res.status(404).send({msg:'No account found.'});
 
         if(account.profile==null)
-            return res.status(404).send({msg:'Already have profile.'});
+            return res.status(404).send({msg:'No found profile'});
 
         res.status(200).send(account.profile)
     })

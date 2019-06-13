@@ -12,7 +12,7 @@ const Register = function (req, res) {
     var account = new Account({
         email: req.body.email,
         password: passwordHashed,
-        role: req.body.role
+        role: "employee"
     });
 
     account.save(function (error) {

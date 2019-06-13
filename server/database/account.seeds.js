@@ -9,7 +9,7 @@ const AccountSeeder = function(){
     var account = new Account({
         email: "omar21621@gmail.com",
         password: passwordHashed,
-        role: "hr"
+        role: "employee"
     });
 
     account.save(function (error) {

@@ -3,6 +3,11 @@ var Schema = mongoose.Schema;
 
 var VacationSchema = new Schema({
 
+    requester:{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Profile',
+        required:true
+    },
     title: {
         type: String,
         required: true,
@@ -10,6 +15,10 @@ var VacationSchema = new Schema({
     },
     description:{
         type: String,
+        required:true
+    },
+    timestamp:{
+        type:String,
         required:true
     },
     from:{
@@ -26,7 +35,7 @@ var VacationSchema = new Schema({
     },
     response_by:{
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Account'
+        ref: 'Profile'
     },
     rejection_reasons:{
         type:String

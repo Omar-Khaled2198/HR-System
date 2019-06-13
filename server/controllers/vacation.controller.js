@@ -1,0 +1,38 @@
+var Vacation = require("../models/vacation.model");
+var Profile = require("../models/profile.model");
+
+const RequestVacation = function (req,res){
+    
+    var vacation = new Vacation({
+        requester:req.body.profile_id,
+        title:req.body.title,
+        description:req.body.description,
+        from:req.body.from,
+        to:req.body.to,
+        status:"Pending",
+        timestamp:Date.now()
+    })
+
+    vacation.save(function(error){
+
+        if(error)
+            return res.status(500).send({msg:"Something went wrong in server."});
+
+        return res.status(200).send("Requested vacation successfully");
+            
+    })
+
+}
+
+const GetVacations = function(req,res){
+
+    Profile.findById(req.params.id).populate("vacations").exec(function(error,profile){
+
+        if(error)
+            return res.status(500).send({msg:"Something went wrong in server."});
+
+        return res.status(200).send(profile.vacations);
+    })
+}
+
+module.exports = {RequestVacation,GetVacations};

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProfileSchema = new Schema({
-
+    
     first_name: {
         type: String,
         required: true,
@@ -20,7 +20,10 @@ var ProfileSchema = new Schema({
     profile_picture:{
         type: String
     },
-    vacations: [{type: mongoose.Schema.Types.ObjectId, ref: 'Vacation'}]
+    vacations: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Vacation'
+    }]
 });
 
 module.exports = mongoose.model('Profile', ProfileSchema);
