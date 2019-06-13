@@ -4,7 +4,8 @@ var jwt = require('jsonwebtoken');
 const config = require("../config");
 
 
-const register = function (req, res, next) {
+
+const register = function (req, res) {
 
     var passwordHashed = bcrypt.hashSync(req.body.password, config.saltRounds);
     
@@ -20,12 +21,14 @@ const register = function (req, res, next) {
         if (error) 
             return res.status(500).send({msg:error.message});
 
-        res.status(200).send({msg:'user registered successfully.'});
+        var token = jwt.sign({id: user._id,role:user.role}, config.secret)
+        res.status(200).send({name:user.name,email: user.email,token});
+
     })
 }
 
 
-const login = function (req, res, next) {
+const login = function (req, res) {
 
     User.findOne({email: req.body.email}, function (error, user) {
 
@@ -44,5 +47,6 @@ const login = function (req, res, next) {
     
     });
 }
+
 
 module.exports = {register,login}
