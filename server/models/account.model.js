@@ -1,13 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var UserSchema = new Schema({
+var AccountSchema = new Schema({
 
-    name: {
-        type: String,
-        required: true,
-        max: 100
-    },
     email: {
         type: String,
         required: true,
@@ -23,9 +18,11 @@ var UserSchema = new Schema({
         enum: ['employee', 'hr'],
         required: true
     },
-    profile_picture:{
-        type: String
+    profile:{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Profile'
     }
+
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Account', AccountSchema);

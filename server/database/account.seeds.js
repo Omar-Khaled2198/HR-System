@@ -1,25 +1,24 @@
-var User = require("../models/user.model");
+var Account = require("../models/account.model");
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const config = require("../config");
 
-const UserSeeder = function(){
+const AccountSeeder = function(){
 
     var passwordHashed = bcrypt.hashSync("123456789", config.saltRounds);
-    var user = new User({
-        name: "Omar Khaled",
+    var account = new Account({
         email: "omar21621@gmail.com",
         password: passwordHashed,
         role: "hr"
     });
 
-    user.save(function (error) {
+    account.save(function (error) {
 
         if (error) 
-            console.log("Failed to seed user");
+            console.log("Failed to seed accounts");
         else
-            console.log("User seeded successfully");
+            console.log("accounts seeded successfully");
     })
 }
 
-module.exports = UserSeeder
+module.exports = AccountSeeder

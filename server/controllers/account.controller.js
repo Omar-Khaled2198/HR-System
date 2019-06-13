@@ -1,4 +1,4 @@
-var User = require("../models/user.model");
+var Account = require("../models/account.model");
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const config = require("../config");
@@ -9,20 +9,19 @@ const register = function (req, res) {
 
     var passwordHashed = bcrypt.hashSync(req.body.password, config.saltRounds);
     
-    var user = new User({
-        name: req.body.name,
+    var account = new Account({
         email: req.body.email,
         password: passwordHashed,
         role: req.body.role
     });
 
-    user.save(function (error) {
+    account.save(function (error) {
 
         if (error) 
             return res.status(500).send({msg:error.message});
 
-        var token = jwt.sign({id: user._id,role:user.role}, config.secret)
-        res.status(200).send({name:user.name,email: user.email,token});
+        var token = jwt.sign({id: account._id,role:account.role}, config.secret)
+        res.status(200).send({name:account.name,email: account.email,token});
 
     })
 }
@@ -30,20 +29,20 @@ const register = function (req, res) {
 
 const login = function (req, res) {
 
-    User.findOne({email: req.body.email}, function (error, user) {
+    Account.findOne({email: req.body.email}, function (error, account) {
 
         if (error) 
             return res.status(500).send({msg:error.message});
 
-        if (!user) 
-            return res.status(404).send({msg:'No user found.'});
+        if (!account) 
+            return res.status(404).send({msg:'No account found.'});
 
-        var password = bcrypt.compareSync(req.body.password, user.password);
+        var password = bcrypt.compareSync(req.body.password, account.password);
         if (!password) 
             return res.status(401).send({ auth: false, token: null });
 
-        var token = jwt.sign({id: user._id,role:user.role}, config.secret)
-        res.status(200).send({auth: true,email: user.email,token});
+        var token = jwt.sign({id: account._id,role:account.role}, config.secret)
+        res.status(200).send({auth: true,email: account.email,token});
     
     });
 }
