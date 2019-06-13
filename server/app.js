@@ -19,9 +19,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 var accountRoute = require("./routes/account.route");
 var profileRoute = require("./routes/profile.route");
 var vacationRoute = require("./routes/vacation.route");
-app.use("/",accountRoute);
-app.use("/employee",[profileRoute,vacationRoute]);
-
+app.use("/api/",accountRoute);
+app.use("/api/employee",[profileRoute,vacationRoute]);
 
 
 const PORT = process.env.port || 5000;

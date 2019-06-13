@@ -5,7 +5,7 @@ var Auth = require("../middleware/auth.middleware");
 var VacationController = require("../controllers/vacation.controller");
 
 
-router.post('/:id/vaction/create',Auth("employee"),VacationController.RequestVacation);
+router.post('/:id/vacation/create',Auth("employee"),VacationController.RequestVacation);
 router.get("/:id/vacations",Auth("employee"),VacationController.GetVacations);
 
 module.exports = router;

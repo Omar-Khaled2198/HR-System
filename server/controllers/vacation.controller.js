@@ -4,7 +4,7 @@ var Profile = require("../models/profile.model");
 const RequestVacation = function (req,res){
     
     var vacation = new Vacation({
-        requester:req.body.profile_id,
+        requester:req.params.id,
         title:req.body.title,
         description:req.body.description,
         from:req.body.from,
@@ -18,7 +18,7 @@ const RequestVacation = function (req,res){
         if(error)
             return res.status(500).send({msg:"Something went wrong in server."});
 
-        return res.status(200).send("Requested vacation successfully");
+        return res.status(200).send({msg:"Requested vacation successfully"});
             
     })
 
