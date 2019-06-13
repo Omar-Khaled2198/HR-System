@@ -31,7 +31,7 @@ var VacationSchema = new Schema({
     },
     status:{
         type:String,
-        enum: ['Pending', 'Accepted','Rejected'],
+        enum: ['Pending', 'Accepted','Rejected','Aborted'],
     },
     response_by:{
         type: mongoose.Schema.Types.ObjectId, 

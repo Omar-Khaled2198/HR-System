@@ -33,7 +33,6 @@ const RequestVacation = function (req,res){
 
 const GetVacations = function(req,res){
 
-    console.log(req.params.id);
     Profile.findById(req.params.id).populate("vacations").exec(function(error,profile){
 
         if(error)
@@ -43,4 +42,23 @@ const GetVacations = function(req,res){
     })
 }
 
-module.exports = {RequestVacation,GetVacations};
+const AbortRequest = function(req,res){
+    
+    Vacation.findById(req.params.vac_id,function(error,vacation){
+        
+        if(error)
+            return res.status(500).send({msg:"Something went wrong in server."});
+
+        if(vacation)
+            return res.status(400).send({msg:"Vacation not found"})
+
+        if(vacation.status=="Pending")
+            vacation.status="Aborted";
+            vacation.save(function(){
+                return res.status(200).send({msg:"Vacation aborted successfully."});
+            })
+    })
+
+}
+
+module.exports = {RequestVacation,GetVacations,AbortRequest};
