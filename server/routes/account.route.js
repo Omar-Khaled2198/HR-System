@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var Auth = require("../middleware/auth.middleware");
 
-var AccountController = require("../controllers/account.controller");
+var AccountController = require("../controllers/employee/account.controller");
 
 
 router.post('/login',AccountController.Login);

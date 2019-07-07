@@ -1,5 +1,5 @@
-var Vacation = require("../models/vacation.model");
-var Profile = require("../models/profile.model");
+var Vacation = require("../../models/vacation.model");
+var Profile = require("../../models/profile.model");
 
 const RequestVacation = function (req,res){
     
@@ -19,6 +19,9 @@ const RequestVacation = function (req,res){
             return res.status(500).send({msg:"Something went wrong in server."});
 
         Profile.findById(req.params.id,function(error,profile){
+
+            if(error)
+                return res.status(404).send({msg:"Profile not existed."});
             
             profile.vacations.push(vacation._id);
             profile.save(function(){
@@ -42,7 +45,7 @@ const GetVacations = function(req,res){
     })
 }
 
-const AbortRequest = function(req,res){
+const AbortVacationRequest = function(req,res){
     
     Vacation.findById(req.params.vac_id,function(error,vacation){
         
@@ -55,10 +58,10 @@ const AbortRequest = function(req,res){
         if(vacation.status=="Pending")
             vacation.status="Aborted";
             vacation.save(function(){
-                return res.status(200).send({msg:"Vacation aborted successfully."});
+                return res.status(200).send({msg:"Vacation request aborted successfully."});
             })
     })
 
 }
 
-module.exports = {RequestVacation,GetVacations,AbortRequest};
+module.exports = {RequestVacation,GetVacations,AbortVacationRequest};

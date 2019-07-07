@@ -1,5 +1,5 @@
-var Profile = require("../models/profile.model")
-var Account = require("../models/account.model")
+var Profile = require("../../models/profile.model")
+var Account = require("../../models/account.model")
 
 const CreateProfile = function (req,res){
 

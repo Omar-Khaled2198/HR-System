@@ -5,6 +5,7 @@ var AccountSeeder = require("./database/account.seeds");
 var accountRoute = require("./routes/account.route");
 var profileRoute = require("./routes/profile.route");
 var vacationRoute = require("./routes/vacation.route");
+var taskRoute = require("./routes/task.route");
 
 
 var app = express();
@@ -17,13 +18,15 @@ db.on('error', console.error.bind(console, 'connection error:'));
 //     AccountSeeder();
 // });
 
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+const Auth = require("./middleware/auth.middleware");
 
-
-app.use("/api/",accountRoute);
-app.use("/api/employee",[profileRoute,vacationRoute]);
+app.use("/api",accountRoute);
+app.use("/api/employee",Auth("employee"),[profileRoute,vacationRoute,taskRoute]);
 
 
 const PORT = process.env.port || 5000;

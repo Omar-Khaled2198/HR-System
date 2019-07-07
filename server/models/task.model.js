@@ -23,7 +23,11 @@ var TaskSchema = new Schema({
     deadline:{
         type:String,
         required:true
-    }
+    },
+    status:{
+        type:String,
+        enum: ["To Do",'In Progress', 'Done'],
+    },
 
 });
 

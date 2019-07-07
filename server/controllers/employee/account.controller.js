@@ -1,7 +1,7 @@
-var Account = require("../models/account.model");
+var Account = require("../../models/account.model");
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
-const config = require("../config");
+const config = require("../../config");
 
 
 

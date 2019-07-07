@@ -23,6 +23,10 @@ var ProfileSchema = new Schema({
     vacations: [{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Vacation'
+    }],
+    tasks: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Task'
     }]
 });
 
