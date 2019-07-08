@@ -1,9 +1,9 @@
-var Vacation = require("../../models/task.model");
+var Task = require("../../models/task.model");
 var Profile = require("../../models/profile.model");
 
 const AssignTask = function(req,res){
 
-    var task = new task({
+    var task = new Task({
         assigned_to: req.body.id,
         title: req.body.title,
         description: req.body.description,
@@ -32,4 +32,16 @@ const AssignTask = function(req,res){
 
 }
 
-module.exports = {AssignTask}
+const GetAllTasks = function(req,res){
+
+    Task.find().populate("assigned_to",["first_name","last_name","job_title","_id"]).exec(function(error,tasks){
+        
+        if(error)
+            return res.status(500).send({msg:"Something went wrong in server."});
+
+        return res.status(200).send(tasks);
+
+    })
+}
+
+module.exports = {AssignTask,GetAllTasks}

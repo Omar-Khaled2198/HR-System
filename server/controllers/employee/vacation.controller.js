@@ -55,11 +55,15 @@ const AbortVacationRequest = function(req,res){
         if(vacation)
             return res.status(400).send({msg:"Vacation not found"})
 
-        if(vacation.status=="Pending")
+        if(vacation.status=="Pending"){
             vacation.status="Aborted";
             vacation.save(function(){
                 return res.status(200).send({msg:"Vacation request aborted successfully."});
             })
+            
+        } else {
+            return res.status(500).send({msg:"Already action was taken or request was aborted"});
+        }
     })
 
 }

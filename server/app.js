@@ -3,11 +3,11 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var AccountSeeder = require("./database/account.seeds");
 var accountRoute = require("./routes/account.route");
-var profileRoute = require("./routes/profile.route");
-var vacationRoute = require("./routes/vacation.route");
-var taskRoute = require("./routes/task.route");
-
-
+var employeeProfileRoute = require("./routes/employee/profile.route");
+var employeeVacationRoute = require("./routes/employee/vacation.route");
+var employeeTaskRoute = require("./routes/employee/task.route");
+var hrVacationRoute = require("./routes/hr/vacation.route");
+var hrTaskRoute = require("./routes/hr/task.route");
 var app = express();
 
 mongoose.set('useCreateIndex', true);
@@ -26,8 +26,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 const Auth = require("./middleware/auth.middleware");
 
 app.use("/api",accountRoute);
-app.use("/api/employee",Auth("employee"),[profileRoute,vacationRoute,taskRoute]);
-
+app.use("/api",Auth("employee"),[employeeProfileRoute,employeeVacationRoute,employeeTaskRoute]);
+app.use("/api/hr",Auth("hr"),[hrVacationRoute,hrTaskRoute]);
 
 const PORT = process.env.port || 5000;
 

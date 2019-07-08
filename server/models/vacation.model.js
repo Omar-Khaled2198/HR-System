@@ -33,10 +33,6 @@ var VacationSchema = new Schema({
         type:String,
         enum: ['Pending', 'Accepted','Rejected','Aborted'],
     },
-    response_by:{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Profile'
-    },
     rejection_reasons:{
         type:String
     }
