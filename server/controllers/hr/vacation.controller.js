@@ -8,7 +8,7 @@ const ResponseVacationRequest = function(req,res){
         if(error)
             return res.status(500).send({msg:"Something went wrong in server."});
 
-        if(vacation)
+        if(!vacation)
             return res.status(400).send({msg:"Vacation not found"})
 
         if(vacation.status=="Pending"){

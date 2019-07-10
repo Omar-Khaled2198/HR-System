@@ -7,7 +7,7 @@ const AccountSeeder = function(){
 
     var passwordHashed = bcrypt.hashSync("123456789", config.saltRounds);
     var account = new Account({
-        email: "omar21621@gmail.com",
+        email: "employee@gmail.com",
         password: passwordHashed,
         role: "employee"
     });
@@ -19,6 +19,7 @@ const AccountSeeder = function(){
         else
             console.log("accounts seeded successfully");
     })
+
 }
 
 module.exports = AccountSeeder

@@ -7,6 +7,6 @@ var VacationController = require("../../controllers/employee/vacation.controller
 
 router.post('/:id/vacations',VacationController.RequestVacation);
 router.get("/:id/vacations",VacationController.GetVacations);
-router.put("/:id/vacations/:vac-id",VacationController.AbortVacationRequest);
+router.get("/:id/vacations/:vac_id",VacationController.AbortVacationRequest);
 
 module.exports = router;

@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 const Auth = require("./middleware/auth.middleware");
 
 app.use("/api",accountRoute);
-app.use("/api",Auth("employee"),[employeeProfileRoute,employeeVacationRoute,employeeTaskRoute]);
+app.use("/api/employee",Auth("employee"),[employeeProfileRoute,employeeVacationRoute,employeeTaskRoute]);
 app.use("/api/hr",Auth("hr"),[hrVacationRoute,hrTaskRoute]);
 
 const PORT = process.env.port || 5000;
