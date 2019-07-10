@@ -21,7 +21,7 @@ const ChangeTaskStatus = function(req,res){
         if(error)
             return res.status(500).send({msg:"Something went wrong in server."});
 
-        if(task)
+        if(!task)
             return res.status(400).send({msg:"Task not found"})
 
             task.status=req.body.status;
