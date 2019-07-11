@@ -4,7 +4,7 @@ var router = express.Router();
 var TaskController = require("../../controllers/hr/task.controller");
 
 
-router.get("/:id/tasks",TaskController.GetAllTasks);
-router.post("/:id/tasks/:task-id",TaskController.AssignTask);
+router.get("/tasks",TaskController.GetAllTasks);
+router.post("/tasks",TaskController.AssignTask);
 
 module.exports = router;

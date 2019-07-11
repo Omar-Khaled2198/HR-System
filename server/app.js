@@ -8,6 +8,7 @@ var employeeVacationRoute = require("./routes/employee/vacation.route");
 var employeeTaskRoute = require("./routes/employee/task.route");
 var hrVacationRoute = require("./routes/hr/vacation.route");
 var hrTaskRoute = require("./routes/hr/task.route");
+var hrProfileRoute = require("./routes/hr/profile.route")
 var app = express();
 
 mongoose.set('useCreateIndex', true);
@@ -27,7 +28,7 @@ const Auth = require("./middleware/auth.middleware");
 
 app.use("/api",accountRoute);
 app.use("/api/employee",Auth("employee"),[employeeProfileRoute,employeeVacationRoute,employeeTaskRoute]);
-app.use("/api/hr",Auth("hr"),[hrVacationRoute,hrTaskRoute]);
+app.use("/api/hr",Auth("hr"),[hrVacationRoute,hrTaskRoute,hrProfileRoute]);
 
 const PORT = process.env.port || 5000;
 

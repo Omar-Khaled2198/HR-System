@@ -4,7 +4,7 @@ var Profile = require("../../models/profile.model");
 const AssignTask = function(req,res){
 
     var task = new Task({
-        assigned_to: req.body.id,
+        assigned_to: req.body.assigned_to,
         title: req.body.title,
         description: req.body.description,
         timestamp:Date.now(),
@@ -17,13 +17,13 @@ const AssignTask = function(req,res){
         if(error)
             return res.status(500).send({msg:"Something went wrong in server."});
 
-        Profile.findById(req.body.id,function(error,profile){
-
+        Profile.findById(req.body.assigned_to,function(error,profile){
+           
             if(error)
                 return res.status(404).send({msg:"Profile not existed."});
             
             profile.tasks.push(task._id);
-            profile.save(function(){
+            profile.save(function(error){
                 return res.status(200).send({msg:"Task assigned successfully"});
             })
         })
