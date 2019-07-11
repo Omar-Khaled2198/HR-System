@@ -1,4 +1,13 @@
 {
+  "basedomain":"http://127.0.0.1:5000/api/",
   "secret" : "noonecare",
-  "saltRounds": 10
+  "saltRounds": 10,
+  "nodemailer":{
+    "host": "smtp.mailtrap.io",
+    "port": 2525,
+    "auth": {
+      "user": "439ba010f941ae",
+      "pass": "fcb7ad97bdd608"
+    }
+  }
 }

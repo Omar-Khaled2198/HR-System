@@ -1,6 +1,7 @@
 var Profile = require("../../models/profile.model")
 var Account = require("../../models/account.model")
 
+
 const CreateProfile = function (req,res){
 
     Account.findById(req.accountId,function(error,account){
@@ -48,10 +49,11 @@ const GetProfile = function (req,res){
             return res.status(404).send({msg:'No account found.'});
 
         if(account.profile==null)
-            return res.status(404).send({msg:'No found profile'});
+            return res.status(404).send({msg:'No profile found.'});
 
         res.status(200).send(account.profile)
     })
 }
+
 
 module.exports = {CreateProfile,GetProfile}

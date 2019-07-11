@@ -1,26 +1,19 @@
-// const nodemailer = require("nodemailer");
-// const config = require("../config.json");
+const nodemailer = require("nodemailer");
+const config = require("../config.json");
 
 
-// const SendEmail= function(to,subject,text){
+const SendEmail = function(to,subject,content,callback){
 
-//     const transporter = nodemailer.createTransport({
-//         host: config.host,
-//         port: config.port,
-//         auth: {
-//             user: config.auth.user,
-//             password: config.auth.password
-//         }
-//     });
+    const transporter = nodemailer.createTransport(
+        config.nodemailer
+    );
 
-//     transporter.sendMail({
-//         from: config.auth.user,
-//         to: to,
-//         subject: subject,
-//         text: text,
-//       },function(error,info){
-//          console.log(info); 
-//       });
-// }
+    transporter.sendMail({
+        from: config.nodemailer.auth.user,
+        to: to,
+        subject: subject,
+        text: content,
+      },callback);
+}
 
-// module.exports = SendEmail;
+module.exports = SendEmail;
