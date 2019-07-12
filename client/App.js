@@ -7,28 +7,12 @@
  */
 
 import React, {Fragment} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
+import LoginScreen from "./src/screens/login.screen"
+import SignUpScreen from "./src/screens/signup.screen"
+import AppNavigator from "./src/navigations/app_navigator"
 const App = () => {
   return (
-    <View>
-      <Text>Hello World</Text>
-    </View>
+    <AppNavigator/>
   );
 };
 
