@@ -8,7 +8,7 @@ import SignUpScreen from "../screens/auth/signup.screen";
 import HomeScreen from "../screens/home/home.screen";
 import VacationScreen from "../screens/home/vacations.screen";
 import NewVacationScreen from "../screens/forms/new_vacation.screen";
-
+import TasksScreen from "../screens/home/tasks.screen"
 const VacationsStack = createStackNavigator({
     Vacations: {
         screen: VacationScreen
@@ -30,6 +30,12 @@ VacationsStack.navigationOptions = ({ navigation }) => {
   };
 
 const HomeNavigator = createBottomTabNavigator({
+    Tasks:{
+        screen: TasksScreen,
+        navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (<Ionicons name='ios-code-working' size={25} color={tintColor} />)
+        }
+    },
     Vacations: {
         screen: VacationsStack,
         navigationOptions: {

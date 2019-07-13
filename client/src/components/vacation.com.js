@@ -33,7 +33,9 @@
  
  const styles = StyleSheet.create({
     card:{
-       margin:10
+       marginLeft:15,
+       marginRight:15,
+       marginTop:10
     },
     status_buttons:{
         marginLeft:10,
