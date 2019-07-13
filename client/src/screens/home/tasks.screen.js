@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
 import { Container, Header, Title, Content, Button, Icon, Left,Right,Card, CardItem, Body, Text,Tab, Tabs } from "native-base";
-import TaskToDo from "../../components/task_todo.com";
-
+import TaskToDoComponent from "../../components/task_todo.com";
+import TaskDoneComponent from "../../components/task_done";
 class TasksScreen extends Component {
 
     static navigationOptions = { header: null };
@@ -10,11 +10,7 @@ class TasksScreen extends Component {
         return (
             <Container>
                 <Header hasTabs>
-                    <Left style={{flex:1}}>
-                        <Button transparent>
-                            <Icon name='menu' />
-                        </Button>
-                    </Left>
+                    <Left style={{flex:1}}/>
                     <Body style={{flex:1}}> 
                         <Title style={{ alignSelf: "center" }}>Tasks</Title>
                     </Body>
@@ -22,10 +18,10 @@ class TasksScreen extends Component {
                 </Header>
                 <Tabs locked>
                     <Tab heading="To Do">
-                        <TaskToDo/>
+                        <TaskToDoComponent/>
                     </Tab>
                     <Tab heading="Done">
-                        <Text>text2</Text>
+                        <TaskDoneComponent/>
                     </Tab>
                 </Tabs>
                 <Content>

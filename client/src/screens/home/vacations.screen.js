@@ -8,11 +8,7 @@ class VacationScreen extends Component {
         return (
             <Container>
                 <Header>
-                    <Left style={{flex:1}}>
-                        <Button transparent>
-                            <Icon name='menu' />
-                        </Button>
-                    </Left>
+                    <Left style={{flex:1}}/>
                     <Body style={{flex:1}}>
                         <Title style={{ alignSelf: "center" }}>Vacations</Title>
                     </Body>

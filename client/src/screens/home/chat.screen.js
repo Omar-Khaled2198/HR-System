@@ -32,11 +32,7 @@ class ChatScreen extends React.Component {
     return (
         <Container style={{ flex: 1 }}>
         <Header>
-                <Left style={{flex:1}}>
-                    <Button transparent onPress={()=>{this.props.navigation.openDrawer();}}>
-                        <Icon name='menu' />
-                    </Button>
-                </Left>
+                <Left style={{flex:1}}/>
                 <Body style={{flex:1}}>
                     <Title style={{ alignSelf: "center" }}>Feedback</Title>
                 </Body>
