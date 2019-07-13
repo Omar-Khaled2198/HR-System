@@ -10,6 +10,7 @@ import VacationScreen from "../screens/home/vacations.screen";
 import NewVacationScreen from "../screens/forms/new_vacation.screen";
 import TasksScreen from "../screens/home/tasks.screen";
 import ChatScreen from "../screens/home/chat.screen";
+import ForgetPasswordScreen from "../screens/auth/forget_password"
 
 const VacationsStack = createStackNavigator({
     Vacations: {
@@ -72,6 +73,9 @@ const AuthNavigator = createStackNavigator({
     },
     SignUp:{
         screen: SignUpScreen
+    },
+    ForgetPassword:{
+        screen: ForgetPasswordScreen
     }
 },{
     animationEnabled: true,
@@ -102,4 +106,4 @@ const AppNavigator = createStackNavigator({
     swipeEnabled:true,
 })
 
-export default createAppContainer(HomeDrawerNavigator);
+export default createAppContainer(AppNavigator);

@@ -22,7 +22,7 @@ class LoginScreen extends Component {
                     <Button style={styles.login_button} block primary>
                         <Text style={styles.login_text} onPress={() => this.props.navigation.navigate('Home')}>Login</Text>
                     </Button>
-                    <Text style={styles.forget_password}>Forget your password?</Text>
+                    <Text style={styles.forget_password} onPress={() => this.props.navigation.navigate('ForgetPassword')}>Forget your password?</Text>
                     <Text style={styles.signup_ref} onPress={() => this.props.navigation.navigate('SignUp')} >Don't have account?
                         <Text style={{textDecorationLine:"underline"}}> Sign Up</Text>
                     </Text>
