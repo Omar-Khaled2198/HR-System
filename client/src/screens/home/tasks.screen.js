@@ -10,15 +10,15 @@ class TasksScreen extends Component {
         return (
             <Container>
                 <Header hasTabs>
-                    <Left>
+                    <Left style={{flex:1}}>
                         <Button transparent>
                             <Icon name='menu' />
                         </Button>
                     </Left>
-                    <Body>
-                        <Title>Tasks</Title>
+                    <Body style={{flex:1}}> 
+                        <Title style={{ alignSelf: "center" }}>Tasks</Title>
                     </Body>
-                    <Right/>
+                    <Right style={{flex:1}}/>
                 </Header>
                 <Tabs locked>
                     <Tab heading="To Do">

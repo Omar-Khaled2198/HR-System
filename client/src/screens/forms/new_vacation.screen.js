@@ -11,15 +11,15 @@ class NewVacationScreen extends Component {
         return (
             <Container style={styles.content}>
                 <Header>
-                    <Left>
+                    <Left style={{flex:1}}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' />
                         </Button>
                     </Left>
-                    <Body>
-                        <Title>New Vacation</Title>
+                    <Body style={{flex:1}}>
+                        <Title style={{ alignSelf: "center" }}>New Vacation</Title>
                     </Body>
-                    <Right />
+                    <Right style={{flex:1}}/>
                 </Header>
                 <Content>
                 <Form style={styles.form}>

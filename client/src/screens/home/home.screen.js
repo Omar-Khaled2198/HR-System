@@ -9,15 +9,15 @@ class HomeScreen extends Component {
         return (
             <Container>
                 <Header>
-                    <Left>
-                        <Button transparent>
+                    <Left style={{flex:1}}>
+                        <Button transparent onPress={()=>{this.props.navigation.openDrawer();}}>
                             <Icon name='menu' />
                         </Button>
                     </Left>
-                    <Body>
-                        <Title>Home</Title>
+                    <Body style={{flex:1}}>
+                        <Title style={{ alignSelf: "center" }}>Home</Title>
                     </Body>
-                    <Right />
+                    <Right style={{flex:1}}/>
                 </Header>
                 <Content>
                     

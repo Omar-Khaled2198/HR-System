@@ -8,19 +8,19 @@ class VacationScreen extends Component {
         return (
             <Container>
                 <Header>
-                    <Left>
+                    <Left style={{flex:1}}>
                         <Button transparent>
                             <Icon name='menu' />
                         </Button>
                     </Left>
-                    <Body>
-                        <Title>Vacations</Title>
+                    <Body style={{flex:1}}>
+                        <Title style={{ alignSelf: "center" }}>Vacations</Title>
                     </Body>
-                    <Right>
+                    <Right style={{flex:1}}>
                         <Button hasText transparent onPress={() => this.props.navigation.navigate('NewVacation')}>
-                            <Text uppercase={false}>New Vacation</Text>
+                            <Text uppercase={false}>New</Text>
                         </Button>
-                    </Right>
+                    </Right >
                 </Header>
                 <Content>
                     <VacationComponent/>
