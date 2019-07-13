@@ -14,11 +14,17 @@ const CreateProfile = function (req,res){
 
         if(account.profile!=null)
             return res.status(500).send({msg:'Already have profile.'});
+
+        var url = "";
+        if(req.body.profile_picture!=""){
+            url = req.body.profile_picture;
+        }
         
         var profile = new Profile({
             first_name:req.body.first_name,
             last_name:req.body.last_name,
-            job_title:req.body.job_title
+            job_title:req.body.job_title,
+            profile_picture:url
         })
 
         profile.save(function(error){
@@ -55,5 +61,16 @@ const GetProfile = function (req,res){
     })
 }
 
+const UploadProfileImage = function(req,res){
 
-module.exports = {CreateProfile,GetProfile}
+    if(req.file){
+        res.status(200).send({url:'/public/images/uploads/' + req.file.filename})
+    } else {
+        res.status(500).send({msg: "Something went wrong in server."})
+    }
+    
+    
+}
+
+
+module.exports = {CreateProfile,GetProfile,UploadProfileImage}

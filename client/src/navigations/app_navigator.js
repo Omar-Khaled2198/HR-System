@@ -83,6 +83,7 @@ const AuthNavigator = createStackNavigator({
 });
 
 const HomeDrawerNavigator = createDrawerNavigator({
+    
     Home:{
         screen:HomeNavigator,
         navigationOptions: {
