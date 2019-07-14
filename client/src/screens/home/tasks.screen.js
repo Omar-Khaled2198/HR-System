@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
 import { Container, Header, Title, Content, Button, Icon, Left,Right,Card, CardItem, Body, Text,Tab, Tabs } from "native-base";
 import TaskToDoComponent from "../../components/task_todo.com";
-import TaskDoneComponent from "../../components/task_done";
+import TaskDoneComponent from "../../components/task_done.com";
 class TasksScreen extends Component {
 
     static navigationOptions = { header: null };

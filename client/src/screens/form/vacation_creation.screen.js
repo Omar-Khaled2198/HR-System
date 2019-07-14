@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { Container, Button, Content,Header,Textarea, Title,Right, Icon, Left, Body, Form, Item, Input, Label } from 'native-base';
 import DatePickerComponent from "../../components/datepicker.com"
-class NewVacationScreen extends Component {
+
+class VacationCreationScreen extends Component {
 
     static navigationOptions = { 
         header: null,
@@ -62,4 +63,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default NewVacationScreen;
+export default VacationCreationScreen;

@@ -22,7 +22,7 @@ class SignUpScreen extends Component {
                         <Input />
                     </Item>
                     <Button style={styles.signup_button} block primary>
-                        <Text style={styles.signup_text}>Sign Up</Text>
+                        <Text style={styles.signup_text} onPress={() => this.props.navigation.navigate('ProfileCreation')}>Sign Up</Text>
                     </Button>
                     <Text style={styles.login_ref} onPress={() => this.props.navigation.navigate('Login')}>Have an account?
                         <Text style={{textDecorationLine:"underline"}}> Login</Text>

@@ -7,17 +7,18 @@ import LoginScreen from "../screens/auth/login.screen";
 import SignUpScreen from "../screens/auth/signup.screen";
 import HomeScreen from "../screens/home/home.screen";
 import VacationScreen from "../screens/home/vacations.screen";
-import NewVacationScreen from "../screens/forms/new_vacation.screen";
+import VacationCreationScreen from "../screens/form/vacation_creation.screen";
 import TasksScreen from "../screens/home/tasks.screen";
 import ChatScreen from "../screens/home/chat.screen";
-import ForgetPasswordScreen from "../screens/auth/forget_password"
+import ForgetPasswordScreen from "../screens/auth/forget_password.screen";
+import ProfileCreationScreen from "../screens/form/profile_creation.screen";
 
 const VacationsStack = createStackNavigator({
     Vacations: {
         screen: VacationScreen
     },
     NewVacation: {
-        screen: NewVacationScreen
+        screen: VacationCreationScreen
     }
 },{
     animationEnabled: true,
@@ -73,6 +74,9 @@ const AuthNavigator = createStackNavigator({
     },
     SignUp:{
         screen: SignUpScreen
+    },
+    ProfileCreation:{
+        screen: ProfileCreationScreen
     },
     ForgetPassword:{
         screen: ForgetPasswordScreen
