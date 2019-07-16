@@ -12,6 +12,7 @@ import TasksScreen from "../screens/home/tasks.screen";
 import ChatScreen from "../screens/home/chat.screen";
 import ForgetPasswordScreen from "../screens/auth/forget_password.screen";
 import ProfileCreationScreen from "../screens/form/profile_creation.screen";
+import SettingsScreen from "../screens/settings/setting.screen";
 
 const VacationsStack = createStackNavigator({
     Vacations: {
@@ -94,6 +95,18 @@ const HomeDrawerNavigator = createDrawerNavigator({
             drawerIcon: ({ tintColor }) => (<Ionicons name='ios-home' size={25} color={tintColor} />)
         }
     },
+    Settings:{
+        screen:SettingsScreen,
+        navigationOptions: {
+            drawerIcon: ({ tintColor }) => (<Ionicons name='md-settings' size={25} color={tintColor} />)
+        }
+    },
+    Logout:{
+        screen: AuthNavigator,
+        navigationOptions:{
+            drawerIcon: ({ tintColor }) => (<Ionicons name='md-exit' size={25} color={tintColor} />)
+        }
+    }
 })
 
 const AppNavigator = createStackNavigator({
@@ -111,4 +124,4 @@ const AppNavigator = createStackNavigator({
     swipeEnabled:true,
 })
 
-export default createAppContainer(AppNavigator);
+export default createAppContainer(HomeDrawerNavigator);

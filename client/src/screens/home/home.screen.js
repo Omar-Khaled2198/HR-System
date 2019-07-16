@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
-import { Container, Header, Title,Right, Content, Button, Icon, Left, Body, Text } from "native-base";
+import { Container, Header, Title,Right,Spinner, Content, Button, Icon, Left, Body, Text } from "native-base";
 
 class HomeScreen extends Component {
 
@@ -20,7 +20,7 @@ class HomeScreen extends Component {
                     <Right style={{flex:1}}/>
                 </Header>
                 <Content>
-                    
+ 
                 </Content>
             </Container>
         )
