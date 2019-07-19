@@ -6,7 +6,7 @@ const config = require("../../config");
 
 
 
-const Register = function (req, res) {
+const SignUp = function (req, res) {
 
     var passwordHashed = bcrypt.hashSync(req.body.password, config.saltRounds);
     
@@ -19,7 +19,7 @@ const Register = function (req, res) {
     account.save(function (error) {
 
         if (error) 
-            return res.status(500).send({msg:error.message});
+            return res.status(500).send({msg:"Email already exists."});
 
         var token = jwt.sign({id: account._id,role:account.role}, config.secret)
         
@@ -37,12 +37,12 @@ const Login = function (req, res) {
             return res.status(500).send({msg:"Something went wrong in server."});
 
         if (!account) 
-            return res.status(404).send({msg:'No account found.'});
+            return res.status(404).send({msg:'No account found with this email.'});
 
         var password = bcrypt.compareSync(req.body.password, account.password);
         
         if (!password) 
-            return res.status(401).send({ auth: false, token: null,msg:"the password is wrong." });
+            return res.status(401).send({ auth: false, token: null,msg:"The password is wrong." });
 
         var token = jwt.sign({id: account._id,role:account.role}, config.secret)
         res.status(200).send({auth: true,email: account.email,token});
@@ -113,4 +113,4 @@ const ResetPassword = function(req,res){
 }
 
 
-module.exports = {Register,Login,ForgetPasword,ResetPassword}
+module.exports = {SignUp,Login,ForgetPasword,ResetPassword}

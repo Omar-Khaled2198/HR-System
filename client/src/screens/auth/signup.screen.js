@@ -5,6 +5,9 @@ import { Container, Button, Content, Form, Item, Input, Label } from 'native-bas
 class SignUpScreen extends Component {
 
     static navigationOptions = { header: null };
+
+
+    
     
     render() {
         return (
