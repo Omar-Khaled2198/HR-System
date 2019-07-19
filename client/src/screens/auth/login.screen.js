@@ -11,16 +11,16 @@ class LoginScreen extends Component {
                 <Content>
                 <Text style={styles.title}>HR System</Text>
                 <Form style={styles.form}>
-                    <Item floatingLabel>
+                    <Item >
                         <Label>Email</Label>
                         <Input />
                     </Item>
-                    <Item floatingLabel>
+                    <Item >
                         <Label>Password</Label>
                         <Input />
                     </Item>
-                    <Button style={styles.login_button} block primary>
-                        <Text style={styles.login_text} onPress={() => this.props.navigation.navigate('Home')}>Login</Text>
+                    <Button style={styles.login_button} block primary onPress={() => this.props.navigation.navigate('Home')}>
+                        <Text style={styles.login_text} >Login</Text>
                     </Button>
                     <Text style={styles.forget_password} onPress={() => this.props.navigation.navigate('ForgetPassword')}>Forget your password?</Text>
                     <Text style={styles.signup_ref} onPress={() => this.props.navigation.navigate('SignUp')} >Don't have account?
@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
         alignContent: 'center',
     },
     form:{
-        marginTop:10,
-        paddingRight: 50,
-        paddingLeft: 50,
+        marginTop:30,
+        paddingRight: 35,
+        paddingLeft: 35,
     },
     login_button:{
         marginTop:35,

@@ -30,15 +30,15 @@ class ProfileCreationScreen extends Component {
                         source={require("../../assets/images/default_avatar.png")}
                         showEditButton
                         />
-                        <Item floatingLabel>
+                        <Item style={{marginTop:30}}>
                             <Label>First Name</Label>
                             <Input />
                         </Item>
-                        <Item floatingLabel>
+                        <Item>
                             <Label>Last Name</Label>
                             <Input />
                         </Item>
-                        <Item floatingLabel>
+                        <Item>
                             <Label>Job Title</Label>
                             <Input />
                         </Item>
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     },
     form:{
         marginTop:30,
-        paddingRight: 30,
-        paddingLeft: 30,
+        paddingRight: 35,
+        paddingLeft: 35,
         alignItems:"center"
     },
 

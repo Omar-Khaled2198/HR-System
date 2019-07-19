@@ -124,4 +124,4 @@ const AppNavigator = createStackNavigator({
     swipeEnabled:true,
 })
 
-export default createAppContainer(HomeDrawerNavigator);
+export default createAppContainer(AppNavigator);

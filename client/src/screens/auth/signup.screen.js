@@ -13,11 +13,11 @@ class SignUpScreen extends Component {
                 <Content>
                 <Text style={styles.title}>HR System</Text>
                 <Form style={styles.form}>
-                    <Item floatingLabel>
+                    <Item >
                         <Label>Email</Label>
                         <Input />
                     </Item>
-                    <Item floatingLabel>
+                    <Item >
                         <Label>Password</Label>
                         <Input />
                     </Item>
@@ -46,9 +46,9 @@ const styles = StyleSheet.create({
         alignContent: 'center',
     },
     form:{
-        marginTop:10,
-        paddingRight: 50,
-        paddingLeft: 50,
+        marginTop:30,
+        paddingRight: 35,
+        paddingLeft: 35,
     },
     signup_button:{
         marginTop:35,
