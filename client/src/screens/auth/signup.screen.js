@@ -1,13 +1,38 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { Container, Button, Content, Form, Item, Input, Label } from 'native-base';
+import { SignUpService } from '../../services/account.service';
+import { SetToken } from '../../utils/global.util';
 
 class SignUpScreen extends Component {
 
     static navigationOptions = { header: null };
 
+    constructor(props) {
+        super(props);
+        this.state = { 
+            email:"",
+            password:"",
+            error:""
+         };
+      }
 
-    
+
+    async sign_up(){
+
+        if(this.state.email==""||this.state.password==""){
+            this.setState({error:"Email and password can't be empty!"})
+        } else {
+            const response = await SignUpService(this.state.email,this.state.password);
+            if(response.status!=200){
+                this.setState({error:response.data.msg});
+            } else {
+                SetToken(response.data.token);
+                this.props.navigation.navigate('ProfileCreation')
+            }
+        }
+        
+    }
     
     render() {
         return (
@@ -18,14 +43,20 @@ class SignUpScreen extends Component {
                 <Form style={styles.form}>
                     <Item >
                         <Label>Email</Label>
-                        <Input />
+                        <Input textContentType={"emailAddress"} 
+                               value={this.state.email} 
+                               onChangeText={(email)=>{this.setState({email})}}/>
                     </Item>
                     <Item >
                         <Label>Password</Label>
-                        <Input />
+                        <Input textContentType={"password"}
+                               value={this.state.password} 
+                               onChangeText={(password)=>{this.setState({password})}} 
+                               secureTextEntry={true}/>
                     </Item>
-                    <Button style={styles.signup_button} block primary>
-                        <Text style={styles.signup_text} onPress={() => this.props.navigation.navigate('ProfileCreation')}>Sign Up</Text>
+                    {this.state.error!=""&&<Text style={styles.error}>{this.state.error}</Text>}
+                    <Button style={styles.signup_button} block primary onPress={() => this.sign_up()}>
+                        <Text style={styles.signup_text} >Sign Up</Text>
                     </Button>
                     <Text style={styles.login_ref} onPress={() => this.props.navigation.navigate('Login')}>Have an account?
                         <Text style={{textDecorationLine:"underline"}}> Login</Text>
@@ -65,5 +96,10 @@ const styles = StyleSheet.create({
         marginTop:20,
         marginLeft:15,        
     },
+    error:{
+        marginTop:20,
+        color:"red",
+        marginLeft:15
+    }
 })
 export default SignUpScreen;

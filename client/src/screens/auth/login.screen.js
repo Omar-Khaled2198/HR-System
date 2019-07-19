@@ -6,6 +6,7 @@ import { SetToken } from '../../utils/global.util';
 
 
 
+
 class LoginScreen extends Component {
     
     static navigationOptions = { header: null };
@@ -13,25 +14,32 @@ class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            email:"omar21621@gmail.com",
-            password:"12345678910",
+            email:"",
+            password:"",
             error:""
          };
       }
 
 
     componentDidMount(){
-            
+            console.log("fuck");
     }
 
     async login(){
 
-        const response = await LoginService(this.state.email,this.state.password);
-        if(response.status!=200){
-            this.setState({error:response.data.msg});
+        if(this.state.email==""||this.state.password==""){
+            this.setState({error:"Email and password can't be empty!"})
         } else {
-            this.props.navigation.navigate('Home')
+            
+            const response = await LoginService(this.state.email,this.state.password);
+            if(response.status!=200){
+                this.setState({error:response.data.msg});
+            } else {
+                SetToken(response.data.token);
+                this.props.navigation.navigate('Home')
+            }
         }
+        
     }
 
     render() {
