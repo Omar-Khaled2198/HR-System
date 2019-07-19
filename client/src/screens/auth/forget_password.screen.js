@@ -24,7 +24,7 @@ class ForgetPasswordScreen extends Component {
                 <Text style={styles.title}>Forget your password?</Text>
                 <Text style={styles.msg}>It's often forgotten that password thing. Enter your email address and click "Reset Password" button and we will send email with code shortly.</Text>
                 <Form style={styles.form}>
-                    <Item floatingLabel>
+                    <Item>
                         <Label>Email</Label>
                         <Input />
                     </Item>
@@ -51,15 +51,15 @@ const styles = StyleSheet.create({
         alignContent: 'center',
     },
     msg:{
-        paddingRight: 50,
-        paddingLeft: 50,
+        paddingRight: 35,
+        paddingLeft: 35,
         marginTop: 10,
         marginLeft:15
     },
     form:{
         marginTop:10,
-        paddingRight: 50,
-        paddingLeft: 50,
+        paddingRight: 35,
+        paddingLeft: 35,
     },
     reset_button:{
         marginTop:35,
