@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { Container, Button, Content, Form, Item, Input, Label } from 'native-base';
 import { LoginService } from '../../services/account.service';
-import { SetToken } from '../../utils/global.util';
-
+import { SetToken, StoreAccount, FetchAccount } from '../../utils/global.util';
 
 
 
@@ -14,15 +13,20 @@ class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            email:"",
-            password:"",
+            email:"omar21621@gmail.com",
+            password:"12345678910",
             error:""
          };
       }
 
 
-    componentDidMount(){
-            console.log("fuck");
+    async componentDidMount(){
+        
+        const account = await FetchAccount();
+        if(account!=null&&account.token){
+            SetToken(account.token);
+            this.props.navigation.navigate('Home') 
+        }
     }
 
     async login(){
@@ -30,12 +34,13 @@ class LoginScreen extends Component {
         if(this.state.email==""||this.state.password==""){
             this.setState({error:"Email and password can't be empty!"})
         } else {
-            
+
             const response = await LoginService(this.state.email,this.state.password);
             if(response.status!=200){
                 this.setState({error:response.data.msg});
             } else {
                 SetToken(response.data.token);
+                await StoreAccount(this.state.email,this.state.password,response.data.token);
                 this.props.navigation.navigate('Home')
             }
         }

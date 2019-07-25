@@ -6,15 +6,17 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
+import React, {Component} from 'react';
 import AppNavigator from "./src/navigations/app_navigator"
 
 
 console.disableYellowBox = true;
-const App = () => {
-  return (
+class App extends Component {
+  render(){
+    return (
     <AppNavigator/>
   );
+  }
 };
 
 
