@@ -46,7 +46,7 @@ const CreateProfile = function (req,res){
 
 const GetProfile = function (req,res){
 
-    Account.findById(req.accountId).populate('profile').exec(function(error,account){
+    Account.findById(req.accountId).populate('profile',["first_name","last_name","job_title","_id"]).exec(function(error,account){
             
         if(error)
             return res.status(500).send({msg:"Something went wrong in server."});

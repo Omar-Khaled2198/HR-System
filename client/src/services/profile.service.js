@@ -56,6 +56,7 @@ export const UploadProfilePictureService = async function () {
             type: 'image/jpeg',
             name: response.fileName
         });
+        
         try {
             return await axios.post(`${constants.apiUrl}/employee/profile_picture`, data, {
                 headers: {
