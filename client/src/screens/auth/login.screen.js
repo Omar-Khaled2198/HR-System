@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { Container, Button, Content, Form, Item, Input, Label } from 'native-base';
 import { LoginService } from '../../services/account.service';
-import { SetToken, StoreAccount, FetchAccount } from '../../utils/global.util';
+import { SetToken, SetProfileId } from '../../utils/global.util';
+import { FetchProfile, StoreProfile } from '../../utils/profile.utils';
+import { StoreAccount, FetchAccount } from "../../utils/account.utils";
+import { GetProfileService } from '../../services/profile.service';
 
 
 
@@ -20,31 +23,60 @@ class LoginScreen extends Component {
       }
 
 
-    async componentDidMount(){
-        
+    async componentDidMount() {
+
         const account = await FetchAccount();
-        if(account!=null&&account.token){
+
+        if (account != null && account.token) {
+
             SetToken(account.token);
-            this.props.navigation.navigate('Home') 
-        }
-    }
+            const profile = await FetchProfile();
 
-    async login(){
+            if (profile != null) {
 
-        if(this.state.email==""||this.state.password==""){
-            this.setState({error:"Email and password can't be empty!"})
-        } else {
-
-            const response = await LoginService(this.state.email,this.state.password);
-            if(response.status!=200){
-                this.setState({error:response.data.msg});
-            } else {
-                SetToken(response.data.token);
-                await StoreAccount(this.state.email,this.state.password,response.data.token);
+                SetProfileId(profile._id);
                 this.props.navigation.navigate('Home')
             }
         }
-        
+    }
+
+    async login() {
+
+        if (this.state.email == "" || this.state.password == "") {
+
+            this.setState({
+                error: "Email and password can't be empty!"
+            })
+
+        } else {
+
+            var response = await LoginService(this.state.email, this.state.password);
+
+            if (response.status != 200) {
+
+                this.setState({
+                    error: response.data.msg
+                });
+
+            } else {
+
+                SetToken(response.data.token);
+                await StoreAccount(this.state.email, this.state.password, response.data.token);
+                response = await GetProfileService();
+
+                if (response.status != 200) {
+                    
+                    this.props.navigation.navigate('ProfileCreation');
+
+                } else {
+                    
+                    SetProfileId(response.data._id)
+                    await StoreProfile(response.data);
+                    this.props.navigation.navigate('Home');
+                }
+            }
+        }
+
     }
 
     render() {
