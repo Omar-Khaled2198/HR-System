@@ -22,3 +22,17 @@ export const RequestVacationService = async function(title,description,from,to){
     }
 
 }
+
+export const GetVacations = async function () {
+
+    try {
+        return await axios.get(`${constants.apiUrl}/employee/${global.profile_id}/vacations`, {
+            headers: {
+                'x-access-token': global.token
+            }
+        });
+
+    } catch (error) {
+        return error.response;
+    }
+}
