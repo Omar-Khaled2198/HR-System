@@ -25,7 +25,7 @@ const RequestVacation = function (req,res){
             
             profile.vacations.push(vacation._id);
             profile.save(function(){
-                return res.status(200).send({msg:"Requested vacation successfully"});
+                return res.status(200).send({msg:"Vacation requested successfully"});
             })
         })
         

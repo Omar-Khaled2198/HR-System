@@ -18,7 +18,8 @@ class LoginScreen extends Component {
         this.state = { 
             email:"omar21621@gmail.com",
             password:"12345678910",
-            error:""
+            error:"",
+            loading:true
          };
       }
 
@@ -36,8 +37,14 @@ class LoginScreen extends Component {
 
                 SetProfileId(profile._id);
                 this.props.navigation.navigate('Home')
+                
+            } else {
+
+                this.setState({loading:false})
             }
         }
+
+        
     }
 
     async login() {
@@ -83,6 +90,7 @@ class LoginScreen extends Component {
         return (
 
             <Container style={styles.content}>
+                {!this.state.loading&&
                 <Content>
                 <Text style={styles.title}>HR System</Text>
                 <Form style={styles.form}>
@@ -109,7 +117,7 @@ class LoginScreen extends Component {
                         <Text style={{textDecorationLine:"underline"}}> Sign Up</Text>
                     </Text>
                 </Form>
-                </Content>
+                </Content>}
             </Container>
         )
     }

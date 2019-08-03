@@ -7,10 +7,9 @@ const DatePickerComponent = (props) => (
     <DatePicker
             style={styles.date_picker}
             mode="date"
+            date={props.date}
             placeholder={props.placeholder}
             format="YYYY-MM-DD"
-            minDate="2016-05-01"
-            maxDate="2016-06-01"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
@@ -27,6 +26,7 @@ const DatePickerComponent = (props) => (
                     borderColor:"lightgray"
                 }
             }}
+            onDateChange={(date)=>{props.onChangeDate(date)}}
             />
 );
 const styles = StyleSheet.create({
