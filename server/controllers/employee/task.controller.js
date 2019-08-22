@@ -16,7 +16,7 @@ const GetTasks = function(req,res){
 
 const ChangeTaskStatus = function(req,res){
 
-    Task.findById(req.params.vac_id,function(error,task){
+    Task.findById(req.params.task_id,function(error,task){
         
         if(error)
             return res.status(500).send({msg:"Something went wrong in server."});

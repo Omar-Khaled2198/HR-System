@@ -29,7 +29,7 @@ class VacationCreationScreen extends Component {
             this.state.to != "") {
 
             const response = await RequestVacationService(this.state.title, this.state.description, this.state.from, this.state.to)
-            Alert.alert(response.data.msg);
+            Alert.alert("Request Vacation",response.data.msg);
 
         }
     }

@@ -15,6 +15,11 @@ class VacationScreen extends Component {
   }
 
   async componentDidMount() {
+
+    await this.getVacations()
+  }
+
+  getVacations = async ()=>{
     response = await GetVacationsService();
     if (response.status == 200) {
       this.setState({ vacations: response.data, loading: false });
