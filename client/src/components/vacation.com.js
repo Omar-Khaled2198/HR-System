@@ -1,31 +1,36 @@
  import React from 'react';
  import { StyleSheet } from 'react-native'
  import { Container, Header, Title, Content, Button, Icon, Left,Right,Card, CardItem, Body, Text } from "native-base";
+ 
  const VacationComponent = (props) => (
         
         <Card style={styles.card}>
             <CardItem  style={{justifyContent:"space-between"}}>
-                <Text style={{fontWeight:"bold",fontSize:18}}>Travelling Vacation</Text>
-                <Button transparent>
+                <Text style={{fontWeight:"bold",fontSize:18}}>{props.data.title}</Text>
+                <Button transparent onPress={()=>props.abort(props.data._id)}>
                     <Icon name='close' style={{color: 'red'}}/>
                 </Button>
             </CardItem>
             <CardItem>
             <Body >
                 <Text style={{color:"green"}}>
-                    From: 18/13/2019
+                    From: {props.data.from}
                 </Text>
                 <Text style={{color:"red"}}>
-                    To: 19/12/2019
+                    To: {props.data.to}
                 </Text>
                 <Text style={styles.desc}>
-                    This is similar to how you would customize a stack navigator — there are some properties.
+                    {props.data.description}
                 </Text>
             </Body>
             </CardItem>
             <CardItem style={{justifyContent:"flex-end"}} >
-                <Button style={styles.status_buttons} small warning>
-                    <Text uppercase={false} > Pending </Text>
+                <Button style={styles.status_buttons} small 
+                                                      warning={props.data.status=="Pending"}
+                                                      danger={props.data.status=="Rejected"}
+                                                      dark={props.data.status=="Aborted"}
+                                                      success={props.data.status=="Accepted"}>
+                    <Text uppercase={false} > {props.data.status} </Text>
                 </Button>
             </CardItem>
     </Card>

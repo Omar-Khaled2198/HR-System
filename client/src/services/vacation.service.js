@@ -40,7 +40,7 @@ export const GetVacationsService = async function () {
 export const AbortVacationService = async function (vacation_id){
 
     try {
-        return await axios.put(`${constants.apiUrl}/employee/${global.profile_id}/vacations/${vacation_id}`, {
+        return await axios.put(`${constants.apiUrl}/employee/${global.profile_id}/vacations/${vacation_id}`,{},{
             headers: {
                 'x-access-token': global.token
             }
