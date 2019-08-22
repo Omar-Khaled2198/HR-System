@@ -25,7 +25,6 @@ class LoginScreen extends Component {
     async componentDidMount() {
 
         const account = await Fetch("account");
-        console.log(account)
         if (account != null && account.token) {
 
             SetTokenGlobal(account.token);
@@ -37,14 +36,10 @@ class LoginScreen extends Component {
                 this.props.navigation.navigate('Home')
                 
             } else {
-                
+
                 this.setState({loading:false})
             }
-        }
-
-        
-
-        
+        }        
     }
 
     async login() {
