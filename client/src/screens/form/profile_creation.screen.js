@@ -11,34 +11,6 @@ class ProfileCreationScreen extends Component {
         header: null,
     };
 
-    // async uploadProfilePicture(){
-        
-    //     var options = {
-    //         title: 'Select Image',
-    //         storageOptions: {
-    //          skipBackup: true,
-    //          path: 'images'
-    //         }
-    //      };
-
-    //     ImagePicker.showImagePicker(options, (response) => {
-
-    //         console.log('User selected a file form camera or gallery', response); 
-    //         const data = new FormData();
-    //         data.append('name', 'avatar');
-    //         data.append('fileData', {
-    //             uri : response.uri,
-    //             type: response.type,
-    //             name: response.fileName
-    //            });
-    //         const res = UploadProfilePictureService(data);
-    //         console.log("fuck",res)
-         
-          
-          
-    //     })
-         
-    // }
     
     render() {
         return (

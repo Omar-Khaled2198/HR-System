@@ -1,10 +1,10 @@
-export const SetToken = function (token){
+export const SetTokenGlobal = function (token){
     
     global.token = token
 }
 
 
-export const SetProfileId = function (profile_id){
+export const SetProfileGlobal = function (profile_id){
     
     global.profile_id = profile_id
 }

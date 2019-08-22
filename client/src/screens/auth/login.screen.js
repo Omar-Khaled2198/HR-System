@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { Container, Button, Content, Form, Item, Input, Label } from 'native-base';
 import { LoginService } from '../../services/account.service';
-import { SetToken, SetProfileId } from '../../utils/global.util';
-import { FetchProfile, StoreProfile } from '../../utils/profile.utils';
-import { StoreAccount, FetchAccount } from "../../utils/account.utils";
+import { SetTokenGlobal, SetProfileGlobal } from '../../utils/global.util';
+import { Store, Fetch} from "../../utils/storage.utils"
 import { GetProfileService } from '../../services/profile.service';
-
 
 
 class LoginScreen extends Component {
@@ -26,23 +24,25 @@ class LoginScreen extends Component {
 
     async componentDidMount() {
 
-        const account = await FetchAccount();
-
+        const account = await Fetch("account");
+        console.log(account)
         if (account != null && account.token) {
 
-            SetToken(account.token);
-            const profile = await FetchProfile();
+            SetTokenGlobal(account.token);
+            const profile = await Fetch("profile");
 
             if (profile != null) {
 
-                SetProfileId(profile._id);
+                SetProfileGlobal(profile._id);
                 this.props.navigation.navigate('Home')
                 
             } else {
-
+                
                 this.setState({loading:false})
             }
         }
+
+        
 
         
     }
@@ -67,8 +67,15 @@ class LoginScreen extends Component {
 
             } else {
 
-                SetToken(response.data.token);
-                await StoreAccount(this.state.email, this.state.password, response.data.token);
+                SetTokenGlobal(response.data.token);
+
+                var account = {
+                    "email": this.state.email,
+                    "password": this.state.password,
+                    "token": response.data.token
+                }
+
+                await Store("account",account);
                 response = await GetProfileService();
 
                 if (response.status != 200) {
@@ -77,8 +84,8 @@ class LoginScreen extends Component {
 
                 } else {
                     
-                    SetProfileId(response.data._id)
-                    await StoreProfile(response.data);
+                    SetProfileGlobal(response.data._id)
+                    await Store("profile",response.data);
                     this.props.navigation.navigate('Home');
                 }
             }
