@@ -1,7 +1,5 @@
-var Vacation = require("../../models/task.model");
-var Profile = require("../../models/profile.model");
-
-
+var Task = require("../../models/task.model");
+var Profile = require("../../models/profile.model"); 
 
 const GetTasks = function(req,res){
 

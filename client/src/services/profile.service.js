@@ -35,11 +35,11 @@ export const CreateProfileService = async function (first_name, last_name, job_t
         return error.response;
     }
 
-}
+};
 
 export const UploadProfilePictureService = async function () {
 
-    var options = {
+    const options = {
         title: 'Select Image',
         storageOptions: {
             skipBackup: true,
@@ -72,4 +72,4 @@ export const UploadProfilePictureService = async function () {
 
     })
 
-}
+};

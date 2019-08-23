@@ -14,13 +14,12 @@ var app = express();
 var cors = require('cors');
 
 mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb://localhost:27017/hr-system',{ useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/hr-system', {useNewUrlParser: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 // db.once('open', function() {
 //     AccountSeeder();
 // });
-
 
 
 app.use(bodyParser.json());
@@ -29,11 +28,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 const Auth = require("./middleware/auth.middleware");
 
 app.use(cors());
-app.use('/api/public',Auth("*"),express.static(path.resolve(__dirname, 'public')));
-app.use("/api",accountRoute);
-app.use("/api/employee",Auth("employee"),[employeeProfileRoute,employeeVacationRoute,employeeTaskRoute]);
-app.use("/api/hr",Auth("hr"),[hrVacationRoute,hrTaskRoute,hrProfileRoute]);
-
+app.use('/api/public', Auth("*"), express.static(path.resolve(__dirname, 'public')));
+app.use("/api", accountRoute);
+app.use("/api/employee", Auth("employee"), [employeeProfileRoute, employeeVacationRoute, employeeTaskRoute]);
+app.use("/api/hr", Auth("hr"), [hrVacationRoute, hrTaskRoute, hrProfileRoute]);
 
 
 const PORT = process.env.port || 5000;

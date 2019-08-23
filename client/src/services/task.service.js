@@ -13,14 +13,14 @@ export const GetTasksService = async function () {
     } catch (error) {
         return error.response;
     }
-}
+};
 
-export const ChangeTaskStatusService = async function(task_id,status){
-    
+export const ChangeTaskStatusService = async function (task_id, status) {
+
     try {
-        return await axios.put(`${constants.apiUrl}/employee/${global.profile_id}/tasks/${task_id}`,{
+        return await axios.put(`${constants.apiUrl}/employee/${global.profile_id}/tasks/${task_id}`, {
             status
-        },{
+        }, {
             headers: {
                 'x-access-token': global.token
             }
@@ -29,4 +29,4 @@ export const ChangeTaskStatusService = async function(task_id,status){
     } catch (error) {
         return error.response;
     }
-}
+};

@@ -1,7 +1,11 @@
-
 import React from "react";
-import { View, Text } from "react-native";
-import { createStackNavigator, createAppContainer,createBottomTabNavigator,createDrawerNavigator} from "react-navigation";
+import {View, Text} from "react-native";
+import {
+    createStackNavigator,
+    createAppContainer,
+    createBottomTabNavigator,
+    createDrawerNavigator
+} from "react-navigation";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoginScreen from "../screens/auth/login.screen";
 import SignUpScreen from "../screens/auth/signup.screen";
@@ -21,90 +25,90 @@ const VacationsStack = createStackNavigator({
     NewVacation: {
         screen: VacationCreationScreen
     }
-},{
+}, {
     animationEnabled: true,
-    swipeEnabled:true,
+    swipeEnabled: true,
 })
 
-VacationsStack.navigationOptions = ({ navigation }) => {
+VacationsStack.navigationOptions = ({navigation}) => {
     let tabBarVisible = true;
     if (navigation.state.index > 0) {
-      tabBarVisible = false;
+        tabBarVisible = false;
     }
-  
+
     return {
-      tabBarVisible,
+        tabBarVisible,
     };
-  };
+};
 
 const HomeNavigator = createBottomTabNavigator({
     Home: {
         screen: HomeScreen,
         navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (<Ionicons name='ios-home' size={25} color={tintColor} />)
+            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-home' size={25} color={tintColor}/>)
         }
     },
     Vacations: {
         screen: VacationsStack,
         navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (<Ionicons name='ios-pause' size={25} color={tintColor} />)
+            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-pause' size={25} color={tintColor}/>)
         }
     },
-    Tasks:{
+    Tasks: {
         screen: TasksScreen,
         navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (<Ionicons name='ios-code-working' size={25} color={tintColor} />)
+            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-code-working' size={25} color={tintColor}/>)
         }
     },
-    Chat:{
+    Chat: {
         screen: ChatScreen,
         navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (<Ionicons name='ios-chatboxes' size={25} color={tintColor} />)
+            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-chatboxes' size={25} color={tintColor}/>)
         }
     }
 
-},{
+}, {
     animationEnabled: true,
-    swipeEnabled:true,
+    swipeEnabled: true,
 })
 
 
 const AuthNavigator = createStackNavigator({
     Login: {
-      screen: LoginScreen
+        screen: LoginScreen
     },
-    SignUp:{
+    SignUp: {
         screen: SignUpScreen
     },
-    ProfileCreation:{
+    ProfileCreation: {
         screen: ProfileCreationScreen
     },
-    ForgetPassword:{
+    ForgetPassword: {
         screen: ForgetPasswordScreen
     }
-},{
+}, {
     animationEnabled: true,
-    swipeEnabled:true,
+    swipeEnabled: true,
 });
 
 const HomeDrawerNavigator = createDrawerNavigator({
-    
-    Home:{
-        screen:HomeNavigator,
+
+    Home: {
+        screen: HomeNavigator,
         navigationOptions: {
-            drawerIcon: ({ tintColor }) => (<Ionicons name='ios-home' size={25} color={tintColor} />)
+            drawerIcon: ({tintColor}) => (<Ionicons name='ios-home' size={25} color={tintColor}/>)
         }
     },
-    Settings:{
-        screen:SettingsScreen,
+    Settings: {
+        screen: SettingsScreen,
         navigationOptions: {
-            drawerIcon: ({ tintColor }) => (<Ionicons name='md-settings' size={25} color={tintColor} />)
+            drawerIcon: ({tintColor}) => (<Ionicons name='md-settings' size={25} color={tintColor}/>)
         }
     },
-    Logout:{
+    Logout: {
         screen: AuthNavigator,
-        navigationOptions:{
-            drawerIcon: ({ tintColor }) => (<Ionicons name='md-exit' size={25} color={tintColor} />)
+        navigationOptions: {
+            drawerIcon: ({tintColor}) => (<Ionicons name='md-exit' size={25} color={tintColor}/>)
         }
     }
 })
@@ -114,14 +118,14 @@ const AppNavigator = createStackNavigator({
     Auth: {
         screen: AuthNavigator
     },
-    Home:{
+    Home: {
         screen: HomeDrawerNavigator
     }
 
-},{
+}, {
     headerMode: 'none',
     animationEnabled: true,
-    swipeEnabled:true,
+    swipeEnabled: true,
 })
 
 export default createAppContainer(AppNavigator);

@@ -11,12 +11,13 @@ import AppNavigator from "./src/navigations/app_navigator"
 
 
 console.disableYellowBox = true;
+
 class App extends Component {
-  render(){
-    return (
-    <AppNavigator/>
-  );
-  }
+    render() {
+        return (
+            <AppNavigator/>
+        );
+    }
 };
 
 

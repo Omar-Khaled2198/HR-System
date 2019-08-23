@@ -13,7 +13,7 @@ export const LoginService = async function (email, password) {
 
         return error.response;
     }
-}
+};
 
 export const SignUpService = async function (email, password) {
 
@@ -27,4 +27,4 @@ export const SignUpService = async function (email, password) {
 
         return error.response;
     }
-}
+};
