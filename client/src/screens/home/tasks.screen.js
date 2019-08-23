@@ -19,6 +19,7 @@ import {
 import TaskToDoComponent from "../../components/task_todo.com";
 import TaskDoneComponent from "../../components/task_done.com";
 import { GetTasksService,ChangeTaskStatusService } from "../../services/task.service";
+import Activity from "../../components/acitivity.com";
 class TasksScreen extends Component {
 	static navigationOptions = { header: null };
 
@@ -74,6 +75,7 @@ class TasksScreen extends Component {
 				</Header>
 				<Tabs locked>
 					<Tab heading="To Do">
+					<Activity  loading={this.state.loading}/>
 						{!this.state.loading && (
 							<FlatList
 								data={this.state.tasksToDo}
@@ -85,6 +87,7 @@ class TasksScreen extends Component {
 						)}
 					</Tab>
 					<Tab heading="Done">
+					<Activity  loading={this.state.loading}/>
 						{!this.state.loading && (
 							<FlatList
 								data={this.state.tasksDone}
@@ -96,6 +99,7 @@ class TasksScreen extends Component {
 						)}
 					</Tab>
 				</Tabs>
+				
 			</Container>
 		);
 	}

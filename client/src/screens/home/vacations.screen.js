@@ -19,6 +19,7 @@ import {
 	GetVacationsService,
 	AbortVacationService
 } from "../../services/vacation.service";
+import Activity from "../../components/acitivity.com";
 
 class VacationScreen extends Component {
 	static navigationOptions = { header: null };
@@ -87,6 +88,7 @@ class VacationScreen extends Component {
 					</Right>
 				</Header>
 				<Content>
+					<Activity loading={this.state.loading}/>
 					{!this.state.loading && (
 						<FlatList
 							data={this.state.vacations}
