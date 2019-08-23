@@ -18,7 +18,7 @@ import {
 } from "native-base";
 import TaskToDoComponent from "../../components/task_todo.com";
 import TaskDoneComponent from "../../components/task_done.com";
-import { GetTasksService } from "../../services/task.service";
+import { GetTasksService,ChangeTaskStatusService } from "../../services/task.service";
 class TasksScreen extends Component {
 	static navigationOptions = { header: null };
 
@@ -30,6 +30,7 @@ class TasksScreen extends Component {
 			loading: true
 		};
 	}
+
 	async componentDidMount() {
 		await this.getTasks();
 	}
@@ -50,6 +51,17 @@ class TasksScreen extends Component {
 		}
 	};
 
+	changeTaskStatus = async (id,index) => {
+		const response = await ChangeTaskStatusService(id,"Done");
+		if(response.status === 200){
+			let task = this.state.tasksToDo[index]
+			let tasksToDo = this.state.tasksToDo.filter(item => item._id !== id)
+			let tasksDone = [...this.state.tasksDone,task]	
+			this.setState({tasksToDo,tasksDone})
+		}
+		
+	};
+
 	render() {
 		return (
 			<Container>
@@ -66,8 +78,8 @@ class TasksScreen extends Component {
 							<FlatList
 								data={this.state.tasksToDo}
 								keyExtractor={(item, index) => item._id}
-								renderItem={({ item }) => (
-									<TaskToDoComponent data={item} />
+								renderItem={({ item,index }) => (
+									<TaskToDoComponent data={item} done={this.changeTaskStatus} index={index}/>
 								)}
 							/>
 						)}

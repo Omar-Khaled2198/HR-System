@@ -22,7 +22,7 @@ const TaskToDoComponent = (props) => {
         <SwipeRow
             leftOpenValue={75}
             left={
-                <Button success onPress={() => alert('Add')}>
+                <Button success onPress={() => props.done(props.data._id,props.index)}>
                     <Icon active name="add"/>
                 </Button>
             }
