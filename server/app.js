@@ -34,7 +34,7 @@ const Auth = require("./middleware/auth.middleware");
 app.use(cors());
 app.use('/api/public', Auth("*"), express.static(path.resolve(__dirname, 'public')));
 app.use("/api", accountRoute);
-app.use("/api/employee", Auth("employee"), [employeeProfileRoute, employeeVacationRoute, employeeTaskRoute]);
+app.use("/api/employee", Auth(["employee"]), [employeeProfileRoute, employeeVacationRoute, employeeTaskRoute]);
 app.use("/api/hr", Auth("hr"), [hrVacationRoute, hrTaskRoute, hrProfileRoute]);
 
 

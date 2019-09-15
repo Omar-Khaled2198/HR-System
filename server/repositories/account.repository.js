@@ -13,7 +13,7 @@ const Create = async function(body) {
 const Get = async function(property) {
 
     try {
-        return await Account.findOne(property);
+        return await Account.findOne(property).populate("profile").exec();
     } catch (error){
         throw error.message;
     }

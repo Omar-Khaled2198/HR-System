@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const configs = require('../configs');
 
-const Auth = function (types) {
+const Auth = function (roles) {
 
     return function (req, res, next) {
 
@@ -17,7 +17,7 @@ const Auth = function (types) {
                 return res.status(500).send({auth: false, msg: 'Failed to authenticate token.'});
             }
 
-            if (types.includes(decoded.type) || types.includes("*")) {
+            if (roles.includes(decoded.role)) {
                 req.decoded = decoded;
                 next();
             } else {

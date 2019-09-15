@@ -41,11 +41,9 @@ const SignIn = async function (req, res) {
         }
 
         const token = jwt.sign({...account._doc}, configs.token_secret);
-
         return res.status(200).send({
             account,
-            token,
-            msg: "Account created successfully."
+            token
         });
         
     } catch(error){
