@@ -9,7 +9,7 @@ const CreateProfile = function (req,res){
         if(error)
             return res.status(500).send({msg:"Something went wrong in server."});
 
-        if (!account) 
+        if (!account)
             return res.status(404).send({msg:'No account found.'});
 
         if(account.profile!=null)
