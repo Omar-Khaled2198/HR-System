@@ -29,4 +29,24 @@ const SignIn = [
 		.isLength({ min: 8 })
 ];
 
-module.exports = { SignIn, SignUp }
+const ForgetPassword = [
+	body("email")
+		.exists()
+		.isEmail()
+		.custom(async value => {
+			const user = await UserRepository.Get({ "email": value });
+			if (!user) {
+				return Promise.reject("No account found with this email.");
+			}
+		})
+]
+
+const ResetPassword = [
+	header("x-access-token").exists(),
+	body("password")
+		.exists()
+		.isLength({ min: 8 })
+		.withMessage("Password must be at least 8 chars long")
+]
+
+module.exports = { SignIn, SignUp, ForgetPassword, ResetPassword };
