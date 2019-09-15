@@ -1,7 +1,10 @@
 {
   "basedomain":"http://127.0.0.1:5000/api/",
-  "secret" : "noonecare",
+  "token_secret" : "noonecare",
   "saltRounds": 10,
+  "mongodb": {
+    "mongoURI": "mongodb+srv://SCRAM:scram@cluster0-sdpth.mongodb.net/test?retryWrites=true&w=majority"
+  },
   "nodemailer":{
     "host": "smtp.mailtrap.io",
     "port": 2525,

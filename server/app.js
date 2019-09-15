@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+const db = require("./configs").mongodb;
 var AccountSeeder = require("./database/account.seeds");
 var accountRoute = require("./routes/account.route");
 var employeeProfileRoute = require("./routes/employee/profile.route");
@@ -10,16 +11,19 @@ var hrVacationRoute = require("./routes/hr/vacation.route");
 var hrTaskRoute = require("./routes/hr/task.route");
 var hrProfileRoute = require("./routes/hr/profile.route");
 var path = require("path");
-var app = express();
 var cors = require('cors');
+var app = express();
 
+
+
+//Database Connect
 mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb://localhost:27017/hr-system', {useNewUrlParser: true});
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//     AccountSeeder();
-// });
+mongoose.connect(db.mongoURI, {useNewUrlParser: true})
+    .then(() => {
+        console.log("MongoDB Cluster connected");
+        app.emit("ready")
+    })
+    .catch(err => console.log("MongoDB connection error", err));
 
 
 app.use(bodyParser.json());
@@ -34,8 +38,8 @@ app.use("/api/employee", Auth("employee"), [employeeProfileRoute, employeeVacati
 app.use("/api/hr", Auth("hr"), [hrVacationRoute, hrTaskRoute, hrProfileRoute]);
 
 
-const PORT = process.env.port || 5000;
 
-app.listen(PORT, () => {
-    console.log(`Server is up and running on http://127.0.0.1:${PORT}`);
+const PORT = process.env.PORT || 5000;
+app.on("ready", function () {
+    app.listen(PORT, () => console.log(`Server is up and running on http://127.0.0.1:${PORT}`));
 });

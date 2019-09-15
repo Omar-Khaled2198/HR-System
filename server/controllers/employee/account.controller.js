@@ -1,67 +1,71 @@
-var Account = require("../../models/account.model");
+const AccountRepository = require("../../repositories/account.repository");
 var SendEmail = require("../../utils/mailhandler.util");
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
-const config = require("../../config");
+const configs = require("../../configs.json");
 
 
 
-const SignUp = function (req, res) {
+const SignUp = async function (req, res) {
 
-    var passwordHashed = bcrypt.hashSync(req.body.password, config.saltRounds);
-    
-    var account = new Account({
-        email: req.body.email,
-        password: passwordHashed,
-        role: "employee"
-    });
+    try {
+        req.body.password = bcrypt.hashSync(req.body.password, configs.saltRounds);
+        req.body.role = "employee";
+        const account = await AccountRepository.Create(req.body);
+        const token = jwt.sign({...account._doc}, configs.token_secret);
+        return res.status(200).send({
+            account,
+            token,
+            msg: "Account created successfully."
+        });
 
-    account.save(function (error) {
+    } catch (error){
 
-        if (error) 
-            return res.status(500).send({msg:"Email already exists."});
-
-        var token = jwt.sign({id: account._id,role:account.role}, config.secret)
-        
-        return res.status(200).send({name:account.name,email: account.email,token});
-
-    })
+        return res.status(400).send({msg: error});
+    }
 }
 
 
-const Login = function (req, res) {
+const SignIn = async function (req, res) {
 
-    Account.findOne({email: req.body.email}, function (error, account) {
+    try{
 
-        if (error) 
-            return res.status(500).send({msg:"Something went wrong in server."});
+        const account = await AccountRepository.Get({"email":req.body.email});
+        if(!account){
+            return res.status(404).send({auth: false, token: null, msg: "No account found with this email."});
+        }
 
-        if (!account) 
-            return res.status(404).send({msg:'No account found with this email.'});
+        const check = bcrypt.compareSync(req.body.password, account.password);
+        if (!check) {
+            return res.status(401).send({auth: false, token: null, msg: "The password is wrong."});
+        }
 
-        var password = bcrypt.compareSync(req.body.password, account.password);
+        const token = jwt.sign({...account._doc}, configs.token_secret);
+
+        return res.status(200).send({
+            account,
+            token,
+            msg: "Account created successfully."
+        });
         
-        if (!password) 
-            return res.status(401).send({ auth: false, token: null,msg:"The password is wrong." });
-
-        var token = jwt.sign({id: account._id,role:account.role}, config.secret)
-        res.status(200).send({auth: true,email: account.email,token});
-    
-    });
+    } catch(error){
+        return res.status(400).send({msg: error});
+    }
 }
 
-const ForgetPasword = function(req,res){
-    
-    Account.findOne({email: req.body.email},function(error,account){
+const ForgetPasword = async function(req,res){
 
-        if (error) 
-            return res.status(500).send({msg:"Something went wrong in server."});
-        
-        if (!account) 
-            return res.status(404).send({msg:'No account found with this email.'});
+    try{
 
-        var token = jwt.sign({id: account._id,role:account.role}, config.secret,{expiresIn: '1m'})
+        const account = await AccountRepository.Get({"email":req.body.email});
+        const token = jwt.sign({...account._doc}, configs.token_secret);
+        const locals = {
+            name: account.first_name,
+            subject: "Reset Password",
+            token
+        };
 
+       
         SendEmail(req.body.email,"Forget Password",token,function(error,info){
         
             if(error)
@@ -70,47 +74,35 @@ const ForgetPasword = function(req,res){
             res.status(200).send({msg:"Please check your email to reset password."});
 
         });
-    })
+
+    } catch(error){
+        return res.status(400).send({msg: error});
+    }
     
 }
 
-const ResetPassword = function(req,res){
-    
-    var token = req.headers['x-access-token'];
-    
-    if (!token)
-      return res.status(403).send({ auth: false, msg: 'No token provided.' });
+const ResetPassword = async function(req,res){
 
-    jwt.verify(token, config.secret, function(err, decoded) {
-          
-        if (err)
-            return res.status(500).send({ auth: false, msg: 'Failed to authenticate token.' });
+    try{
+        const token = req.headers['x-access-token'];
+        const decoded = await jwt.verify(token, configs.token_secret)
 
-        var newPasswordHashed = bcrypt.hashSync(req.body.password, config.saltRounds);
+        const newPasswordHashed = bcrypt.hashSync(req.body.password, configs.saltRounds);
+        var account = await AccountRepository.Get({ "email": decoded.email });
+        account.password = newPasswordHashed;
         
-        Account.findById(decoded.id,function(error,account){
+        try{
+            await AccountRepository.Update(account._id,account);
+            return res.status(200).send({msg: "Password is reset successfully."});
+        } catch(error){
+            return res.status(400).send({msg: error});
+        }
 
-            if (error) 
-                return res.status(500).send({msg:"Something went wrong in server."});
-            
-            if (!account) 
-                return res.status(404).send({msg:'No account found with this email.'});
-
-            account.password = newPasswordHashed
-            
-            account.save(function (error) {
-
-                if (error) 
-                    return res.status(500).send({msg:"Something went wrong in server."});
-
-                return res.status(200).send({msg:"password reseted successfully."});
-        
-            })
-    
-      });
-    })
+    } catch(error){
+        return res.status(400).send({auth: false, msg: 'Invalid Token.'});
+    }
 
 }
 
 
-module.exports = {SignUp,Login,ForgetPasword,ResetPassword}
+module.exports = {SignUp,SignIn,ForgetPasword,ResetPassword}
