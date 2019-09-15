@@ -5,6 +5,9 @@ const Create = async function(account_id, body) {
 
 	try {
 		const account = await AccountRepository.Get({ _id: account_id });
+		if(account._id!=""){
+			throw new Error("Account already has profile");
+		}
 		var profile = new Profile(body);
 		await profile.save();
 		account.profile = profile._id;

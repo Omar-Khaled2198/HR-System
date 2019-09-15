@@ -1,10 +1,11 @@
-var express = require('express');
+const express = require('express');
+const Validate = require("../../middleware/validate.middleware");
+const ProfileController = require("../../controllers/employee/profile.controller");
+const Upload = require("../../middleware/file.midldeware");
+const ProfileValidator = require('../../validators/profile.validator');
 var router = express.Router();
 
-var ProfileController = require("../../controllers/employee/profile.controller");
-var Upload = require("../../middleware/file.midldeware");
-
-router.post('/profile',ProfileController.CreateProfile);
+router.post('/profile', ProfileValidator.CreateProfile, Validate, ProfileController.CreateProfile);
 router.get('/profile',ProfileController.GetProfile);
 router.post('/profile_picture',Upload.single("profile_picture"),ProfileController.UploadProfileImage);
 
