@@ -1,5 +1,5 @@
-var Profile = require("../models/profile.model");
-var AccountRepository = require("./account.repository");
+const Profile = require("../models/profile.model");
+const AccountRepository = require("./account.repository");
 
 const Create = async function(account_id, body) {
 
@@ -36,14 +36,10 @@ const All = async function() {
 	}
 };
 
-const Update = async function(id, body) {
+const Update = async function(query, update) {
 
 	try {
-		var profile = await Profile.findById(id);
-		for (var property in body) {
-			profile[property] = body[property];
-		}
-		return await profile.save();
+		return await Profile.findOneAndUpdate(query,update,{new: true});
 	} catch (error) {
 		throw error.message;
 	}

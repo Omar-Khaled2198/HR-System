@@ -22,6 +22,18 @@ const GetProfile = async function (req,res){
     }
 }
 
+const UpdateProfile = async function(req,res){
+
+    try{
+        const query = {_id:req.decoded.profile._id};
+        const update = {$set:req.body};
+        const profile = await ProfileRepository.Update(query, update);
+        res.status(200).send({profile,msg:"Profile updated successfully."});
+    } catch(error){
+        return res.status(400).send({msg: error});
+    }
+};
+
 const UploadProfileImage = function(req,res){
 
     if(req.file){
@@ -33,4 +45,4 @@ const UploadProfileImage = function(req,res){
 }
 
 
-module.exports = {CreateProfile,GetProfile,UploadProfileImage}
+module.exports = {CreateProfile, GetProfile, UpdateProfile, UploadProfileImage}

@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //Database Connect
 mongoose.set("useCreateIndex", true);
+mongoose.set("useFindAndModify", false);
 mongoose.connect(db.mongoURI, { useNewUrlParser: true })
 	.then(() => {
 		console.log("MongoDB Cluster connected");

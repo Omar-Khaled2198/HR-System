@@ -1,4 +1,4 @@
-var Account = require("../models/account.model");
+const Account = require("../models/account.model");
 
 const Create = async function(body) {
 
@@ -43,7 +43,7 @@ const Update = async function(id, body) {
     }
 };
 
-const Delete = async function() {
+const Delete = async function(id) {
 
     try {
         return await Account.findByIdAndDelete(id);

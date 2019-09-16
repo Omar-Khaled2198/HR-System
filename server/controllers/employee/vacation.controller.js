@@ -1,70 +1,42 @@
 var Vacation = require("../../models/vacation.model");
 var Profile = require("../../models/profile.model");
+const VacationRepository = require("../../repositories/vacation.repository");
 
-const RequestVacation = function (req,res){
-    
-    var vacation = new Vacation({
-        requester:req.params.id,
-        title:req.body.title,
-        description:req.body.description,
-        from:req.body.from,
-        to:req.body.to,
-        status:"Pending",
-        timestamp:Date.now()
-    })
+const RequestVacation = async function (req,res){
 
-    vacation.save(function(error){
+    req.body.requester = req.decoded.profile._id;
+    req.body.status = "Pending";
+    req.body.timestamp = Date.now();
 
-        if(error)
-            return res.status(500).send({msg:"Something went wrong in server."});
-
-        Profile.findById(req.params.id,function(error,profile){
-
-            if(error)
-                return res.status(404).send({msg:"Profile not existed."});
-            
-            profile.vacations.push(vacation._id);
-            profile.save(function(){
-                return res.status(200).send({msg:"Vacation requested successfully"});
-            })
-        })
-        
-            
-    })
-
+    try{
+        await VacationRepository.Create(req.body);
+        return res.status(200).send({msg:"Vacation requested successfully"});
+    } catch(error){
+        return res.status(400).send({msg: error});
+    }
 }
 
-const GetVacations = function(req,res){
+const GetVacations = async function(req,res){
 
-    Profile.findById(req.params.id).populate("vacations").exec(function(error,profile){
-
-        if(error)
-            return res.status(500).send({msg:"Something went wrong in server."});
-
-        return res.status(200).send(profile.vacations);
-    })
+    try {
+        const vacations = await VacationRepository.Get({requester:req.decoded.profile._id});
+        return res.status(200).send(vacations);
+    } catch (error) {
+        return res.status(400).send({msg: error});
+    }
 }
 
-const AbortVacationRequest = function(req,res){
-    
-    Vacation.findById(req.params.vac_id,function(error,vacation){
-        
-        if(error)
-            return res.status(500).send({msg:"Something went wrong in server."});
+const AbortVacationRequest = async function(req,res){
 
-        if(!vacation)
-            return res.status(400).send({msg:"Vacation not found"})
+    try {
+        const query = {_id:req.params.vac_id,status:"Pending"};
+        const update = {$set:{status:"Aborted"}};
+        const vacation = await VacationRepository.Update(query,update);
+        return res.status(200).send({vacation,msg:"Vacation request aborted successfully."});
 
-        if(vacation.status=="Pending"){
-            vacation.status="Aborted";
-            vacation.save(function(){
-                return res.status(200).send({msg:"Vacation request aborted successfully."});
-            })
-            
-        } else {
-            return res.status(500).send({msg:"Already action was taken or request was aborted"});
-        }
-    })
+    } catch (error) {
+        return res.status(400).send({msg:"Already action was taken or request was aborted"});
+    }
 
 }
 
