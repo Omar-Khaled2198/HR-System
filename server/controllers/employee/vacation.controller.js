@@ -1,5 +1,3 @@
-var Vacation = require("../../models/vacation.model");
-var Profile = require("../../models/profile.model");
 const VacationRepository = require("../../repositories/vacation.repository");
 
 const RequestVacation = async function (req,res){

@@ -1,18 +1,21 @@
 const { body, header } = require("express-validator");
 
-const CreateProfile = [
-    body("first_name")
+const RequestVacation = [
+    body("title")
     .exists()
     .not().isEmpty()
     .isString(),
-    body("last_name")
+    body("description")
+    .exists()
+    .isString(),
+    body("from")
     .exists()
     .not().isEmpty()
     .isString(),
-    body("job_title")
+    body("to")
     .exists()
     .not().isEmpty()
     .isString()
 ];
 
-module.exports = { CreateProfile };
+module.exports = { RequestVacation };

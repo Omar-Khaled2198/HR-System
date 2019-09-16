@@ -1,32 +1,26 @@
-var Task = require("../../models/task.model");
-var Profile = require("../../models/profile.model"); 
+const TaskRepository = require("../../repositories/task.repository");
 
-const GetTasks = function(req,res){
+const GetTasks = async function(req,res){
 
-    Profile.findById(req.params.id).populate("tasks").exec(function(error,profile){
-
-        if(error)
-            return res.status(500).send({msg:"Something went wrong in server."});
-
-        return res.status(200).send(profile.tasks);
-    })
+    try {
+        const tasks = await TaskRepository.Get({assigned_to:req.decoded.profile._id});
+        return res.status(200).send(tasks);
+    } catch (error) {
+        return res.status(400).send({msg: error});
+    }
 }
 
-const ChangeTaskStatus = function(req,res){
+const ChangeTaskStatus = async function(req,res){
 
-    Task.findById(req.params.task_id,function(error,task){
-        
-        if(error)
-            return res.status(500).send({msg:"Something went wrong in server."});
+    try {
+        const query = {_id:req.params.task_id,status:"To Do"};
+        const update = {$set:{status:"Done"}};
+        const task = await TaskRepository.Update(query,update);
+        return res.status(200).send({task,msg:"Task status changed successfully."});
 
-        if(!task)
-            return res.status(400).send({msg:"Task not found"})
-
-            task.status=req.body.status;
-            task.save(function(){
-                return res.status(200).send({msg:"Task status changed successfully."});
-            })
-    })
+    } catch (error) {
+        return res.status(400).send({msg:error});
+    }
 }
 
 
