@@ -18,7 +18,6 @@ var TaskSchema = new Schema({
     },
     timestamp:{
         type:String,
-        required:true
     },
     deadline:{
         type:String,
@@ -26,7 +25,7 @@ var TaskSchema = new Schema({
     },
     status:{
         type:String,
-        enum: ["To Do",'In Progress', 'Done'],
+        enum: ["To Do", 'Done'],
     },
 
 });

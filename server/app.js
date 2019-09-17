@@ -13,7 +13,7 @@ var hrProfileRoute = require("./routes/hr/profile.route");
 var path = require("path");
 var cors = require("cors");
 const Auth = require("./middleware/auth.middleware");
-const AdminBroUtil = require("./utils/adminbro.utils");
+const AdminBroSetup = require("./adminbro/adminbro_setup");
 
 var app = express();
 
@@ -32,7 +32,7 @@ mongoose.connect(db.mongoURI, { useNewUrlParser: true })
 
 
 // Initialize AdminBro
-app.use(AdminBroUtil.adminBro.options.rootPath, AdminBroUtil.adminRouter);
+app.use(AdminBroSetup.adminBro.options.rootPath, AdminBroSetup.adminRouter);
 
 //API Routes
 app.use(cors());
