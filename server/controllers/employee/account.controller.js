@@ -14,9 +14,8 @@ const SignUp = async function (req, res) {
         const account = await AccountRepository.Create(req.body);
         const token = jwt.sign({...account._doc}, configs.token_secret);
         return res.status(200).send({
-            account,
-            token,
-            msg: "Account created successfully."
+            ...account._doc,
+            token
         });
 
     } catch (error){
@@ -42,7 +41,7 @@ const SignIn = async function (req, res) {
 
         const token = jwt.sign({...account._doc}, configs.token_secret);
         return res.status(200).send({
-            account,
+            ...account._doc,
             token
         });
         

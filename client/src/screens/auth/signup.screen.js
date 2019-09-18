@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Text, View, StyleSheet} from 'react-native'
 import {Container, Button, Content, Form, Item, Input, Label} from 'native-base';
-import {SignUpService} from '../../services/account.service';
-import {SetToken} from '../../utils/global.util';
+import AccountService from '../../services/account.service';
+import {SetAccountGlobal} from '../../utils/global.util';
 
 class SignUpScreen extends Component {
 
@@ -18,16 +18,16 @@ class SignUpScreen extends Component {
     }
 
 
-    async sign_up() {
+    async SignUp() {
 
         if (this.state.email === "" || this.state.password === "") {
             this.setState({error: "Email and password can't be empty!"})
         } else {
-            const response = await SignUpService(this.state.email, this.state.password);
+            const response = await AccountService.SignUp(this.state.email, this.state.password);
             if (response.status !== 200) {
                 this.setState({error: response.data.msg});
             } else {
-                SetToken(response.data.token);
+                SetAccountGlobal(response.data);
                 this.props.navigation.navigate('ProfileCreation')
             }
         }
@@ -59,7 +59,7 @@ class SignUpScreen extends Component {
                                    secureTextEntry={true}/>
                         </Item>
                         {this.state.error !== "" && <Text style={styles.error}>{this.state.error}</Text>}
-                        <Button style={styles.signup_button} block primary onPress={() => this.sign_up()}>
+                        <Button style={styles.signup_button} block primary onPress={() => this.SignUp()}>
                             <Text style={styles.signup_text}>Sign Up</Text>
                         </Button>
                         <Text style={styles.login_ref} onPress={() => this.props.navigation.navigate('Login')}>Have an

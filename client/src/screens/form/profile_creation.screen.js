@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, StyleSheet} from 'react-native'
+import {Text, View, StyleSheet, Alert} from 'react-native'
 import {
     Container,
     Button,
@@ -17,8 +17,7 @@ import {
     Label
 } from 'native-base';
 import {Avatar} from 'react-native-elements';
-import ImagePicker from 'react-native-image-picker';
-import {UploadProfilePictureService} from '../../services/profile.service';
+import ProfileService from '../../services/profile.service';
 
 class ProfileCreationScreen extends Component {
 
@@ -26,6 +25,50 @@ class ProfileCreationScreen extends Component {
         header: null,
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            first_name: "Omar",
+            last_name: "Khaled",
+            job_title: "Backend Developer",
+            profile_picture:"",
+            error: "",
+            loading: true
+        };
+    }
+
+    async UploadProfilePicture(){
+        const profile_picture = await ProfileService.UploadProfilePicture();
+        this.setState({profile_picture});
+    }
+
+    async CreateProfile(){
+
+        const response = await ProfileService.CreateProfile(
+            this.state.first_name,
+            this.state.last_name,
+            this.state.job_title,
+            this.state.profile_picture
+        );
+        if (response.status !== 200) {
+            this.setState({error: response.data.msg});
+        } else {
+            Alert.alert(
+                "Success",
+                response.data.msg,
+                [
+                    {
+                        text: "OK",
+                        onPress: () => {
+                            this.props.navigation.navigate('Home')
+                        }
+                    }
+                ],
+            );
+            //this.props.navigation.navigate('Home')
+        }
+        
+    }
 
     render() {
         return (
@@ -48,23 +91,34 @@ class ProfileCreationScreen extends Component {
                             size={130}
                             source={require("../../assets/images/default_avatar.png")}
                             showEditButton
-                            // onEditPress={()=>{this.uploadProfilePicture()}}
+                            onEditPress={()=>{this.UploadProfilePicture()}}
                         />
                         <Item style={{marginTop: 30}}>
                             <Label>First Name</Label>
-                            <Input/>
+                            <Input textContentType={"name"}
+                                   value={this.state.first_name}
+                                   onChangeText={(first_name) => {
+                                       this.setState({first_name})
+                                   }}/>
                         </Item>
                         <Item>
                             <Label>Last Name</Label>
-                            <Input/>
+                            <Input textContentType={"name"}
+                                   value={this.state.last_name}
+                                   onChangeText={(last_name) => {
+                                       this.setState({last_name})
+                                   }}/>
                         </Item>
                         <Item>
                             <Label>Job Title</Label>
-                            <Input/>
+                            <Input textContentType={"name"}
+                                   value={this.state.job_title}
+                                   onChangeText={(job_title) => {
+                                       this.setState({job_title})
+                                   }}/>
                         </Item>
-                        <Button style={styles.create_button} block primary>
-                            <Text style={styles.create_text}
-                                  onPress={() => this.props.navigation.navigate('Home')}>Create</Text>
+                        <Button style={styles.create_button} block primary onPress={() => this.CreateProfile()}>
+                            <Text style={styles.create_text}>Create</Text>
                         </Button>
                     </Form>
                 </Content>

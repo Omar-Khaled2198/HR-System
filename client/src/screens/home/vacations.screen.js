@@ -15,10 +15,7 @@ import {
 	Text
 } from "native-base";
 import VacationComponent from "../../components/vacation.com";
-import {
-	GetVacationsService,
-	AbortVacationService
-} from "../../services/vacation.service";
+import VacationService from "../../services/vacation.service";
 import Activity from "../../components/acitivity.com";
 
 class VacationScreen extends Component {
@@ -33,17 +30,17 @@ class VacationScreen extends Component {
 	}
 
 	async componentDidMount() {
-		await this.getVacations();
+		await this.GetVacations();
 	}
 
-	getVacations = async () => {
-		const response = await GetVacationsService();
+	GetVacations = async () => {
+		const response = await VacationService.GetVacations();
 		if (response.status === 200) {
 			this.setState({ vacations: response.data, loading: false });
 		}
 	};
 
-	abortVacation = async vacation_id => {
+	AbortVacation = async vacation_id => {
 		Alert.alert(
 			"Abort Vacation",
 			"Are you sure?",
@@ -56,9 +53,7 @@ class VacationScreen extends Component {
 				{
 					text: "OK",
 					onPress: async () => {
-						const response = await AbortVacationService(
-							vacation_id
-						);
+						const response = await VacationService.AbortVacation(vacation_id);
 						Alert.alert("Abort Vacation", response.data.msg);
 					}
 				}
@@ -96,7 +91,7 @@ class VacationScreen extends Component {
 							renderItem={({ item }) => (
 								<VacationComponent
 									data={item}
-									abort={this.abortVacation}
+									abort={this.AbortVacation}
 								/>
 							)}
 						/>

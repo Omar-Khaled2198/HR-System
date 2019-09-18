@@ -18,7 +18,7 @@ import {
 } from "native-base";
 import TaskToDoComponent from "../../components/task_todo.com";
 import TaskDoneComponent from "../../components/task_done.com";
-import { GetTasksService,ChangeTaskStatusService } from "../../services/task.service";
+import TaskService from "../../services/task.service";
 import Activity from "../../components/acitivity.com";
 class TasksScreen extends Component {
 	static navigationOptions = { header: null };
@@ -33,11 +33,11 @@ class TasksScreen extends Component {
 	}
 
 	async componentDidMount() {
-		await this.getTasks();
+		await this.GetTasks();
 	}
 
-	getTasks = async () => {
-		const response = await GetTasksService();
+	GetTasks = async () => {
+		const response = await TaskService.GetTasks();
 		let tasksToDo = [];
 		let tasksDone = [];
 		if (response.status === 200) {
@@ -52,8 +52,8 @@ class TasksScreen extends Component {
 		}
 	};
 
-	changeTaskStatus = async (id,index) => {
-		const response = await ChangeTaskStatusService(id,"Done");
+	ChangeTaskStatus = async (id,index) => {
+		const response = await TaskService.ChangeTaskStatus(id);
 		if(response.status === 200){
 			let task = this.state.tasksToDo[index]
 			let tasksToDo = this.state.tasksToDo.filter(item => item._id !== id)
@@ -81,7 +81,7 @@ class TasksScreen extends Component {
 								data={this.state.tasksToDo}
 								keyExtractor={(item, index) => item._id}
 								renderItem={({ item,index }) => (
-									<TaskToDoComponent data={item} done={this.changeTaskStatus} index={index}/>
+									<TaskToDoComponent data={item} done={this.ChangeTaskStatus} index={index}/>
 								)}
 							/>
 						)}

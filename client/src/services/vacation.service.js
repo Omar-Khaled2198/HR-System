@@ -2,7 +2,7 @@ import constants from "../utils/constants.util"
 import axios from "axios"
 
 
-export const RequestVacationService = async function (title, description, from, to) {
+export const RequestVacation = async function (title, description, from, to) {
 
     try {
 
@@ -13,7 +13,7 @@ export const RequestVacationService = async function (title, description, from, 
             to,
         }, {
             headers: {
-                'x-access-token': global.token
+                'x-access-token': global.account.token
             }
         });
 
@@ -23,12 +23,12 @@ export const RequestVacationService = async function (title, description, from, 
 
 };
 
-export const GetVacationsService = async function () {
+export const GetVacations = async function () {
 
     try {
         return await axios.get(`${constants.apiUrl}/employee/${global.profile_id}/vacations`, {
             headers: {
-                'x-access-token': global.token
+                'x-access-token': global.account.token
             }
         });
 
@@ -37,12 +37,12 @@ export const GetVacationsService = async function () {
     }
 };
 
-export const AbortVacationService = async function (vacation_id) {
+export const AbortVacation = async function (vacation_id) {
 
     try {
         return await axios.put(`${constants.apiUrl}/employee/${global.profile_id}/vacations/${vacation_id}`, {}, {
             headers: {
-                'x-access-token': global.token
+                'x-access-token': global.account.token
             }
         });
 

@@ -17,7 +17,7 @@ import {
 	Label
 } from "native-base";
 import DatePickerComponent from "../../components/datepicker.com";
-import { RequestVacationService } from "../../services/vacation.service";
+import  VacationService from "../../services/vacation.service";
 import Spinner from "react-native-loading-spinner-overlay";
 
 class VacationCreationScreen extends Component {
@@ -36,7 +36,7 @@ class VacationCreationScreen extends Component {
 		};
 	}
 
-	async request_vacation() {
+	async RequestVacation() {
 		if (
 			this.state.title !== "" &&
 			this.state.description !== "" &&
@@ -44,7 +44,7 @@ class VacationCreationScreen extends Component {
 			this.state.to !== ""
 		) {
             this.setState({loading:true})
-			const response = await RequestVacationService(
+			const response = await VacationService.RequestVacation(
 				this.state.title,
 				this.state.description,
 				this.state.from,
@@ -116,7 +116,7 @@ class VacationCreationScreen extends Component {
 							style={styles.request_button}
 							block
 							primary
-							onPress={() => this.request_vacation()}
+							onPress={() => this.RequestVacation()}
 						>
 							<Text style={styles.request_text}>Request</Text>
 						</Button>
