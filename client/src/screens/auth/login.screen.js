@@ -26,7 +26,8 @@ class LoginScreen extends Component {
 		const account = await Fetch("account");
         if (account != null && account.token) {
 
-            if (account.profile) {
+            if (account.profile != null) {
+                SetAccountGlobal(account);
                 this.props.navigation.navigate('Home')
             } else {
                 this.props.navigation.navigate('ProfileCreation')

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, FlatList, View } from "react-native";
+import { StyleSheet, FlatList, View, Alert } from "react-native";
 import {
 	Container,
 	Header,
@@ -36,7 +36,7 @@ class TasksScreen extends Component {
 		await this.GetTasks();
 	}
 
-	GetTasks = async () => {
+	async GetTasks(){
 		const response = await TaskService.GetTasks();
 		let tasksToDo = [];
 		let tasksDone = [];
@@ -49,16 +49,22 @@ class TasksScreen extends Component {
 				}
 			});
 			this.setState({ tasksToDo, tasksDone, loading: false });
+			
 		}
 	};
 
-	ChangeTaskStatus = async (id,index) => {
+	async ChangeTaskStatus(id,index){
 		const response = await TaskService.ChangeTaskStatus(id);
+		console.log(response);
 		if(response.status === 200){
 			let task = this.state.tasksToDo[index]
 			let tasksToDo = this.state.tasksToDo.filter(item => item._id !== id)
 			let tasksDone = [...this.state.tasksDone,task]	
 			this.setState({tasksToDo,tasksDone})
+			Alert.alert(
+                "Success",
+                "Task status changed successfully"
+            );
 		}
 		
 	};

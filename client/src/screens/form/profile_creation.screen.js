@@ -18,6 +18,8 @@ import {
 } from 'native-base';
 import {Avatar} from 'react-native-elements';
 import ProfileService from '../../services/profile.service';
+import { Store } from '../../utils/storage.utils';
+import { SetAccountGlobal } from '../../utils/global.util';
 
 class ProfileCreationScreen extends Component {
 
@@ -53,6 +55,10 @@ class ProfileCreationScreen extends Component {
         if (response.status !== 200) {
             this.setState({error: response.data.msg});
         } else {
+            var account = global.account;
+            account.profile = response.data.profile;
+            SetAccountGlobal(account);
+            await Store("account",account)
             Alert.alert(
                 "Success",
                 response.data.msg,

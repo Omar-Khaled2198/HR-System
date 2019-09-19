@@ -14,9 +14,9 @@ console.disableYellowBox = true;
 
 class App extends Component {
 
-    async componentDidMount(){
-        await Delete("account");
-    }
+    // async componentDidMount(){
+    //     await Delete("account");
+    // }
     render() {
         return (
             <AppNavigator/>
