@@ -5,7 +5,7 @@ var TaskSchema = new Schema({
     
     assigned_to:{
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Profile'
+        ref: 'Account'
     },
     title: {
         type: String,
@@ -16,7 +16,7 @@ var TaskSchema = new Schema({
         type: String,
         required:true
     },
-    timestamp:{
+    create_at:{
         type:String,
     },
     deadline:{

@@ -1,34 +1,33 @@
 const Task = require("../models/task.model");
-const ProfileRepository = require("./profile.repository");
 
 const Create = async function(body) {
 
 	try {
 		const task = new Task(body);
-        await task.save();
-        const query = {_id:task.assigned_to};
-        const update = {$push:{"tasks":task._id}}
-        await ProfileRepository.Update(query,update);
-        return task;
+        return task.save();
 	} catch (error) {
 		throw error.message;
 	}
 };
 
-const Get = async function(property) {
+const Get = async function(query) {
 
     try {
-        return await Task.find(property);
+        const task = await Task.findOne(query);
+        if(!task){
+            throw new Error("No Task Found.")
+        }
+        return task;
     } catch (error){
         throw error.message;
     }
 
 };
 
-const All = async function() {
+const All = async function(query) {
    
     try {
-        return await Task.find({});
+        return await Task.find(query);
     } catch(error){
         throw error.message;
     }

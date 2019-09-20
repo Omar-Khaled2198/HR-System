@@ -10,37 +10,36 @@ const Create = async function(body) {
 	}
 };
 
-const Get = async function(property) {
+const Get = async function(query) {
 
     try {
-        return await Account.findOne(property).populate("profile",["first_name","last_name","job_title","_id"]).exec();
+        const account = await Account.findOne(query);
+        if(!account){
+            throw new Error("No Account Found.")
+        }
+        return account;
     } catch (error){
         throw error.message;
     }
 
 };
 
-const All = async function() {
+const All = async function(query) {
    
     try {
-        return await Account.find({});
+        return await Task.find();
     } catch(error){
         throw error.message;
     }
 };
 
-const Update = async function(id, body) {
+const Update = async function(query, update) {
     
-    try{
-        var account = await Account.findById(id);
-        for(var property in body){
-            account[property] = body[property];
-        }
-        return await account.save();
-
-    } catch(error){
-        throw error.message;
-    }
+    try {
+		return await Account.findOneAndUpdate(query,update,{new: true});
+	} catch (error) {
+		throw error.message;
+	}
 };
 
 const Delete = async function(id) {
@@ -52,4 +51,10 @@ const Delete = async function(id) {
     }
 };
 
-module.exports = { Create, Get, All, Update, Delete };
+module.exports = { 
+    Create, 
+    Get, 
+    All,
+    Update, 
+    Delete 
+};

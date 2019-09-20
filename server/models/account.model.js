@@ -19,8 +19,20 @@ var AccountSchema = new Schema({
         required: true
     },
     profile:{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Profile'
+        first_name: {
+            type: String,
+            max: 100
+        },
+        last_name: {
+            type: String,
+            max: 100
+        },
+        job_title:{
+            type: String,
+        },
+        profile_picture:{
+            type: String
+        }
     }
 
 });

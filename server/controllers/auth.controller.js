@@ -1,8 +1,8 @@
-const AccountRepository = require("../../repositories/account.repository");
-var SendEmail = require("../../utils/mailhandler.util");
+const AccountRepository = require("../repositories/account.repository");
+var SendEmail = require("../utils/mailhandler.util");
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
-const configs = require("../../configs.json");
+const configs = require("../configs.json");
 
 
 
@@ -102,4 +102,9 @@ const ResetPassword = async function(req,res){
 }
 
 
-module.exports = {SignUp,SignIn,ForgetPasword,ResetPassword}
+module.exports = {
+    SignUp,
+    SignIn,
+    ForgetPasword,
+    ResetPassword
+}

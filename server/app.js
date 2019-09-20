@@ -1,19 +1,14 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const db = require("./configs").mongodb;
-var AccountSeeder = require("./database/account.seeds");
-var accountRoute = require("./routes/account.route");
-var employeeProfileRoute = require("./routes/employee/profile.route");
-var employeeVacationRoute = require("./routes/employee/vacation.route");
-var employeeTaskRoute = require("./routes/employee/task.route");
-var hrVacationRoute = require("./routes/hr/vacation.route");
-var hrTaskRoute = require("./routes/hr/task.route");
-var hrProfileRoute = require("./routes/hr/profile.route");
-var path = require("path");
-var cors = require("cors");
+const AuthRoutes = require("./routes/auth.routes");
+const AccountRoutes = require("./routes/account.routes");
+const VacationRoutes = require("./routes/vacation.routes");
+const TaskRoutes = require("./routes/task.routes");
+const path = require("path");
+const cors = require("cors");
 const Auth = require("./middleware/auth.middleware");
-const AdminBroSetup = require("./adminbro/adminbro_setup");
 
 var app = express();
 
@@ -30,10 +25,6 @@ mongoose.connect(db.mongoURI, { useNewUrlParser: true })
 	})
 	.catch(err => console.log("MongoDB connection error", err));
 
-
-// Initialize AdminBro
-app.use(AdminBroSetup.adminBro.options.rootPath, AdminBroSetup.adminRouter);
-
 //API Routes
 app.use(cors());
 app.use(
@@ -41,14 +32,8 @@ app.use(
 	Auth("*"),
 	express.static(path.resolve(__dirname, "public"))
 );
-app.use("/api", accountRoute);
-app.use("/api/employee", Auth(["employee"]), [
-	employeeProfileRoute,
-	employeeVacationRoute,
-	employeeTaskRoute
-]);
-app.use("/api/hr", Auth("hr"), [hrVacationRoute, hrTaskRoute, hrProfileRoute]);
 
+app.use("/api", [AuthRoutes, AccountRoutes, VacationRoutes, TaskRoutes]);
 
 const PORT = process.env.PORT || 5000;
 app.on("ready", function () {

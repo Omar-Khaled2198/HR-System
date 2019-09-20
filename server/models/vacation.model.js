@@ -5,7 +5,7 @@ var VacationSchema = new Schema({
 
     requester:{
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Profile',
+        ref: 'Account',
         required:true
     },
     title: {
@@ -17,7 +17,7 @@ var VacationSchema = new Schema({
         type: String,
         required:true
     },
-    timestamp:{
+    created_at:{
         type:String,
         required:true
     },
@@ -33,7 +33,7 @@ var VacationSchema = new Schema({
         type:String,
         enum: ['Pending', 'Accepted','Rejected','Aborted'],
     },
-    rejection_reasons:{
+    note:{
         type:String
     }
 

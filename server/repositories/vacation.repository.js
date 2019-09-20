@@ -1,34 +1,34 @@
 const Vacation = require("../models/vacation.model");
-const ProfileRepository = require("./profile.repository");
 
 const Create = async function(body) {
 
 	try {
 		const vacation = new Vacation(body);
-        await vacation.save();
-        const query = {_id:vacation.requester};
-        const update = {$push:{"vacations":vacation._id}}
-        await ProfileRepository.Update(query,update);
-        return vacation;
+        return await vacation.save();
 	} catch (error) {
 		throw error.message;
 	}
 };
 
-const Get = async function(property) {
+const Get = async function(query) {
 
     try {
-        return await Vacation.find(property);
+        const vacation = await Vacation.findOne(query);
+        if(!vacation){
+            throw new Error("No Vacation Found.")
+        }
+        return vacation;
     } catch (error){
         throw error.message;
     }
 
+
 };
 
-const All = async function() {
+const All = async function(query) {
    
     try {
-        return await Vacation.find({});
+        return await Vacation.find(query);
     } catch(error){
         throw error.message;
     }
