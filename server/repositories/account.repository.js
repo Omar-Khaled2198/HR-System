@@ -14,9 +14,6 @@ const Get = async function(query) {
 
     try {
         const account = await Account.findOne(query);
-        if(!account){
-            throw new Error("No Account Found.")
-        }
         return account;
     } catch (error){
         throw error.message;
@@ -27,7 +24,7 @@ const Get = async function(query) {
 const All = async function(query) {
    
     try {
-        return await Task.find();
+        return await Account.find(query).select("-password");
     } catch(error){
         throw error.message;
     }

@@ -27,7 +27,10 @@ const Get = async function(query) {
 const All = async function(query) {
    
     try {
-        return await Task.find(query);
+        return await Task.find(query).populate(
+			"assigned_to",
+			"_id profile.first_name profile.last_name"
+		);
     } catch(error){
         throw error.message;
     }

@@ -81,7 +81,7 @@ const ForgetPasword = async function(req,res){
 const ResetPassword = async function(req,res){
 
     try{
-        const token = req.headers['x-access-token'];
+        const token = req.headers['authorization'];
         const decoded = await jwt.verify(token, configs.token_secret)
 
         const newPasswordHashed = bcrypt.hashSync(req.body.password, configs.saltRounds);

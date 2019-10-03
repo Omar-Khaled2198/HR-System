@@ -3,7 +3,8 @@
   "token_secret" : "noonecare",
   "saltRounds": 10,
   "mongodb": {
-    "mongoURI": "mongodb+srv://SCRAM:scram@cluster0-sdpth.mongodb.net/test?retryWrites=true&w=majority"
+    "atlas_uri": "mongodb+srv://SCRAM:scram@cluster0-sdpth.mongodb.net/test?retryWrites=true&w=majority",
+    "local_uri": "mongodb://localhost:27017/hrsystem"
   },
   "nodemailer":{
     "host": "smtp.mailtrap.io",

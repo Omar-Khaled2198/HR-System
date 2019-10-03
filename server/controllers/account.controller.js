@@ -28,7 +28,7 @@ const GetAllAccounts = async function (req,res){
 
     try{
         const accounts = await AccountRepository.All({});
-        res.status(200).send({accounts});
+        res.status(200).send(accounts);
 
     } catch(error){
         return res.status(400).send({msg: error});

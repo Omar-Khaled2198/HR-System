@@ -17,7 +17,10 @@ var TaskSchema = new Schema({
         required:true
     },
     create_at:{
-        type:String,
+        type: String,
+    },
+    start_at:{
+        type: String
     },
     deadline:{
         type:String,
@@ -25,8 +28,11 @@ var TaskSchema = new Schema({
     },
     status:{
         type:String,
-        enum: ["To Do", 'Done'],
+        enum: ["Active",'Suspended',"Done"],
     },
+    done: {
+        type: String,
+    }
 
 });
 

@@ -29,10 +29,16 @@ const GetVacation = async function (req,res){
 const GetAllVacations = async function (req,res){
 
     try{
+        
         var query = {}
-        if(req.query.account_id){
-            query = {requester: req.query.account_id};
+        if(req.query.requester){
+            query.requester = req.query.requester;
         }
+
+        if(req.query.status){
+            query.status = req.query.status
+        }
+
         const vacations = await VacationRepository.All(query);
         res.status(200).send(vacations);
 

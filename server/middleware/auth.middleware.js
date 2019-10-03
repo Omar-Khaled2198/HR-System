@@ -3,7 +3,7 @@ const configs = require("../configs");
 
 const Auth = function(roles) {
 	return function(req, res, next) {
-		const token = req.headers["x-access-token"];
+		const token = req.headers["authorization"];
 
 		if (!token) {
 			return res

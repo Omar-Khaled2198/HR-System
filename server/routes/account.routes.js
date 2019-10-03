@@ -26,6 +26,10 @@ router.delete(
 	Auth(["hr", "employee"]),
 	AccountController.DeleteAccount
 );
-//router.post('/accounts',Upload.single("profile_picture"),AccountController.UploadProfilePicture);
+router.post(
+	"/accounts/:account_id/profile_picture",
+	Upload.single("profile_picture"),
+	AccountController.UploadProfilePicture
+);
 
 module.exports = router;

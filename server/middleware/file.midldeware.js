@@ -3,10 +3,10 @@ var path = require("path")
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path.dirname(__dirname)+'/public/images/uploads')
+      cb(null, path.dirname(__dirname)+'/public/profile_pictures/uploads')
     },
     filename: (req, file, cb) => {
-      cb(null, req.accountId+path.extname(file.originalname))
+      cb(null, req.params.account_id+path.extname(file.originalname))
     }
 });
 

@@ -42,7 +42,7 @@ const ForgetPassword = [
 ]
 
 const ResetPassword = [
-	header("x-access-token").exists().not().isEmpty(),
+	header("authorization").exists().not().isEmpty(),
 	body("password")
 		.exists()
 		.isLength({ min: 8 })

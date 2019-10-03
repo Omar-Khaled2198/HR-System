@@ -29,7 +29,11 @@ const GetTask = async function (req,res){
 const GetAllTasks = async function (req,res){
 
     try{
-        const tasks = await TaskRepository.All({});
+        var query = {}
+        if(req.query.assigned_to){
+            query = {assigned_to: req.query.assigned_to};
+        }
+        const tasks = await TaskRepository.All(query);
         res.status(200).send(tasks);
 
     } catch(error){

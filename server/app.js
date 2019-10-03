@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const db = require("./configs").mongodb;
+const configs = require("./configs");
 const AuthRoutes = require("./routes/auth.routes");
 const AccountRoutes = require("./routes/account.routes");
 const VacationRoutes = require("./routes/vacation.routes");
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Database Connect
 mongoose.set("useCreateIndex", true);
 mongoose.set("useFindAndModify", false);
-mongoose.connect(db.mongoURI, { useNewUrlParser: true })
+mongoose.connect(configs.mongodb.atlas_uri, { useNewUrlParser: true })
 	.then(() => {
 		console.log("MongoDB Cluster connected");
 		app.emit("ready");
