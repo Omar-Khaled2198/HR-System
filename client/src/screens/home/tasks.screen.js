@@ -18,7 +18,7 @@ import {
 } from "native-base";
 import TaskToDoComponent from "../../components/task_todo.com";
 import TaskDoneComponent from "../../components/task_done.com";
-import TaskService from "../../services/task.service";
+import ServiceProvider from "../../utils/service_provider.utils";
 import Activity from "../../components/acitivity.com";
 class TasksScreen extends Component {
 	static navigationOptions = { header: null };
@@ -37,14 +37,14 @@ class TasksScreen extends Component {
 	}
 
 	async GetTasks(){
-		const response = await TaskService.GetTasks();
+		const response = await ServiceProvider.GET(`tasks?assigned_to=${global.account._id}`);
 		let tasksToDo = [];
 		let tasksDone = [];
 		if (response.status === 200) {
 			response.data.map(task => {
-				if (task.status === "To Do") {
+				if (task.status === "Active") {
 					tasksToDo.push(task);
-				} else {
+				} else if(task.status === "Done") {
 					tasksDone.push(task);
 				}
 			});
@@ -54,7 +54,7 @@ class TasksScreen extends Component {
 	};
 
 	async ChangeTaskStatus(id,index){
-		const response = await TaskService.ChangeTaskStatus(id);
+		const response = await ServiceProvider.PUT(`tasks/${id}`,{status:"Done"});
 		console.log(response);
 		if(response.status === 200){
 			let task = this.state.tasksToDo[index]

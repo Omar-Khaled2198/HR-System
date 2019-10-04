@@ -3,6 +3,9 @@ var AccountRepository = require("../repositories/account.repository");
 
 const CreateAccount = async function (req,res) {
 
+    if(req.body.profile.profile_picture==""){
+        req.body.profile.profile_picture = "/public/profile_pictures/default_profile_picture.png";
+    }
     try{
         const account = await AccountRepository.Create(req.body);
         res.status(200).send({...account._doc});
@@ -36,6 +39,10 @@ const GetAllAccounts = async function (req,res){
 }
 
 const UpdateAccount = async function (req,res){
+
+    if(req.body.profile.profile_picture===""){
+        req.body.profile.profile_picture = "/public/profile_pictures/default_profile_picture.png";
+    }
 
     try{
         const query = {_id:req.params.account_id};

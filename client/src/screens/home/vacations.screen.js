@@ -15,7 +15,7 @@ import {
 	Text
 } from "native-base";
 import VacationComponent from "../../components/vacation.com";
-import VacationService from "../../services/vacation.service";
+import ServiceProvider from "../../utils/service_provider.utils";
 import Activity from "../../components/acitivity.com";
 
 class VacationScreen extends Component {
@@ -34,7 +34,7 @@ class VacationScreen extends Component {
 	}
 
 	GetVacations = async () => {
-		const response = await VacationService.GetVacations();
+		const response = await ServiceProvider.GET(`vacations?requester=${global.account._id}`);
 		if (response.status === 200) {
 			this.setState({ vacations: response.data, loading: false });
 		}
@@ -53,8 +53,13 @@ class VacationScreen extends Component {
 				{
 					text: "OK",
 					onPress: async () => {
-						const response = await VacationService.AbortVacation(vacation_id);
-						Alert.alert("Abort Vacation", response.data.msg);
+						const response = await ServiceProvider.PUT(`vacations/${vacation_id}`,{status:"Aborted"});
+						if(response.status == 200){
+							Alert.alert("Abort Vacation", "Request aborted successfully");
+						} else {
+							Alert.alert("Abort Vacation", "Something went wrong.");
+						}
+						
 					}
 				}
 			],

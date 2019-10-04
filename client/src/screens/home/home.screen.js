@@ -32,6 +32,7 @@ class HomeScreen extends Component {
                     <Right style={{flex: 1}}/>
                 </Header>
                 <Content>
+                    <Text>Hi, {global.account.profile.first_name}</Text>
                     {/* <Activity loading={true}/> */}
                     {/* <Spinner visible={true} /> */}
                 </Content>

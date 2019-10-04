@@ -1,5 +1,6 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
+import moment from 'moment';
 import {
     Container,
     Header,
@@ -35,7 +36,7 @@ const TaskToDoComponent = (props) => {
                         {props.data.description}
                     </Text>
                     <Text style={{color: "red"}}>
-                        Deadline: {props.data.deadline}
+                        Deadline: {moment(props.data.deadline).format('YYYY/MM/DD h:mm a')}
                     </Text>
                 </View>
             }

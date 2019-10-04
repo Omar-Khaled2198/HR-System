@@ -17,6 +17,7 @@ import ChatScreen from "../screens/home/chat.screen";
 import ForgetPasswordScreen from "../screens/auth/forget_password.screen";
 import ProfileCreationScreen from "../screens/form/profile_creation.screen";
 import SettingsScreen from "../screens/settings/setting.screen";
+import LogoutScreen from "../screens/auth/logout.screen";
 
 const VacationsStack = createStackNavigator({
     Vacations: {
@@ -106,10 +107,11 @@ const HomeDrawerNavigator = createDrawerNavigator({
         }
     },
     Logout: {
-        screen: AuthNavigator,
+        screen: LogoutScreen,
         navigationOptions: {
-            drawerIcon: ({tintColor}) => (<Ionicons name='md-exit' size={25} color={tintColor}/>)
-        }
+            drawerIcon: ({tintColor}) => (<Ionicons name='md-exit' size={25} color={tintColor}/>),
+
+        },
     }
 })
 

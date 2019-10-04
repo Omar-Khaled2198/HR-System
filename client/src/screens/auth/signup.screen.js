@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Text, View, StyleSheet} from 'react-native'
 import {Container, Button, Content, Form, Item, Input, Label} from 'native-base';
-import AccountService from '../../services/account.service';
 import {SetAccountGlobal} from '../../utils/global.util';
+import ServiceProvider from '../../utils/service_provider.utils';
 
 class SignUpScreen extends Component {
 
@@ -23,7 +23,10 @@ class SignUpScreen extends Component {
         if (this.state.email === "" || this.state.password === "") {
             this.setState({error: "Email and password can't be empty!"})
         } else {
-            const response = await AccountService.SignUp(this.state.email, this.state.password);
+            const response = await ServiceProvider.POST("sign_up",{
+                email: this.state.email, 
+                password: this.state.password
+            });
             if (response.status !== 200) {
                 this.setState({error: response.data.msg});
             } else {

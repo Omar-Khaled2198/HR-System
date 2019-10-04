@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import {Card, CardItem, Body, Text} from "native-base";
 
 const TaskDoneComponent = (props) => (
@@ -13,7 +14,10 @@ const TaskDoneComponent = (props) => (
                     {props.data.description}
                 </Text>
                 <Text style={{color: "green"}}>
-                    Deadline: {props.data.deadline}
+                    Deadline: {moment(props.data.deadline).format('YYYY/MM/DD h:mm a')}
+                </Text>
+                <Text style={{color: "green"}}>
+                    Done: {moment(props.data.done).format('YYYY/MM/DD h:mm a')}
                 </Text>
             </Body>
         </CardItem>

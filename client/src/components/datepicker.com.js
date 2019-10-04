@@ -9,7 +9,8 @@ const DatePickerComponent = (props) => (
         mode="date"
         date={props.date}
         placeholder={props.placeholder}
-        format="YYYY-MM-DD"
+        format="YYYY/MM/DD h:mm a"
+        mode = "datetime"
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
         customStyles={{
