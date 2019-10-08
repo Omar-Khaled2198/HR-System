@@ -24,15 +24,15 @@ class UserProfile extends Component {
             account = this.props.history.location.state.data
         } else {
             const response = await ServiceProvider.GET(
-                `${API_BASE_URL}/accounts/${this.props.match.params.id}`
+                `/accounts/${this.props.match.params.id}`
             );
             account = response.data;
         }
         const vacations_response = await ServiceProvider.GET(
-            `${API_BASE_URL}/vacations?requester=${this.props.match.params.id}`
+            `/vacations?requester=${this.props.match.params.id}`
         )
         const tasks_response = await ServiceProvider.GET(
-            `${API_BASE_URL}/tasks?assigned_to=${this.props.match.params.id}`
+            `/tasks?assigned_to=${this.props.match.params.id}`
         )
         this.setState({
             account: account,

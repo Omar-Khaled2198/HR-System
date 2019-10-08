@@ -19,7 +19,7 @@ class VacationRespond extends Component {
 		if(this.props.history.location.state){
 			request = this.props.history.location.state.request;
 		} else {
-			const response = await ServiceProvider.GET(`${API_BASE_URL}/vacations/${this.props.match.params.id}`);
+			const response = await ServiceProvider.GET(`/vacations/${this.props.match.params.id}`);
 			request = response.data
 		}
 		this.setState({
@@ -103,7 +103,7 @@ class VacationRespond extends Component {
 							<div className="box-footer">
 								<button
 									onClick={() => this.UpdateVacation()}
-									className="btn btn-primary"
+									className="btn btn-primary pull-right"
 								>
 									Submit
 								</button>

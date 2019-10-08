@@ -13,7 +13,10 @@ const Create = async function(body) {
 const Get = async function(query) {
 
     try {
-        const task = await Task.findOne(query);
+        const task = await Task.findOne(query).populate(
+			"assigned_to",
+			"_id profile.first_name profile.last_name"
+		);
         if(!task){
             throw new Error("No Task Found.")
         }

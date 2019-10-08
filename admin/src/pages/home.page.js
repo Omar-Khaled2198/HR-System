@@ -12,6 +12,8 @@ import UserCreate from '../components/users/user_create.com';
 import VacationRespond from '../components/vacations/vacation_respond.com';
 import TaskCreate from '../components/tasks/task_create.com';
 import TaskUpdate from '../components/tasks/task_update.com';
+import TaskView from '../components/tasks/task_view.com';
+import VacationView from '../components/vacations/vacation_view.com';
 
 class HomePage extends Component {
     
@@ -35,7 +37,9 @@ class HomePage extends Component {
                         <Route exact path={'/admin/users/new'} component={UserCreate}/>
                         <Route exact path={'/admin/vacations'} component={VacationsTabs} />
                         <Route exact path={'/admin/vacations/:id/update'} component={(props)=><VacationRespond {...props}/>}/>
+                        <Route exact path={'/admin/vacations/:id/view'} component={VacationView}/>
                         <Route exact path={'/admin/tasks'} component={TasksTabs} />
+                        <Route exact path={'/admin/tasks/:id/view'} component={TaskView} />
                         <Route exact path={'/admin/tasks/new'} component={TaskCreate} />
                         <Route exact path={'/admin/tasks/:id/update'} component={(props)=><TaskUpdate {...props}/>}/>
 

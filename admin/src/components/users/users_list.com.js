@@ -16,7 +16,7 @@ class UsersList extends Component {
 
 	async componentDidMount() {
 		const response = await ServiceProvider.GET(
-			`${API_BASE_URL}/accounts`
+			`/accounts`
 		);
 		if (response.status == 200) {
 			this.setState({ accounts: response.data,is_loading:false });

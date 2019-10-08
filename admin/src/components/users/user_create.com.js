@@ -16,7 +16,6 @@ class UserCreate extends Component {
 	}
 
 	async CreateAccount() {
-		//const response = await ServiceProvider.POST(`${API_BASE_URL}/accounts/${}`)
 		const account = {
 			email: this.state.email,
 			password: this.state.password,
@@ -27,7 +26,7 @@ class UserCreate extends Component {
 				job_title: this.state.job_title
 			}
 		};
-		const response = await ServiceProvider.POST(`${API_BASE_URL}/accounts`,account);
+		const response = await ServiceProvider.POST(`/accounts`,account);
 		if(response.status == 200){
 			this.props.history.push(`/admin/users/${response.data._id}/profile`);
 		}

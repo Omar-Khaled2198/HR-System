@@ -18,7 +18,7 @@ class TaskUpdate extends Component {
 		if(this.props.history.location.state){
 			task = this.props.history.location.state.data;
 		} else {
-			const response = await ServiceProvider.GET(`${API_BASE_URL}/tasks/${this.props.match.params.id}`);
+			const response = await ServiceProvider.GET(`/tasks/${this.props.match.params.id}`);
 			task = response.data
 		}
 		this.setState({
@@ -30,7 +30,7 @@ class TaskUpdate extends Component {
 
 	async UpdateTask() {
 
-        const response = await ServiceProvider.PUT(`${API_BASE_URL}/tasks/${this.state.task._id}`,this.state.task);
+        const response = await ServiceProvider.PUT(`/tasks/${this.state.task._id}`,this.state.task);
         this.props.history.push("/admin/tasks")
     }
     

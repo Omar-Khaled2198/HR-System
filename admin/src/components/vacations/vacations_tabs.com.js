@@ -19,7 +19,7 @@ class VacationsTabs extends Component {
 
 	async componentDidMount() {
 		const response = await ServiceProvider.GET(
-			`${API_BASE_URL}/vacations`
+			`/vacations`
 		);
 		const vacations = response.data;
 		var history = [],

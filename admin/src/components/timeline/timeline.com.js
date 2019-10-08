@@ -71,7 +71,7 @@ class Timeline extends Component {
 				</section>
 				<section className="content">
 					<div className="row">
-						<div className="col-md-9">
+						<div className="col-md-12">
 							<ul className="timeline">
 								<li className="time-label">
 									<DatePicker

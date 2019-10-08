@@ -56,7 +56,7 @@ class VacationScreen extends Component {
 					onPress: async () => {
 						const response = await ServiceProvider.PUT(`vacations/${vacation_id}`,{status:"Aborted"});
 						if(response.status == 200){
-							Events("aborted a vacation request");
+							Events({msg:"aborted a vacation.",id:response.data._id,resource:"vacations"});
 							Alert.alert("Abort Vacation", "Request aborted successfully");
 						} else {
 							Alert.alert("Abort Vacation", "Something went wrong.");

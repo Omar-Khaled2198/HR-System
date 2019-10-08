@@ -21,7 +21,7 @@ class TasksTabs extends Component{
 
 	async componentDidMount() {
 		const response = await ServiceProvider.GET(
-			`${API_BASE_URL}/tasks`
+			`/tasks`
 		);
 		const tasks = response.data;
 		var current_tasks = [],

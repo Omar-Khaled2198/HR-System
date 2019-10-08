@@ -11,7 +11,10 @@ const Create = async function(body) {
 
 const Get = async function(query) {
 	try {
-		const vacation = await Vacation.findOne(query);
+		const vacation = await Vacation.findOne(query).populate(
+			"requester",
+			"_id profile.first_name profile.last_name"
+		);
 		if (!vacation) {
 			throw new Error("No Vacation Found.");
 		}

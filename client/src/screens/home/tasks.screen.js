@@ -57,7 +57,7 @@ class TasksScreen extends Component {
 	async ChangeTaskStatus(id,index){
 		const response = await ServiceProvider.PUT(`tasks/${id}`,{status:"Done"});
 		if(response.status === 200){
-			Events("marked a task as done.");
+			Events({msg:"marked a task as done.",id:response.data._id,resource:"tasks"});
 			let tasksToDo = this.state.tasksToDo.filter(item => item._id !== id)
 			console.log(2);
 			let tasksDone = [...this.state.tasksDone,response.data]	

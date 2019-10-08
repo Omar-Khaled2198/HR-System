@@ -27,7 +27,7 @@ class LoginPage extends Component {
 			email: this.state.email,
 			password: this.state.password
 		}
-		const response = await ServiceProvider.POST(`${API_BASE_URL}/sign_in`,user);
+		const response = await ServiceProvider.POST(`/sign_in`,user);
 		if(response.status == 200){
 			localStorage.setItem("account",JSON.stringify(response.data));
 			axios.defaults.headers.common['authorization'] = response.data.token;

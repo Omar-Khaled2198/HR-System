@@ -54,7 +54,7 @@ class VacationCreationScreen extends Component {
 			});
 			this.setState({loading:false})
 			if(response.status == 200){
-				Events("requested a vacation.");
+				Events({msg:"requested a vacation.",id:response.data._id,resource:"vacations"});
 				Alert.alert("Request Vacation", "Vacation requested successfully.");
 			}
 			

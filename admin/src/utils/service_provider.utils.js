@@ -1,4 +1,5 @@
 import axios from "axios";
+import {API_BASE_URL} from "./constants.utils";
 
 axios.interceptors.request.use(
 	config => {
@@ -17,9 +18,9 @@ axios.interceptors.request.use(
 
 const ServiceProvider = {
 
-	GET: async function(url, headers) {
+	GET: async function(resource, headers) {
 		try {
-			return await axios.get(url,{
+			return await axios.get(`${API_BASE_URL}/${resource}`,{
 				headers
 			});
 		} catch (error) {
@@ -27,10 +28,10 @@ const ServiceProvider = {
 		}
 	},
 
-	POST: async function(url, object, headers ) {
+	POST: async function(resource, object, headers ) {
 		
 		try {
-			return await axios.post(url, object,{
+			return await axios.post(`${API_BASE_URL}/${resource}`, object,{
 				headers
 			});
 		} catch (error) {
@@ -38,9 +39,9 @@ const ServiceProvider = {
 		}
 	},
 
-	PUT: async function(url, object, headers) {
+	PUT: async function(resource, object, headers) {
 		try {
-			return await axios.put(url, object,{
+			return await axios.put(`${API_BASE_URL}/${resource}`, object,{
 				headers
 			});
 		} catch (error) {
@@ -48,7 +49,7 @@ const ServiceProvider = {
 		}
 	},
 
-	Delete: async function(url, headers) {}
+	Delete: async function(resource, headers) {}
 };
 
 export default ServiceProvider;

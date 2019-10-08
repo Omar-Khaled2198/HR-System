@@ -25,6 +25,7 @@ function VacationCard(props) {
 						<p>{request.description}</p>
 					</div>
 				</dl>
+				<Link to={`/admin/vacations/${request._id}/view`}>View</Link>
 				<Link to={{
 					pathname: `/admin/vacations/${request._id}/update`,
 					state: {

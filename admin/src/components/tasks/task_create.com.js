@@ -20,7 +20,7 @@ class TaskCreate extends Component {
 	}
 
 	async componentDidMount() {
-        const response = await ServiceProvider.GET(`${API_BASE_URL}/accounts`);
+        const response = await ServiceProvider.GET(`/accounts`);
         this.setState({accounts:response.data,is_loading:false});
 	}
 
@@ -34,7 +34,7 @@ class TaskCreate extends Component {
             status: this.state.status
         }
 
-        const response = await ServiceProvider.POST(`${API_BASE_URL}/tasks`,task);
+        const response = await ServiceProvider.POST(`/tasks`,task);
         console.log(response);
         this.props.history.push("/admin/tasks")
     }
