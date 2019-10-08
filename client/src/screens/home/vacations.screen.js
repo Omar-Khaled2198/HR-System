@@ -17,6 +17,7 @@ import {
 import VacationComponent from "../../components/vacation.com";
 import ServiceProvider from "../../utils/service_provider.utils";
 import Activity from "../../components/acitivity.com";
+import Events from "../../utils/events.util";
 
 class VacationScreen extends Component {
 	static navigationOptions = { header: null };
@@ -55,6 +56,7 @@ class VacationScreen extends Component {
 					onPress: async () => {
 						const response = await ServiceProvider.PUT(`vacations/${vacation_id}`,{status:"Aborted"});
 						if(response.status == 200){
+							Events("aborted a vacation request");
 							Alert.alert("Abort Vacation", "Request aborted successfully");
 						} else {
 							Alert.alert("Abort Vacation", "Something went wrong.");

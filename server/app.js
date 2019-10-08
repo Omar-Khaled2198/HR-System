@@ -9,7 +9,7 @@ const TaskRoutes = require("./routes/task.routes");
 const path = require("path");
 const cors = require("cors");
 const Auth = require("./middleware/auth.middleware");
-
+const Events = require("./middleware/events.middleware");
 var app = express();
 
 app.use(bodyParser.json());
@@ -33,7 +33,9 @@ app.use(
 	express.static(path.resolve(__dirname, "public"))
 );
 
+// app.use(Events);
 app.use("/api", [AuthRoutes, AccountRoutes, VacationRoutes, TaskRoutes]);
+
 
 const PORT = process.env.PORT || 5000;
 app.on("ready", function () {

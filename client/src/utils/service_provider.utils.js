@@ -4,7 +4,6 @@ import { API_BASE_URL } from "./constants.util";
 axios.interceptors.request.use(
 	config => {
 		if (global.account != null && global.account.token !== "") {
-			console.log("TCL: global.account", global.account);
 			config.headers["authorization"] = global.account.token;
 		}
 

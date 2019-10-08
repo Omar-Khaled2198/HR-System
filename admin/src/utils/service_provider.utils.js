@@ -1,11 +1,5 @@
 import axios from "axios";
 
-if(localStorage.getItem("account")){
-	const account = JSON.parse(localStorage.getItem("account"));
-    console.log("TCL: localStorage");
-	axios.defaults.headers.common['authorization'] = account.token;
-}
-
 axios.interceptors.request.use(
 	config => {
 		if(localStorage.getItem("account")){

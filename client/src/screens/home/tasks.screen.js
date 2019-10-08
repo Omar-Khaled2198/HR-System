@@ -20,6 +20,7 @@ import TaskToDoComponent from "../../components/task_todo.com";
 import TaskDoneComponent from "../../components/task_done.com";
 import ServiceProvider from "../../utils/service_provider.utils";
 import Activity from "../../components/acitivity.com";
+import Events from "../../utils/events.util";
 class TasksScreen extends Component {
 	static navigationOptions = { header: null };
 
@@ -55,11 +56,12 @@ class TasksScreen extends Component {
 
 	async ChangeTaskStatus(id,index){
 		const response = await ServiceProvider.PUT(`tasks/${id}`,{status:"Done"});
-		console.log(response);
 		if(response.status === 200){
-			let task = this.state.tasksToDo[index]
+			Events("marked a task as done.");
 			let tasksToDo = this.state.tasksToDo.filter(item => item._id !== id)
-			let tasksDone = [...this.state.tasksDone,task]	
+			console.log(2);
+			let tasksDone = [...this.state.tasksDone,response.data]	
+			console.log(3);
 			this.setState({tasksToDo,tasksDone})
 			Alert.alert(
                 "Success",
@@ -87,7 +89,7 @@ class TasksScreen extends Component {
 								data={this.state.tasksToDo}
 								keyExtractor={(item, index) => item._id}
 								renderItem={({ item,index }) => (
-									<TaskToDoComponent data={item} done={this.ChangeTaskStatus} index={index}/>
+									<TaskToDoComponent data={item} done={this.ChangeTaskStatus.bind(this)} index={index}/>
 								)}
 							/>
 						)}

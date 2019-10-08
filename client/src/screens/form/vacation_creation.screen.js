@@ -19,6 +19,7 @@ import {
 import DatePickerComponent from "../../components/datepicker.com";
 import Spinner from "react-native-loading-spinner-overlay";
 import ServiceProvider from "../../utils/service_provider.utils";
+import Events from "../../utils/events.util";
 
 class VacationCreationScreen extends Component {
 	static navigationOptions = {
@@ -53,6 +54,7 @@ class VacationCreationScreen extends Component {
 			});
 			this.setState({loading:false})
 			if(response.status == 200){
+				Events("requested a vacation.");
 				Alert.alert("Request Vacation", "Vacation requested successfully.");
 			}
 			

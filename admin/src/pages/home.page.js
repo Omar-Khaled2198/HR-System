@@ -16,6 +16,9 @@ import TaskUpdate from '../components/tasks/task_update.com';
 class HomePage extends Component {
     
 
+    async componentDidMount(){
+        
+    }
     render() {
         return (
 

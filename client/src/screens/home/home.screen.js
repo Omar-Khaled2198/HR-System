@@ -2,10 +2,13 @@ import React, {Component} from 'react'
 import {StyleSheet} from 'react-native'
 import {Container, Header, Title, Right, Content, Button, Icon, Left, Body, Text} from "native-base";
 import {GetProfileService} from '../../services/profile.service';
-
+import moment from 'moment';
 import {UploadProfilePictureService} from '../../services/profile.service';
 import Activity from '../../components/acitivity.com';
 import Spinner from 'react-native-loading-spinner-overlay';
+import FirebaseHandler from '../../utils/firebase_handler.util';
+import Events from '../../utils/events.util';
+
 class HomeScreen extends Component {
 
     static navigationOptions = {header: null};
@@ -13,6 +16,10 @@ class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+    }
+
+    componentDidMount(){
+        
     }
 
     render() {

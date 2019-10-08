@@ -12,6 +12,7 @@ import {
 import ServiceProivder from "../../utils/service_provider.utils";
 import { SetAccountGlobal } from "../../utils/global.util";
 import StorageManger from "../../utils/storage_manager.utils";
+import FirebaseHandler from "../../utils/firebase_handler.util";
 
 class LoginScreen extends Component {
 	static navigationOptions = { header: null };
@@ -19,8 +20,8 @@ class LoginScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: "",
-			password: "",
+			email: "omar2@gmail.com",
+			password: "123456789",
 			error: "",
 			loading: true
 		};
@@ -50,6 +51,8 @@ class LoginScreen extends Component {
 				this.setState({ error: response.data.msg });
 			} else {
 				SetAccountGlobal(response.data);
+				await FirebaseHandler.Authenticate();
+				
 				await StorageManger.Store("account", response.data);
 				if (Object.keys(response.data.profile).length==0) {
 					this.props.navigation.navigate("ProfileCreation");

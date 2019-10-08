@@ -13,5 +13,8 @@
       "user": "439ba010f941ae",
       "pass": "fcb7ad97bdd608"
     }
+  },
+  "firebase":{
+    "databaseURL": "https://hr-system-b21d8.firebaseio.com"
   }
 }
