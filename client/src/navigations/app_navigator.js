@@ -13,7 +13,7 @@ import HomeScreen from "../screens/home/home.screen";
 import VacationScreen from "../screens/home/vacations.screen";
 import VacationCreationScreen from "../screens/form/vacation_creation.screen";
 import TasksScreen from "../screens/home/tasks.screen";
-import ChatScreen from "../screens/home/chat.screen";
+import FeedbackScreen from "../screens/home/feedback.screen";
 import ForgetPasswordScreen from "../screens/auth/forget_password.screen";
 import ProfileCreationScreen from "../screens/form/profile_creation.screen";
 import SettingsScreen from "../screens/settings/setting.screen";
@@ -61,8 +61,8 @@ const HomeNavigator = createBottomTabNavigator({
             tabBarIcon: ({tintColor}) => (<Ionicons name='ios-code-working' size={25} color={tintColor}/>)
         }
     },
-    Chat: {
-        screen: ChatScreen,
+    Feedback: {
+        screen: FeedbackScreen,
         navigationOptions: {
             tabBarIcon: ({tintColor}) => (<Ionicons name='ios-chatboxes' size={25} color={tintColor}/>)
         }

@@ -77,7 +77,7 @@ class TaskView extends Component {
 											<dd>
 												{this.state.vacation.status}
 											</dd>
-											{this.state.task.status ==
+											{this.state.task.status ===
 												"Done" && (
 												<div>
 													<dt>Done Date</dt>

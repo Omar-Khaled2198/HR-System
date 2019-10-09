@@ -82,7 +82,7 @@ class VacationView extends Component {
 												{this.state.vacation.status}
 											</dd>
 											<br />
-											{this.state.vacation.status ==
+											{this.state.vacation.status ===
 												"Rejected" && (
 												<div>
 													<dt>Note</dt>

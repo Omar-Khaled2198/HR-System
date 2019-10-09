@@ -19,7 +19,7 @@ class UsersList extends Component {
 			`/accounts`
 		);
 		if (response.status == 200) {
-			this.setState({ accounts: response.data,is_loading:false });
+			this.setState({ accounts: response.data.filter(account=>account.profile),is_loading:false });
 		}
 	}
 

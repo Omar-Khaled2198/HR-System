@@ -1,5 +1,4 @@
 import React from 'react'
-import VacationAccept from '../modals/vacation_accept.com'
 import {Link} from "react-router-dom"
 function VacationCard(props) {
 

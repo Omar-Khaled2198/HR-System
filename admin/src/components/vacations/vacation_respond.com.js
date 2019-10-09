@@ -29,7 +29,16 @@ class VacationRespond extends Component {
 	}
 
 	async UpdateVacation() {
-		console.log(this.state.status, this.state.note);
+		const response = await ServiceProvider.PUT(`/vacations/${this.props.match.params.id}`,{
+			status:this.state.status,
+			note:this.state.note
+		})
+		console.log(response);
+		if(response.status == 200){
+			this.props.history.push("/admin/vacations");
+		} else {
+			console.log(response);
+		}
 	}
 
 	render() {

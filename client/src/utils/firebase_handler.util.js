@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import configs from "../../configs.json";
+import moment from "moment";
 
 const Firebase = firebase.initializeApp(configs.firebase);
 
@@ -15,6 +16,14 @@ const FirebaseHandler = {
 
     Read: function(url, callback){
         Firebase.database().ref(url).on('value',callback);
+    },
+
+    ReadOnce: async function(url){
+        return await Firebase.database().ref(url).once('value');
+    },
+
+    Listen: function(url,callback){
+        Firebase.database().ref(url).orderByChild('at').startAt(moment().unix()).on('child_added', callback);
     }
 }
 

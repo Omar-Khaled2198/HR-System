@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Table from '../tables/table.com';
-import Chat from './chat/chat.com';
+import Feedback from './feedback/feedback.com';
 import ServiceProvider from '../../utils/service_provider.utils';
 import { API_BASE_URL } from '../../utils/constants.utils';
 import TableMapper from '../../utils/table_mapper.utils';
@@ -71,7 +71,7 @@ class UserProfile extends Component {
                             </div>
                         </div>
                         <div className="col-md-9">
-                            <Chat/>
+                            <Feedback user={this.state.account._id}/>
                         </div>
                         
                     </div>

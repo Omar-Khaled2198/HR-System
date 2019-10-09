@@ -15,7 +15,7 @@ const TableMapper = function(table_name) {
 					Header: "Requester",
 					accessor: d => {
 						return (
-							<Link to={`/admin/user/${d.requester._id}/profile`}>
+							<Link to={`/admin/users/${d.requester._id}/profile`}>
 								{
 									d.requester.profile.first_name +
 									" " +
@@ -76,7 +76,7 @@ const TableMapper = function(table_name) {
 					Header: "Assigned To",
 					accessor: d => {
 						return (
-							<Link to={`/admin/user/${d.assigned_to._id}/profile`}>
+							<Link to={`/admin/users/${d.assigned_to._id}/profile`}>
 								{
 									d.assigned_to.profile.first_name +
 									" " +

@@ -53,7 +53,7 @@ class TasksTabs extends Component{
 					  <div className="col-md-12">
 						  <div className="nav-tabs-custom" style={{background:"transparent",boxShadow:"none"}}>
 							  <ul className="nav nav-tabs">
-								  <li className="active"><a href="#tab_1" data-toggle="tab">In Progress</a></li>
+								  <li className="active"><a href="#tab_1" data-toggle="tab">Tasks</a></li>
 								  <li><a href="#tab_2" data-toggle="tab">History</a></li>
 							  </ul>
 							  <div className="tab-content" style={{background:"transparent"}} >

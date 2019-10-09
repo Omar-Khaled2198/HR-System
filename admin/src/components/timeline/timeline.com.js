@@ -6,6 +6,7 @@ import moment from "moment";
 import FirebaseHandler from "../../utils/firebase_handler.util";
 
 class Timeline extends Component {
+	
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,8 +20,6 @@ class Timeline extends Component {
 
 		await this.GetTimelineEvents();
 		this.ListenToEvents();
-		
-		
 	}
 
 	async GetTimelineEvents(){
@@ -49,7 +48,7 @@ class Timeline extends Component {
 		const CustomDatePickerInput = ({ value, onClick }) => (
 			<span
 				className={`${
-					moment(value).format("DD-MM-YYYY") ==
+					moment(value).format("DD-MM-YYYY") ===
 					moment(new Date()).format("DD-MM-YYYY")
 						? "bg-primary"
 						: "bg-red"
