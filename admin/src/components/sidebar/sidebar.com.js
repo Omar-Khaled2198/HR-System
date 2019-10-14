@@ -30,6 +30,15 @@ function SideBar() {
                     	<SingleItem icon="fa fa-users" name="Users" to="/admin/users"/>
                    		<SingleItem icon="fa fa-pause" name="Vacations" to="/admin/vacations"/>
 						<SingleItem icon="fa fa-tasks" name="Tasks" to="/admin/tasks"/>
+						<TreeItem icon="fa fa-gear" name="Settings" tree_items={[{
+							name: "Work Time",
+							icon: "fa fa-clock-o",
+							to: "/admin/time/update"
+						},{
+							name: "Coordinates",
+							icon: "fa fa-map-marker",
+							to: "/admin/coordinates/update"
+						}]}/>
                     {/* <SingleItemComponent icon="fa fa-tasks" name="Tasks"/> */}
                   	</ul>
                 </section>

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Moment from "moment";
 
-const TableMapper = function(table_name) {
+const TableMapper = function(table_name,hide=[]) {
 	switch (table_name) {
 		case "VACATIONS":
 			return [
@@ -10,20 +10,22 @@ const TableMapper = function(table_name) {
 					Header: "Title",
 					accessor: "title"
 				},
-				{
+				!hide.includes("Requester")?{
 					id: "requester _id",
 					Header: "Requester",
 					accessor: d => {
-						return (
-							<Link to={`/admin/users/${d.requester._id}/profile`}>
-								{
-									d.requester.profile.first_name +
-									" " +
-									d.requester.profile.last_name}
-							</Link>
-						);
-					}
-				},
+						if(d.requester.profile!=="undefined"){
+							return (
+								<Link to={`/admin/users/${d.requester._id}/profile`}>
+									{
+										d.requester.profile.first_name +
+										" " +
+										d.requester.profile.last_name}
+								</Link>
+							);
+						}
+					},
+				}:{show:false},
 				{
 					Header: "From",
 					accessor: "from",
@@ -71,20 +73,23 @@ const TableMapper = function(table_name) {
 					Header: "Title",
 					accessor: "title"
 				},
-				{
+				!hide.includes("Assigned_To")?{
 					id: "assigned_to _id",
 					Header: "Assigned To",
 					accessor: d => {
-						return (
-							<Link to={`/admin/users/${d.assigned_to._id}/profile`}>
-								{
-									d.assigned_to.profile.first_name +
-									" " +
-									d.assigned_to.profile.last_name}
-							</Link>
-						);
-					}
-				},
+						if(d.assigned_to.profile!=="undefined"){
+							return (
+								<Link to={`/admin/users/${d.assigned_to._id}/profile`}>
+									{
+										d.assigned_to.profile.first_name +
+										" " +
+										d.assigned_to.profile.last_name}
+								</Link>
+							);
+						}
+						
+					},
+				}:{show:false},
 				{
 					Header: "Description",
 					accessor: "description"

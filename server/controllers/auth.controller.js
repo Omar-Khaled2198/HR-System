@@ -1,9 +1,13 @@
 const AccountRepository = require("../repositories/account.repository");
+const AccountModel = require("../models/account.model");
 var SendEmail = require("../utils/mailhandler.util");
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const configs = require("../configs.json");
 const Firebase = require("../utils/firebase.util");
+
+
+const AccountRepositoryInstance = new AccountRepository(AccountModel);
 
 const SignUp = async function(req, res) {
 	try {
@@ -12,7 +16,7 @@ const SignUp = async function(req, res) {
 			configs.saltRounds
 		);
 		req.body.role = "employee";
-		const account = await AccountRepository.Create(req.body);
+		const account = await AccountRepositoryInstance.Create(req.body);
         const token = jwt.sign({ ...account._doc }, configs.token_secret);
         const accountJSON = account.toJSON();
         accountJSON.firebase_token = await GenerateFirebaseToken(account); 
@@ -27,7 +31,7 @@ const SignUp = async function(req, res) {
 
 const SignIn = async function(req, res) {
 	try {
-		const account = await AccountRepository.Get({ email: req.body.email });
+		const account = await AccountRepositoryInstance.Get({ email: req.body.email });
 		if (!account) {
 			return res
 				.status(404)
@@ -63,7 +67,7 @@ const SignIn = async function(req, res) {
 
 const ForgetPasword = async function(req, res) {
 	try {
-		const account = await AccountRepository.Get({ email: req.body.email });
+		const account = await AccountRepositoryInstance.Get({ email: req.body.email });
 		const token = jwt.sign({ ...account._doc }, configs.token_secret);
 		const locals = {
 			name: account.first_name,
@@ -96,11 +100,12 @@ const ResetPassword = async function(req, res) {
 			req.body.password,
 			configs.saltRounds
 		);
-		var account = await AccountRepository.Get({ email: decoded.email });
-		account.password = newPasswordHashed;
 
+		const query = {_id:req.params.account_id};
+		const update = {$set:{"password":newPasswordHashed}};
+	
 		try {
-			await AccountRepository.Update(account._id, account);
+			await AccountRepositoryInstance.Update(query, update);
 			return res
 				.status(200)
 				.send({ msg: "Password is reset successfully." });

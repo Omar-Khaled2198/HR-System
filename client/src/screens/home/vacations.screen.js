@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, FlatList, Alert } from "react-native";
+import { StyleSheet, FlatList, View, Alert } from "react-native";
 import {
 	Container,
 	Header,
@@ -12,12 +12,16 @@ import {
 	Card,
 	CardItem,
 	Body,
-	Text
+	Text,
+	Badge,
+	List,
+	ListItem
 } from "native-base";
 import VacationComponent from "../../components/vacation.com";
 import ServiceProvider from "../../utils/service_provider.utils";
 import Activity from "../../components/acitivity.com";
 import Events from "../../utils/events.util";
+import moment from "moment";
 
 class VacationScreen extends Component {
 	static navigationOptions = { header: null };
@@ -35,9 +39,14 @@ class VacationScreen extends Component {
 	}
 
 	GetVacations = async () => {
-		const response = await ServiceProvider.GET(`vacations?requester=${global.account._id}`);
+		const response = await ServiceProvider.GET(
+			`vacations?requester=${global.account._id}`
+		);
 		if (response.status === 200) {
-			this.setState({ vacations: response.data, loading: false });
+			this.setState({
+				vacations: response.data.reverse(),
+				loading: false
+			});
 		}
 	};
 
@@ -54,14 +63,26 @@ class VacationScreen extends Component {
 				{
 					text: "OK",
 					onPress: async () => {
-						const response = await ServiceProvider.PUT(`vacations/${vacation_id}`,{status:"Aborted"});
-						if(response.status == 200){
-							Events({msg:"aborted a vacation.",id:response.data._id,resource:"vacations"});
-							Alert.alert("Abort Vacation", "Request aborted successfully");
+						const response = await ServiceProvider.PUT(
+							`vacations/${vacation_id}`,
+							{ status: "Aborted" }
+						);
+						if (response.status == 200) {
+							Events({
+								msg: "aborted a vacation.",
+								id: response.data._id,
+								resource: "vacations"
+							});
+							Alert.alert(
+								"Abort Vacation",
+								"Request aborted successfully"
+							);
 						} else {
-							Alert.alert("Abort Vacation", "Something went wrong.");
+							Alert.alert(
+								"Abort Vacation",
+								"Something went wrong."
+							);
 						}
-						
 					}
 				}
 			],
@@ -70,10 +91,20 @@ class VacationScreen extends Component {
 	};
 
 	render() {
+		var current_month = "";
 		return (
 			<Container>
 				<Header>
-					<Left style={{ flex: 1 }} />
+					<Left style={{ flex: 1 }}>
+					<Button
+							transparent
+							onPress={() => {
+								this.props.navigation.openDrawer();
+							}}
+						>
+							<Icon name="menu" />
+						</Button>
+					</Left>
 					<Body style={{ flex: 1 }}>
 						<Title style={{ alignSelf: "center" }}>Vacations</Title>
 					</Body>
@@ -90,18 +121,76 @@ class VacationScreen extends Component {
 					</Right>
 				</Header>
 				<Content>
-					<Activity loading={this.state.loading}/>
+					<Activity loading={this.state.loading} />
 					{!this.state.loading && (
-						<FlatList
-							data={this.state.vacations}
-							keyExtractor={(item, index) => item._id}
-							renderItem={({ item }) => (
-								<VacationComponent
-									data={item}
-									abort={this.AbortVacation}
-								/>
-							)}
-						/>
+						<List>
+							{this.state.vacations.map((vacation, index) => {
+								const created_at = moment
+									.unix(vacation.created_at)
+									.format("M");
+								var items = [];
+								if (created_at != current_month) {
+									current_month = created_at;
+									items.push(
+										<ListItem
+											itemDivider
+											key={vacation.created_at}
+										>
+											<Text
+												style={{ fontWeight: "bold" }}
+											>
+												{moment
+													.unix(vacation.created_at)
+													.format("MMM, YYYY")}
+											</Text>
+										</ListItem>
+									);
+								}
+								items.push(
+									<ListItem
+										key={vacation._id}
+										onPress={() => {
+											this.props.navigation.navigate(
+												"Vacation",
+												{
+													vacation,
+													AbortVacation: (this.AbortVacation)
+												}
+											);
+										}}
+										AbortVacation={this.AbortVacation}
+										
+									>
+										<Left>
+											<Text>{vacation.title}</Text>
+										</Left>
+										<Right>
+											<Badge
+												small
+												warning={
+													vacation.status ===
+													"Pending"
+												}
+												danger={
+													vacation.status ===
+													"Rejected"
+												}
+												success={
+													vacation.status ===
+													"Accepted"
+												}
+												style={vacation.status==="Aborted"?{backgroundColor: 'black' }:{}}
+											>
+												<Text uppercase={false}>
+													{vacation.status}
+												</Text>
+											</Badge>
+										</Right>
+									</ListItem>
+								);
+								return items;
+							})}
+						</List>
 					)}
 				</Content>
 			</Container>

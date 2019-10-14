@@ -90,7 +90,7 @@ class UserProfile extends Component {
 											{!this.state.is_loading && (
 												<ReactTable
 													data={this.state.vacations}
-													columns={TableMapper("VACATIONS")}
+													columns={TableMapper("VACATIONS",["Requester"])}
 													minRows={0}
 												/>
 											)}
@@ -103,7 +103,7 @@ class UserProfile extends Component {
 											{!this.state.is_loading && (
 												<ReactTable
 													data={this.state.tasks}
-													columns={TableMapper("TASKS")}
+													columns={TableMapper("TASKS",["Assigned_To"])}
 													minRows={0}
 												/>
 											)}

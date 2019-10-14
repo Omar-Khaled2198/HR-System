@@ -99,11 +99,13 @@ class TaskCreate extends Component {
                                             !this.state.is_loading
                                             &&
                                             this.state.accounts.map(account=>{
-                                                return(
-                                                    <option key={account._id} value={account._id}>
-                                                        {account.profile.first_name+" "+account.profile.last_name}
-                                                    </option>
-                                                )
+                                                if(account.profile){
+													return(
+														<option key={account._id} value={account._id}>
+															{account.profile.first_name+" "+account.profile.last_name}
+														</option>
+													)
+												}
                                             })
                                         }
 									</select>

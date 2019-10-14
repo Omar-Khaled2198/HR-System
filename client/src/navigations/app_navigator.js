@@ -10,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoginScreen from "../screens/auth/login.screen";
 import SignUpScreen from "../screens/auth/signup.screen";
 import HomeScreen from "../screens/home/home.screen";
-import VacationScreen from "../screens/home/vacations.screen";
+import VacationsScreen from "../screens/home/vacations.screen";
 import VacationCreationScreen from "../screens/form/vacation_creation.screen";
 import TasksScreen from "../screens/home/tasks.screen";
 import FeedbackScreen from "../screens/home/feedback.screen";
@@ -18,13 +18,20 @@ import ForgetPasswordScreen from "../screens/auth/forget_password.screen";
 import ProfileCreationScreen from "../screens/form/profile_creation.screen";
 import SettingsScreen from "../screens/settings/setting.screen";
 import LogoutScreen from "../screens/auth/logout.screen";
+import VacationScreen from "../screens/info/vacation.screen";
 
 const VacationsStack = createStackNavigator({
     Vacations: {
-        screen: VacationScreen
+        screen: VacationsScreen
     },
     NewVacation: {
         screen: VacationCreationScreen
+    },
+    Vacation: {
+        screen: VacationScreen,
+        navigationOptions: () => ({
+            header: null
+        })
     }
 }, {
     animationEnabled: true,

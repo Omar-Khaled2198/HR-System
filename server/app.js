@@ -6,6 +6,8 @@ const AuthRoutes = require("./routes/auth.routes");
 const AccountRoutes = require("./routes/account.routes");
 const VacationRoutes = require("./routes/vacation.routes");
 const TaskRoutes = require("./routes/task.routes");
+const SettingsRoutes = require("./routes/settings.route");
+const AttendanceRoutes = require("./routes/attendance.routes");
 const path = require("path");
 const cors = require("cors");
 const Auth = require("./middleware/auth.middleware");
@@ -18,7 +20,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Database Connect
 mongoose.set("useCreateIndex", true);
 mongoose.set("useFindAndModify", false);
-mongoose.connect(configs.mongodb.atlas_uri, { useNewUrlParser: true })
+mongoose
+	.connect(configs.mongodb.atlas_uri, { useNewUrlParser: true })
 	.then(() => {
 		console.log("MongoDB Cluster connected");
 		app.emit("ready");
@@ -34,10 +37,18 @@ app.use(
 );
 
 // app.use(Events);
-app.use("/api", [AuthRoutes, AccountRoutes, VacationRoutes, TaskRoutes]);
-
+app.use("/api", [
+	AuthRoutes,
+	AccountRoutes,
+	VacationRoutes,
+	TaskRoutes,
+	SettingsRoutes,
+	AttendanceRoutes
+]);
 
 const PORT = process.env.PORT || 5000;
-app.on("ready", function () {
-    app.listen(PORT, () => console.log(`Server is up and running on http://127.0.0.1:${PORT}`));
+app.on("ready", function() {
+	app.listen(PORT, () =>
+		console.log(`Server is up and running on http://127.0.0.1:${PORT}`)
+	);
 });

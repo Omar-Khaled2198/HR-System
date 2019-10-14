@@ -1,5 +1,7 @@
-var AccountRepository = require("../repositories/account.repository");
+const AccountRepository = require("../repositories/account.repository");
+const AccountModel = require("../models/account.model");
 
+const AccountRepositoryInstance = new AccountRepository(AccountModel);
 
 const CreateAccount = async function (req,res) {
 
@@ -7,8 +9,9 @@ const CreateAccount = async function (req,res) {
         req.body.profile.profile_picture = "/public/profile_pictures/default_profile_picture.png";
     }
     try{
-        const account = await AccountRepository.Create(req.body);
-        res.status(200).send({...account._doc});
+        const account = await AccountRepositoryInstance.Create(req.body);
+        const accountJSON = account.toJSON();
+        res.status(200).send({...accountJSON});
 
     } catch(error){
         return res.status(400).send({msg: error});
@@ -19,8 +22,9 @@ const CreateAccount = async function (req,res) {
 const GetAccount = async function (req,res){
 
     try{
-        const account = await AccountRepository.Get({_id:req.params.account_id});
-        res.status(200).send({...account._doc});
+        const account = await AccountRepositoryInstance.Get({_id:req.params.account_id},null,"-password");
+        const accountJSON = account.toJSON();
+        res.status(200).send({...accountJSON});
 
     } catch(error){
         return res.status(400).send({msg: error});
@@ -30,7 +34,7 @@ const GetAccount = async function (req,res){
 const GetAllAccounts = async function (req,res){
 
     try{
-        const accounts = await AccountRepository.All({});
+        const accounts = await AccountRepositoryInstance.All({},null,"-password");
         res.status(200).send(accounts);
 
     } catch(error){
@@ -47,8 +51,9 @@ const UpdateAccount = async function (req,res){
     try{
         const query = {_id:req.params.account_id};
         const update = {$set:req.body};
-        const account = await AccountRepository.Update(query, update);
-        res.status(200).send({...account._doc});
+        const account = await AccountRepositoryInstance.Update(query, update);
+        const accountJSON = account.toJSON();
+        res.status(200).send({...accountJSON});
 
     } catch(error){
         return res.status(400).send({msg: error});
@@ -59,7 +64,7 @@ const UpdateAccount = async function (req,res){
 const DeleteAccount = async function (req,res){
 
     try{
-        await AccountRepository.Delete(req.params.account_id);
+        await AccountRepositoryInstance.Delete(req.params.account_id);
         res.status(200).send({msg:"Account deleted successfully."});
 
     } catch(error){

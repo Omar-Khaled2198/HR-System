@@ -75,7 +75,16 @@ class TasksScreen extends Component {
 		return (
 			<Container>
 				<Header hasTabs>
-					<Left style={{ flex: 1 }} />
+					<Left style={{ flex: 1 }}>
+					<Button
+							transparent
+							onPress={() => {
+								this.props.navigation.openDrawer();
+							}}
+						>
+							<Icon name="menu" />
+						</Button>
+					</Left>
 					<Body style={{ flex: 1 }}>
 						<Title style={{ alignSelf: "center" }}>Tasks</Title>
 					</Body>

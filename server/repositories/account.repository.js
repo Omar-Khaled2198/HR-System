@@ -1,57 +1,8 @@
-const Account = require("../models/account.model");
+const Repository = require("../classes/repository.class");
 
-const Create = async function(body) {
+class AccountRepository extends Repository{
 
-	try {
-		const account = new Account(body);
-		return await account.save();
-	} catch (error) {
-		throw error.message;
-	}
-};
 
-const Get = async function(query) {
+}
 
-    try {
-        const account = await Account.findOne(query);
-        return account;
-    } catch (error){
-        throw error.message;
-    }
-
-};
-
-const All = async function(query) {
-   
-    try {
-        return await Account.find(query).select("-password");
-    } catch(error){
-        throw error.message;
-    }
-};
-
-const Update = async function(query, update) {
-    
-    try {
-		return await Account.findOneAndUpdate(query,update,{new: true});
-	} catch (error) {
-		throw error.message;
-	}
-};
-
-const Delete = async function(id) {
-
-    try {
-        return await Account.findByIdAndDelete(id);
-    } catch (error){
-        throw error.message;
-    }
-};
-
-module.exports = { 
-    Create, 
-    Get, 
-    All,
-    Update, 
-    Delete 
-};
+module.exports = AccountRepository;
