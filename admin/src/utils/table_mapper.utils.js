@@ -43,21 +43,21 @@ const TableMapper = function(table_name,hide=[]) {
 					Cell: props => {
 						if (props.value == "Pending")
 							return (
-								<span class="label label-warning">Pending</span>
+								<span className="label label-warning">Pending</span>
 							);
 						else if (props.value == "Accepted")
 							return (
-								<span class="label label-success">
+								<span className="label label-success">
 									Accepted
 								</span>
 							);
 						else if (props.value == "Rejected")
 							return (
-								<span class="label label-danger">Rejected</span>
+								<span className="label label-danger">Rejected</span>
 							);
 						else
 							return (
-								<span class="label label-default">Aborted</span>
+								<span className="label label-default">Aborted</span>
 							);
 					}
 				},
@@ -105,6 +105,55 @@ const TableMapper = function(table_name,hide=[]) {
 					Cell: props => Moment(props.value).format('YYYY/MM/DD h:mm a')
 				}
 			];
+
+		case "ATTENDANCE":
+				return [
+					!hide.includes("Employee")?{
+						id: "employee _id",
+						Header: "Employee",
+						accessor: d => {
+							if(d.employee.profile!=="undefined"){
+								return (
+									<Link to={`/admin/users/${d.employee._id}/profile`}>
+										{
+											d.employee.profile.first_name +
+											" " +
+											d.employee.profile.last_name}
+									</Link>
+								);
+							}
+							
+						},
+					}:{show:false},
+					{
+						Header: "Status",
+						accessor: "status",
+						Cell: props => {
+							if (props.value == "Vacation")
+								return (
+									<span className="label label-warning">Vacation</span>
+								);
+							else if (props.value == "Attended")
+								return (
+									<span className="label label-success">
+										Attended
+									</span>
+								);
+							else if (props.value == "Absent")
+								return (
+									<span className="label label-danger">Absent</span>
+								);
+						}
+					},
+					{
+						Header: "Check In",
+						accessor: "check_in"
+					},
+					{
+						Header: "Check Out",
+						accessor: "check_out",
+					}
+				];
 	}
 };
 

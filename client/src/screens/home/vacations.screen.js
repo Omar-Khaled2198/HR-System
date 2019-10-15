@@ -161,10 +161,10 @@ class VacationScreen extends Component {
 										AbortVacation={this.AbortVacation}
 										
 									>
-										<Left>
+										<Left style={{flex:0.7}}>
 											<Text>{vacation.title}</Text>
 										</Left>
-										<Right>
+										<Right style={{flex:0.3}}>
 											<Badge
 												small
 												warning={

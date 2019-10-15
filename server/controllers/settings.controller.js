@@ -1,7 +1,6 @@
 const SettingsRepository = require("../repositories/settings.repository");
-const SettingsModel = require("../models/settings.model");
 
-const SettingsRepositoryInstance = new SettingsRepository(SettingsModel);
+const SettingsRepositoryInstance = new SettingsRepository();
 
 
 const GetSettings = async function(req,res){

@@ -14,8 +14,9 @@ import TaskCreate from '../components/tasks/task_create.com';
 import TaskUpdate from '../components/tasks/task_update.com';
 import TaskView from '../components/tasks/task_view.com';
 import VacationView from '../components/vacations/vacation_view.com';
-import MapCom from "../components/map.com";
+import Map from "../components/map.com";
 import WorkTimeUpdate from '../components/settings/work_time_update.com';
+import Attendance from '../components/attendance/attendance.com';
 class HomePage extends Component {
     
 
@@ -43,8 +44,9 @@ class HomePage extends Component {
                         <Route exact path={'/admin/tasks/:id/view'} component={TaskView} />
                         <Route exact path={'/admin/tasks/new'} component={TaskCreate} />
                         <Route exact path={'/admin/tasks/:id/update'} component={(props)=><TaskUpdate {...props}/>}/>
-                        <Route exact path={'/admin/coordinates/update'} component={MapCom}/>
+                        <Route exact path={'/admin/coordinates/update'} component={Map}/>
                         <Route exact path={'/admin/time/update'} component={WorkTimeUpdate}/>
+                        <Route exact path={'/admin/attendance'} component={Attendance} />
 
                     {/* Content End */}
                 </div>

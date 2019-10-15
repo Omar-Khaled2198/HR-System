@@ -1,8 +1,7 @@
 const TaskRepository = require("../repositories/task.repository");
-const TaskModel = require("../models/task.model");
 const moment = require('moment');
 
-const TaskRepositoryInstance = new TaskRepository(TaskModel);
+const TaskRepositoryInstance = new TaskRepository();
 
 const CreateTask = async function(req, res) {
 	req.body.created_at = moment().unix();

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Table from '../tables/table.com';
 import Feedback from './feedback/feedback.com';
 import ServiceProvider from '../../utils/service_provider.utils';
 import { API_BASE_URL } from '../../utils/constants.utils';

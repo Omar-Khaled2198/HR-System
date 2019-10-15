@@ -27,6 +27,7 @@ function SideBar() {
 					{/* sidebar menu: : style can be found in sidebar.less */}
                   	<ul className="sidebar-menu" data-widget="tree">
 				  	    <SingleItem icon="fa fa-home" name="Home" to="/admin"/>
+						<SingleItem icon="fa fa-check-square" name="Attendance" to="/admin/attendance"/>
                     	<SingleItem icon="fa fa-users" name="Users" to="/admin/users"/>
                    		<SingleItem icon="fa fa-pause" name="Vacations" to="/admin/vacations"/>
 						<SingleItem icon="fa fa-tasks" name="Tasks" to="/admin/tasks"/>

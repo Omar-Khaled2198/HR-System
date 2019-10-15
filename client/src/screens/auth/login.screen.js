@@ -13,7 +13,7 @@ import ServiceProivder from "../../utils/service_provider.utils";
 import { SetAccountGlobal } from "../../utils/global.util";
 import StorageManger from "../../utils/storage_manager.utils";
 import FirebaseHandler from "../../utils/firebase_handler.util";
-
+import Spinner from "react-native-loading-spinner-overlay";
 class LoginScreen extends Component {
 	static navigationOptions = { header: null };
 
@@ -23,7 +23,7 @@ class LoginScreen extends Component {
 			email: "omar2@gmail.com",
 			password: "123456789",
 			error: "",
-			loading: true
+			is_loading: true
 		};
 	}
 
@@ -36,7 +36,7 @@ class LoginScreen extends Component {
             }
             
 		}
-		this.setState({ loading: false });
+		this.setState({ is_loading: false });
 	}
 
 	async SignIn() {
@@ -66,8 +66,8 @@ class LoginScreen extends Component {
 	render() {
 		return (
 			<Container style={styles.content}>
-				{!this.state.loading && (
 					<Content>
+					<Spinner visible={this.state.is_loading} />
 						<Text style={styles.title}>HR System</Text>
 						<Form style={styles.form}>
 							<Item>
@@ -131,7 +131,6 @@ class LoginScreen extends Component {
 							</Text>
 						</Form>
 					</Content>
-				)}
 			</Container>
 		);
 	}

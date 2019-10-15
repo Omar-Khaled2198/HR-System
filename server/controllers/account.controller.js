@@ -1,7 +1,6 @@
 const AccountRepository = require("../repositories/account.repository");
-const AccountModel = require("../models/account.model");
 
-const AccountRepositoryInstance = new AccountRepository(AccountModel);
+const AccountRepositoryInstance = new AccountRepository();
 
 const CreateAccount = async function (req,res) {
 

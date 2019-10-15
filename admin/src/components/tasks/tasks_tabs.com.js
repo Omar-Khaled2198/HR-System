@@ -1,5 +1,4 @@
 import React,{Component} from 'react'
-import Table from '../tables/table.com';
 import TasksList from './tasks_list.com';
 import ServiceProvider from '../../utils/service_provider.utils';
 import { API_BASE_URL } from '../../utils/constants.utils';

@@ -1,8 +1,10 @@
 const Repository = require("../classes/repository.class");
-
+const SettingsModel = require("../models/settings.model");
 class SettingsRepository extends Repository{
 
-
+	constructor() {
+        super(SettingsModel)
+	}
 
     async Update(query, update) {
 		try {

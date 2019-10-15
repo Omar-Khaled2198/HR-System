@@ -1,5 +1,4 @@
 const AccountRepository = require("../repositories/account.repository");
-const AccountModel = require("../models/account.model");
 var SendEmail = require("../utils/mailhandler.util");
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
@@ -7,7 +6,7 @@ const configs = require("../configs.json");
 const Firebase = require("../utils/firebase.util");
 
 
-const AccountRepositoryInstance = new AccountRepository(AccountModel);
+const AccountRepositoryInstance = new AccountRepository();
 
 const SignUp = async function(req, res) {
 	try {

@@ -1,8 +1,7 @@
 const VacationRepository = require("../repositories/vacation.repository");
-const VacationModel = require("../models/vacation.model");
 const moment = require('moment');
 
-const VacationRepositoryInstance = new VacationRepository(VacationModel);
+const VacationRepositoryInstance = new VacationRepository();
 
 const CreateVacation = async function(req, res) {
 
