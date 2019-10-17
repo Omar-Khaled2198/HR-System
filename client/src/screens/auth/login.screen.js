@@ -32,6 +32,17 @@ class LoginScreen extends Component {
 		if (account!=null && account.token) {
 			SetAccountGlobal(account);
 			if (Object.keys(account.profile).length) {
+
+				
+				const response = await ServiceProivder.POST("sign_in", {
+					email: this.state.email,
+					password: this.state.password
+				});
+				if (response.status === 200) {
+					SetAccountGlobal(response.data);
+					await FirebaseHandler.Authenticate();
+					
+				}
 				this.props.navigation.navigate("Home");
             }
             
@@ -52,7 +63,10 @@ class LoginScreen extends Component {
 			} else {
 				SetAccountGlobal(response.data);
 				await FirebaseHandler.Authenticate();
-				
+				const device_token = await FirebaseHandler.GetToken();
+				console.log(device_token)
+				const res = await ServiceProivder.PUT(`accounts/${global.account._id}`,{device_token});
+				console.log(res);
 				await StorageManger.Store("account", response.data);
 				if (Object.keys(response.data.profile).length==0) {
 					this.props.navigation.navigate("ProfileCreation");

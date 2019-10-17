@@ -33,6 +33,9 @@ var AccountSchema = new Schema({
         profile_picture:{
             type: String
         }
+    },
+    device_token: {
+        type: String
     }
 
 });

@@ -31,6 +31,7 @@ function SideBar() {
                     	<SingleItem icon="fa fa-users" name="Users" to="/admin/users"/>
                    		<SingleItem icon="fa fa-pause" name="Vacations" to="/admin/vacations"/>
 						<SingleItem icon="fa fa-tasks" name="Tasks" to="/admin/tasks"/>
+						<SingleItem icon="fa fa-send" name="Notifications" to="/admin/notifications"/>
 						<TreeItem icon="fa fa-gear" name="Settings" tree_items={[{
 							name: "Work Time",
 							icon: "fa fa-clock-o",

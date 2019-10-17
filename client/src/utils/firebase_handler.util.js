@@ -1,8 +1,8 @@
-import firebase from "firebase";
-import configs from "../../configs.json";
+import firebase from "react-native-firebase";
 import moment from "moment";
+import {Notification} from "firebase"
 
-const Firebase = firebase.initializeApp(configs.firebase);
+const Firebase = firebase.app();
 
 const FirebaseHandler = {
 
@@ -24,7 +24,20 @@ const FirebaseHandler = {
 
     Listen: function(url,callback){
         Firebase.database().ref(url).orderByChild('at').startAt(moment().unix()).on('child_added', callback);
+    },
+
+    GetToken: async function(){
+        return await firebase.messaging().getToken();
+    },
+    
+    ListenToNotifications: async function(){
+        Firebase.notifications().onNotification(async(notification) => {
+            notification.android.setChannelId(notification.notificationId);
+            await Firebase.notifications().displayNotification(notification).catch(err => console.error(err));;
+            console.log("fuck");
+        });
     }
+
 }
 
 export default FirebaseHandler;

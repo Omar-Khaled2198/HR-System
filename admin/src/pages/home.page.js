@@ -17,6 +17,7 @@ import VacationView from '../components/vacations/vacation_view.com';
 import Map from "../components/map.com";
 import WorkTimeUpdate from '../components/settings/work_time_update.com';
 import Attendance from '../components/attendance/attendance.com';
+import Notifications from '../components/notifications/notifications.com';
 class HomePage extends Component {
     
 
@@ -47,6 +48,7 @@ class HomePage extends Component {
                         <Route exact path={'/admin/coordinates/update'} component={Map}/>
                         <Route exact path={'/admin/time/update'} component={WorkTimeUpdate}/>
                         <Route exact path={'/admin/attendance'} component={Attendance} />
+                        <Route exact path={'/admin/notifications'} component={Notifications}/>
 
                     {/* Content End */}
                 </div>

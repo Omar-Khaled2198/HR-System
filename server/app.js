@@ -8,6 +8,7 @@ const VacationRoutes = require("./routes/vacation.routes");
 const TaskRoutes = require("./routes/task.routes");
 const SettingsRoutes = require("./routes/settings.route");
 const AttendanceRoutes = require("./routes/attendance.routes");
+const NotificationRoutes = require("./routes/notification.route");
 const path = require("path");
 const cors = require("cors");
 const Auth = require("./middleware/auth.middleware");
@@ -43,7 +44,8 @@ app.use("/api", [
 	VacationRoutes,
 	TaskRoutes,
 	SettingsRoutes,
-	AttendanceRoutes
+	AttendanceRoutes,
+	NotificationRoutes
 ]);
 
 const PORT = process.env.PORT || 5000;

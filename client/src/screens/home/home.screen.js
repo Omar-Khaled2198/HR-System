@@ -34,7 +34,9 @@ class HomeScreen extends Component {
 		};
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		//FirebaseHandler.ListenToNotifications();
+	}
 
 	async CheckIn() {
 		this.setState({ is_loading: true });

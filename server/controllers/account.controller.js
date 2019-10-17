@@ -1,10 +1,10 @@
 const AccountRepository = require("../repositories/account.repository");
-
+const FirebaseHandler = require("../utils/firebase_handler.util");
 const AccountRepositoryInstance = new AccountRepository();
 
 const CreateAccount = async function (req,res) {
 
-    if(req.body.profile.profile_picture==""){
+    if(req.body.profile&&req.body.profile.profile_picture===""){
         req.body.profile.profile_picture = "/public/profile_pictures/default_profile_picture.png";
     }
     try{
@@ -43,8 +43,12 @@ const GetAllAccounts = async function (req,res){
 
 const UpdateAccount = async function (req,res){
 
-    if(req.body.profile.profile_picture===""){
+    if(req.body.profile&&req.body.profile.profile_picture===""){
         req.body.profile.profile_picture = "/public/profile_pictures/default_profile_picture.png";
+    }
+
+    if(req.body.device_token!==""){
+        FirebaseHandler.SubscribeToTopic(req.body.device_token);
     }
 
     try{
