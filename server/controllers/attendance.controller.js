@@ -7,33 +7,40 @@ const SettingsRepositoryInstance = new SettingsRepository();
 const AttendanceRepositoryInstance = new AttendanceRepository();
 
 const CheckIn = async function(req, res) {
+
 	const check = await IsInside([req.body.longitude, req.body.latitude]);
 	if (check) {
 		req.body = {
 			employee: req.params.employee_id,
 			status: "Attended",
-			day: moment().format("DD/MM/YYYY"),
-			check_in: moment().format("hh:mm:ss a")
+			day: moment().format("D"),
+			month: moment().format("M"),
+			year: moment().format("Y"),
+			check_in: moment().format("hh:mm:ss a"),
+			check_out: ""
 		};
 		CreateRecord(req, res);
 	} else {
-		res.status(400).send({ msg: "No" });
+		res.status(400).send({ msg: "You are out of the location!" });
 	}
 };
 
-// const CheckOut = async function(req, res) {
-// 	const check = await IsInside([req.body.longitude, req.body.latitude]);
-// 	if (check) {
-// 		var record = await AttendanceRepository.Update({
-// 			day: moment().format("DD/MM/YYYY"),
-// 			employee: req.params.employee_id
-//         });
-
-// 		CreateRecord(req, res);
-// 	} else {
-// 		res.status(400).send({ msg: "No" });
-// 	}
-// };
+const CheckOut = async function(req, res) {
+	const check = await IsInside([req.body.longitude, req.body.latitude]);
+	if (check) {
+		const update = { $set: {check_out: moment().format("hh:mm:ss a")} };
+		var record = await AttendanceRepositoryInstance.Update({
+			day: moment().format("D"),
+			month: moment().format("M"),
+			year: moment().format("Y"),
+			employee: req.params.employee_id
+		},update);
+		const recordJSON = record.toJSON();
+		res.status(200).send({...recordJSON});
+	} else {
+		res.status(400).send({ msg: "You are out of the location!" });
+	}
+};
 
 const IsInside = async function(coordinate) {
 	
@@ -76,20 +83,16 @@ const GetRecord = async function(req, res) {
 };
 
 const GetAllRecords = async function(req, res) {
+	
 	try {
+
 		var query = {};
 		var populate = null;
 
-		if (req.query.employee) {
-			query.employee = req.query.employee;
-		}
-
-		if (req.query.day) {
-			query.day = decodeURI(req.query.day);
-		}
-
-		if (req.query.status) {
-			query.status = req.query.status;
+		for (var param in req.query) {
+			if (req.query.hasOwnProperty(param)&&param!="employee") {
+				query[param] = req.query[param];
+			}
 		}
 
 		if (!req.query.employee) {
@@ -129,6 +132,7 @@ const DeleteRecord = async function(req, res) {
 
 module.exports = {
 	CheckIn,
+	CheckOut,
 	CreateRecord,
 	GetRecord,
 	GetAllRecords,

@@ -41,9 +41,11 @@ class LoginScreen extends Component {
 				if (response.status === 200) {
 					SetAccountGlobal(response.data);
 					await FirebaseHandler.Authenticate();
+					this.props.navigation.navigate("Home");
 					
+				} else {
+					this.setState({ is_loading: false });
 				}
-				this.props.navigation.navigate("Home");
             }
             
 		}
@@ -51,23 +53,23 @@ class LoginScreen extends Component {
 	}
 
 	async SignIn() {
+		this.setState({is_loading:true});
 		if (this.state.email === "" || this.state.password === "") {
-			this.setState({ error: "Email and password can't be empty!" });
+			this.setState({ error: "Email and password can't be empty!",is_loading:false });
 		} else {
 			const response = await ServiceProivder.POST("sign_in", {
 				email: this.state.email,
 				password: this.state.password
 			});
 			if (response.status !== 200) {
-				this.setState({ error: response.data.msg });
+				this.setState({ error: response.data.msg,is_loading:false });
 			} else {
 				SetAccountGlobal(response.data);
 				await FirebaseHandler.Authenticate();
 				const device_token = await FirebaseHandler.GetToken();
-				console.log(device_token)
-				const res = await ServiceProivder.PUT(`accounts/${global.account._id}`,{device_token});
-				console.log(res);
+				await ServiceProivder.PUT(`accounts/${global.account._id}`,{device_token});
 				await StorageManger.Store("account", response.data);
+				this.setState({is_loading:false});
 				if (Object.keys(response.data.profile).length==0) {
 					this.props.navigation.navigate("ProfileCreation");
 				} else {
@@ -163,8 +165,8 @@ const styles = StyleSheet.create({
 	},
 	form: {
 		marginTop: 30,
-		paddingRight: 35,
-		paddingLeft: 35
+		paddingRight: 30,
+		paddingLeft: 20
 	},
 	login_button: {
 		marginTop: 30,

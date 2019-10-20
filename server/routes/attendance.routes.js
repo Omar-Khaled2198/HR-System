@@ -7,8 +7,14 @@ var router = express.Router();
 
 router.post(
 	"/check_in/:employee_id",
-	Auth(["employee"]),
+	Auth(["employee","hr"]),
 	AttendanceController.CheckIn
+)
+
+router.post(
+	"/check_out/:employee_id",
+	Auth(["employee","hr"]),
+	AttendanceController.CheckOut
 )
 
 router.post(

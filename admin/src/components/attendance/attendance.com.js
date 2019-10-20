@@ -23,9 +23,11 @@ class Attendance extends Component {
 
 	async GetAttendance() {
 		const response = await ServiceProvider.GET(
-			`attendance?day=${encodeURIComponent(
-				moment(this.state.date).format("DD/MM/YYYY")
-			)}`
+			`attendance?day=${moment(this.state.date).format(
+				"D"
+			)}&month=${moment(this.state.date).format(
+				"M"
+			)}&year=${moment().format("Y")}`
 		);
 		console.log(response.data);
 		this.setState({ records: response.data, is_loading: false });

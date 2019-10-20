@@ -2,8 +2,15 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var AttendanceSchema = new Schema({
-
 	day: {
+		type: String,
+		required: true
+	},
+	month: {
+		type: String,
+		required: true
+	},
+	year: {
 		type: String,
 		required: true
 	},
@@ -21,8 +28,7 @@ var AttendanceSchema = new Schema({
 		type: String,
 		enum: ["Absent", "Vacation", "Attended"],
 		required: true
-    }
-    
+	}
 });
 
 module.exports = mongoose.model("Attendance", AttendanceSchema);

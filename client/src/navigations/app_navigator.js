@@ -19,6 +19,7 @@ import ProfileCreationScreen from "../screens/form/profile_creation.screen";
 import SettingsScreen from "../screens/settings/setting.screen";
 import LogoutScreen from "../screens/auth/logout.screen";
 import VacationScreen from "../screens/info/vacation.screen";
+import AttandanceScreen from "../screens/home/attandnace.screen";
 
 const VacationsStack = createStackNavigator({
     Vacations: {
@@ -54,6 +55,12 @@ const HomeNavigator = createBottomTabNavigator({
         screen: HomeScreen,
         navigationOptions: {
             tabBarIcon: ({tintColor}) => (<Ionicons name='ios-home' size={25} color={tintColor}/>)
+        }
+    },
+    Attandance: {
+        screen: AttandanceScreen,
+        navigationOptions: {
+            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-calendar' size={25} color={tintColor}/>)
         }
     },
     Vacations: {

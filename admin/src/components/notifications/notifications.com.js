@@ -54,11 +54,13 @@ class Notifications extends Component {
 		} else {
 			const selected = this.state.selected.map(account=>{return account._id});
 			console.log(selected);
-			ServiceProvider.POST("/notifications",{
+			const response = await ServiceProvider.POST("/notifications",{
 				title:this.state.title,
 				body: this.state.body,
 				accounts:selected
 			})
+
+			console.log(response);
 		}
 	}
 
