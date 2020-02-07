@@ -22,6 +22,7 @@ import Geolocation from "react-native-geolocation-service";
 import { Avatar } from "react-native-elements";
 import ServiceProvider from "../../utils/service_provider.utils";
 import { SetAccountGlobal } from "../../utils/global.util";
+import FirebaseHandler from "../../utils/firebase_handler.util";
 class HomeScreen extends Component {
 	static navigationOptions = { header: null };
 
@@ -39,6 +40,7 @@ class HomeScreen extends Component {
 	}
 
 	async componentDidMount() {
+		FirebaseHandler.OpenNotifications();
 		const response = await ServiceProvider.GET(
 			`attendance?employee=${global.account._id}&day=${moment().format(
 				"D"

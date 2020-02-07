@@ -5,6 +5,14 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "ionicons";
+import "font-awesome/css/font-awesome.min.css";
+
+import jquery from 'jquery';
+window.$ = window.jQuery= jquery;
+require("bootstrap/dist/js/bootstrap.min");
+
 ReactDOM.render(
 	<Router>
 		<App />

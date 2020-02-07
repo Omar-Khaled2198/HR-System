@@ -1,6 +1,6 @@
 import firebase from "react-native-firebase";
 import moment from "moment";
-import {Notification} from "firebase"
+import {Notification, NotificationOpen} from "react-native-firebase"
 
 const Firebase = firebase.app();
 
@@ -35,6 +35,18 @@ const FirebaseHandler = {
             notification.android.setChannelId(notification.notificationId);
             await Firebase.notifications().displayNotification(notification).catch(err => console.error(err));;
             console.log("fuck");
+        });
+    },
+
+    OpenNotifications: function(){
+        Firebase.notifications().onNotificationOpened((notificationOpen: NotificationOpen) => {
+            console.log("ffffffffffffffffffffffffff");
+            // Get the action triggered by the notification being opened
+            const action = notificationOpen.action;
+            console.log(action)
+            // Get information about the notification that was opened
+            const notification: Notification = notificationOpen.notification;
+            console.log(notification)
         });
     }
 
