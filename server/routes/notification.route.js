@@ -6,12 +6,18 @@ var router = express.Router();
 router.post(
 	"/notifications",
 	Auth(["hr"]),
-	NotificationController.PushNotificationByToken
+	NotificationController.PushNotificationByTopic
 );
 router.post(
 	"/notifications/all",
 	Auth(["hr"]),
 	NotificationController.PushNotificationToAll
+);
+
+router.post(
+	"/notifications/:topic",
+	Auth(["employee","hr"]),
+	NotificationController.SubscribeToTopic
 );
 
 

@@ -1,13 +1,13 @@
 const { body, header } = require("express-validator");
 const AccountRepository = require("../repositories/account.repository");
-
+const AccountRepositoryInstance = new AccountRepository();
 
 const SignUp = [
 	body("email")
 		.exists()
 		.isEmail()
 		.custom(async value => {
-			const account = await AccountRepository.Get({ "email": value });
+			const account = await AccountRepositoryInstance.Get({ "email": value });
 			if (account) {
 				return Promise.reject("E-mail already in use.");
 			}
@@ -34,7 +34,7 @@ const ForgetPassword = [
 		.exists()
 		.isEmail()
 		.custom(async value => {
-			const user = await UserRepository.Get({ "email": value });
+			const user = await AccountRepositoryInstance.Get({ "email": value });
 			if (!user) {
 				return Promise.reject("No account found with this email.");
 			}

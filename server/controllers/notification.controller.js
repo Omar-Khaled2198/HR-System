@@ -1,15 +1,10 @@
-const FirebaseHandler = require("../utils/firebase_handler.util");
-const AccountRepository = require("../repositories/account.repository");
+const Firebase = require("../utils/firebase.util");
 
-const AccountRepositoryInstance = new AccountRepository();
+const PushNotificationByTopic = async function(req, res) {
 
-const PushNotificationByToken = async function(req, res) {
+	
+	for(var i=0;i<req.body.topics.length;i++){
 
-	for(var i=0;i<req.body.accounts.length;i++){
-		const query = { _id: req.body.accounts[i] };
-		const account = await AccountRepositoryInstance.Get(
-			query,
-		);
 		const notification = {
 			notification: {
 				title: req.body.title,
@@ -18,8 +13,8 @@ const PushNotificationByToken = async function(req, res) {
 			},
 			
 		};
-
-		FirebaseHandler.PushNotificationByToken(account.device_token,notification);
+		
+		Firebase.messaging().sendToTopic(req.body.topics[i],notification);
 		
 	}
 	
@@ -27,6 +22,12 @@ const PushNotificationByToken = async function(req, res) {
 	return res.status(200).send({ msg: "done" });
 };
 
+
+const SubscribeToTopic = async function(req, res) {
+
+	Firebase.messaging().subscribeToTopic(req.body.device_token,req.params.topic);
+	return res.status(200).send({ msg: "done" });
+};
 
 
 const PushNotificationToAll = async function(req, res) {
@@ -38,14 +39,14 @@ const PushNotificationToAll = async function(req, res) {
 			sound: "default"
 		}
 	};
-	FirebaseHandler.PushNotificationByTopic("public",notification);
-
+	Firebase.messaging().sendToTopic("public",notification);
 	return res.status(200).send({ msg: "done" });
 };
 
 
 
 module.exports = {
-	PushNotificationByToken,
-	PushNotificationToAll
+	PushNotificationByTopic,
+	PushNotificationToAll,
+	SubscribeToTopic
 };

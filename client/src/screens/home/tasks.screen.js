@@ -21,6 +21,7 @@ import TaskDoneComponent from "../../components/task_done.com";
 import ServiceProvider from "../../utils/service_provider.utils";
 import Activity from "../../components/acitivity.com";
 import Events from "../../utils/events.util";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 class TasksScreen extends Component {
 	static navigationOptions = { header: null };
 
@@ -82,7 +83,7 @@ class TasksScreen extends Component {
 								this.props.navigation.openDrawer();
 							}}
 						>
-							<Icon name="menu" />
+							<Ionicons name='md-menu' size={25} color={"white"}/>
 						</Button>
 					</Left>
 					<Body style={{ flex: 1 }}>

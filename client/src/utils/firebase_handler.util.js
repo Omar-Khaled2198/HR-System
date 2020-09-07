@@ -1,6 +1,6 @@
 import firebase from "react-native-firebase";
 import moment from "moment";
-import {Notification, NotificationOpen} from "react-native-firebase"
+import {Notification, NotificationOpen} from "react-native-firebase";
 
 const Firebase = firebase.app();
 
@@ -34,7 +34,6 @@ const FirebaseHandler = {
         Firebase.notifications().onNotification(async(notification) => {
             notification.android.setChannelId(notification.notificationId);
             await Firebase.notifications().displayNotification(notification).catch(err => console.error(err));;
-            console.log("fuck");
         });
     },
 

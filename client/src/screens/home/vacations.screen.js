@@ -22,7 +22,7 @@ import ServiceProvider from "../../utils/service_provider.utils";
 import Activity from "../../components/acitivity.com";
 import Events from "../../utils/events.util";
 import moment from "moment";
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 class VacationScreen extends Component {
 	static navigationOptions = { header: null };
 
@@ -102,7 +102,7 @@ class VacationScreen extends Component {
 								this.props.navigation.openDrawer();
 							}}
 						>
-							<Icon name="menu" />
+							<Ionicons name='md-menu' size={25} color={"white"}/>
 						</Button>
 					</Left>
 					<Body style={{ flex: 1 }}>

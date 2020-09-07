@@ -54,7 +54,7 @@ const SignIn = async function(req, res) {
 
         const token = jwt.sign({ ...account._doc }, configs.token_secret);
         const accountJSON = account.toJSON();
-        accountJSON.firebase_token = await GenerateFirebaseToken(account); 
+        accountJSON.firebase_token = await GenerateFirebaseToken(account);
 		return res.status(200).send({
 			...accountJSON,
 			token

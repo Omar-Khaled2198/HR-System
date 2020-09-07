@@ -23,6 +23,8 @@ import Geolocation from "react-native-geolocation-service";
 import { Avatar } from "react-native-elements";
 import ServiceProvider from "../../utils/service_provider.utils";
 import { SetAccountGlobal } from "../../utils/global.util";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 class AttandanceScreen extends Component {
 	static navigationOptions = { header: null };
 
@@ -119,7 +121,7 @@ class AttandanceScreen extends Component {
 											this.props.navigation.openDrawer();
 										}}
 									>
-										<Icon name="menu" />
+										<Ionicons name='md-menu' size={25} color={"white"}/>
 									</Button>
 								</Left>
 								<Body style={{ flex: 1 }}>

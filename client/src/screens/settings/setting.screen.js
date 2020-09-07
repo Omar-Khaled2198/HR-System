@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Container, Header, Content, Title, Button, ListItem, Text, Icon, Left, Body, Right} from 'native-base';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 class SettingsScreen extends Component {
     render() {
         return (
@@ -8,7 +8,7 @@ class SettingsScreen extends Component {
                 <Header>
                     <Left style={{flex: 1}}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
-                            <Icon name='arrow-back'/>
+                            <Ionicons name='md-arrow-back'size={20} color={"white"}/>
                         </Button>
                     </Left>
                     <Body style={{flex: 1}}>
@@ -20,7 +20,7 @@ class SettingsScreen extends Component {
                     <ListItem icon>
                         <Left>
                             <Button style={{backgroundColor: "#007AFF"}}>
-                                <Icon active name="at"/>
+                                <Ionicons name='ios-information-circle'size={25} color={"white"}/>
                             </Button>
                         </Left>
                         <Body>
@@ -31,7 +31,7 @@ class SettingsScreen extends Component {
                     <ListItem icon>
                         <Left>
                             <Button style={{backgroundColor: "#007AFF"}}>
-                                <Icon active name="person"/>
+                                <Ionicons name='ios-person'size={25} color={"white"}/>
                             </Button>
                         </Left>
                         <Body>

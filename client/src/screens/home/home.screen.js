@@ -15,6 +15,7 @@ import {
 	Badge,
 	CardItem
 } from "native-base";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from "moment";
 import Activity from "../../components/acitivity.com";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -40,7 +41,8 @@ class HomeScreen extends Component {
 	}
 
 	async componentDidMount() {
-		FirebaseHandler.OpenNotifications();
+		  
+		//FirebaseHandler.OpenNotifications();
 		const response = await ServiceProvider.GET(
 			`attendance?employee=${global.account._id}&day=${moment().format(
 				"D"
@@ -99,6 +101,7 @@ class HomeScreen extends Component {
 	async CheckIn() {
 		this.setState({ is_loading_spinner: true });
 		this.GetLocation(async (position)=>{
+			console.log(position)
 			const response = await ServiceProvider.POST(
 				`check_in/${global.account._id}`,
 				position.coords
@@ -109,7 +112,7 @@ class HomeScreen extends Component {
 				Alert.alert("Check in", "Checked in successfully.");
 			} else {
 				this.setState({ is_loading_spinner: false });
-				Alert.alert("Check in", "Please try again.");
+				Alert.alert("Check in", response.data.msg);
 			}
 		});
 	}
@@ -121,8 +124,10 @@ class HomeScreen extends Component {
 				`check_out/${global.account._id}`,
 				position.coords
 			);
+			console.log(response.data);
 			if (response.status == 200) {
 				this.setState({ is_loading_spinner: false });
+				
 				this.UpdateState(response.data);
 				Alert.alert("Check out", "Checked out successfully.");
 			} else {
@@ -144,7 +149,7 @@ class HomeScreen extends Component {
 								this.props.navigation.openDrawer();
 							}}
 						>
-							<Icon name="menu" />
+							<Ionicons name='md-menu' size={25} color={"white"}/>
 						</Button>
 					</Left>
 					<Body style={{ flex: 1 }}>
@@ -178,6 +183,7 @@ class HomeScreen extends Component {
 							<Button
 								block
 								success
+								rounded
 								style={{ margin: 15 }}
 								onPress={() => {
 									this.CheckIn();
@@ -194,6 +200,7 @@ class HomeScreen extends Component {
 							<Button
 								block
 								danger
+								rounded
 								onPress={() => {
 									this.CheckOut();
 								}}

@@ -9,25 +9,19 @@ const Write = function(url, object){
     Firebase.database().ref(url).push(object);
 }
 
-const PushNotificationByToken = function(device_token,notification){
-
-    Firebase.messaging().sendToDevice(device_token,notification);
-}
-
-const SubscribeToTopic = function(device_token){
-	Firebase.messaging().subscribeToTopic(device_token,"public");
+const SubscribeToTopic = function(device_token,topic){
+	Firebase.messaging().subscribeToTopic(device_token,"/topics/"+topic);
 }
 
 const PushNotificationByTopic = function(topic,notification){
 
-    Firebase.messaging().sendToTopic(topic,notification);
+    Firebase.messaging().sendToTopic("/topics/"+topic,notification);
 }
 
 
 module.exports = {
     Read,
     Write,
-    PushNotificationByToken,
     PushNotificationByTopic,
     SubscribeToTopic
 }

@@ -14,12 +14,13 @@ import {
 	Form,
 	Item,
 	Input,
-	Label
 } from "native-base";
 import DatePickerComponent from "../../components/datepicker.com";
 import Spinner from "react-native-loading-spinner-overlay";
 import ServiceProvider from "../../utils/service_provider.utils";
 import Events from "../../utils/events.util";
+import moment from "moment";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 class VacationCreationScreen extends Component {
 	static navigationOptions = {
@@ -70,7 +71,7 @@ class VacationCreationScreen extends Component {
 							transparent
 							onPress={() => this.props.navigation.goBack()}
 						>
-							<Icon name="arrow-back" />
+							<Ionicons name='md-arrow-back'size={20} color={"white"}/>
 						</Button>
 					</Left>
 					<Body style={{ flex: 1 }}>
@@ -85,7 +86,7 @@ class VacationCreationScreen extends Component {
                         <Spinner visible={this.state.loading} />
                     </View>
 					<Form style={styles.form}>
-						<Item regular>
+						<Item rounded style={styles.title_input}>
 							<Input
 								placeholder="Title"
 								value={this.state.title}
@@ -94,33 +95,36 @@ class VacationCreationScreen extends Component {
 								}}
 							/>
 						</Item>
+						<Item rounded style={styles.desc_input}>
 						<Textarea
-							style={styles.desc_input}
+							
 							rowSpan={3}
-							bordered
 							placeholder="Description"
 							value={this.state.description}
 							onChangeText={description => {
 								this.setState({ description });
 							}}
 						/>
+						</Item>
 						<DatePickerComponent
 							placeholder="From"
-							date={this.state.from}
 							onChangeDate={from => {
+								console.log("from",moment(from).format("YYYY/MM/DD"))
 								this.setState({ from });
 							}}
 						/>
 						<DatePickerComponent
 							placeholder="To"
-							date={this.state.to}
 							onChangeDate={to => {
+								console.log("to",moment(to).format("YYYY/MM/DD"))
 								this.setState({ to });
 							}}
 						/>
+
 						<Button
 							style={styles.request_button}
 							block
+							rounded
 							primary
 							onPress={() => this.RequestVacation()}
 						>
@@ -135,17 +139,26 @@ class VacationCreationScreen extends Component {
 
 const styles = StyleSheet.create({
 	content: {
-		flexDirection: "column",
-		justifyContent: "center",
-		alignContent: "center"
+		// flexDirection: "column",
+		// justifyContent: "space-between",
+		// alignContent: "space-between",
+		//paddingBottom:20
 	},
 	form: {
 		marginTop: 30,
-		paddingRight: 30,
-		paddingLeft: 30
+		paddingRight: 20,
+		paddingLeft: 20,
+		flexDirection: "column",
+		justifyContent: "space-evenly",
+		alignContent: "space-between",
+	},
+	title_input: {
+		marginBottom: 20,
+		paddingLeft:10
 	},
 	desc_input: {
-		marginTop: 20
+		marginBottom: 20,
+		paddingLeft:10
 	},
 	request_button: {
 		marginTop: 35

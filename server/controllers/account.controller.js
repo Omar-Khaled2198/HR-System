@@ -47,9 +47,6 @@ const UpdateAccount = async function (req,res){
         req.body.profile.profile_picture = "/public/profile_pictures/default_profile_picture.png";
     }
 
-    if(req.body.device_token!==""){
-        FirebaseHandler.SubscribeToTopic(req.body.device_token);
-    }
 
     try{
         const query = {_id:req.params.account_id};

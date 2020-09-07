@@ -22,6 +22,7 @@ import {
 	CardItem
 } from "native-base";
 import moment from "moment";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const VacationScreen = props => {
 	const vacation = props.navigation.getParam("vacation");
@@ -34,7 +35,7 @@ const VacationScreen = props => {
 						transparent
 						onPress={() => props.navigation.goBack()}
 					>
-						<Icon name="arrow-back" />
+						<Ionicons name='md-arrow-back'size={20} color={"white"}/>
 					</Button>
 				</Left>
 				<Body style={{ flex: 1 }}>
@@ -79,8 +80,8 @@ const VacationScreen = props => {
 							success={vacation.status === "Accepted"}
 							style={
 								vacation.status === "Aborted"
-									? { backgroundColor: "black",marginTop:10 }
-									: {marginTop:10}
+									? { backgroundColor: "black",marginTop:5 }
+									: {marginTop:5}
 							}
 						>
 							<Text uppercase={false}>{vacation.status}</Text>
@@ -91,6 +92,7 @@ const VacationScreen = props => {
 					<Button
 						block
 						danger
+						rounded
 						style={{ margin: 15 }}
 						onPress={() => {
 							AbortVacation(vacation._id);
@@ -108,7 +110,8 @@ const styles = StyleSheet.create({
 	card: {
 		marginLeft: 15,
 		marginRight: 15,
-		marginTop: 10
+		marginTop: 10,
+		
 	},
 	status_buttons: {
 		marginTop: 10,
@@ -116,7 +119,9 @@ const styles = StyleSheet.create({
 	},
 	card_item: {
 		flexDirection: "column",
-		alignItems: "flex-start"
+		alignItems: "flex-start",
+		marginBottom:10
+
 	}
 });
 

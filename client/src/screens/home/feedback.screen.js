@@ -3,6 +3,7 @@ import {GiftedChat} from 'react-native-gifted-chat'
 import {Container, Header, Title, Right, View, Content, Button, Icon, Left, Body, Text} from "native-base";
 import FirebaseHandler from '../../utils/firebase_handler.util';
 import moment from 'moment';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 class FeedbackScreen extends React.Component {
     state = {
         messages: [],
@@ -56,7 +57,16 @@ class FeedbackScreen extends React.Component {
         return (
             <Container style={{flex: 1}}>
                 <Header>
-                    <Left style={{flex: 1}}/>
+                    <Left style={{flex: 1}}>
+                    <Button
+							transparent
+							onPress={() => {
+								this.props.navigation.openDrawer();
+							}}
+						>
+							<Ionicons name='md-menu' size={25} color={"white"}/>
+						</Button>
+                    </Left>
                     <Body style={{flex: 1}}>
                         <Title style={{alignSelf: "center"}}>Feedback</Title>
                     </Body>

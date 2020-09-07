@@ -7,7 +7,7 @@ class Notifications extends Component {
 		this.state = {
 			target: "all",
 			is_loading: true,
-			accounts: [],
+			topics: [],
 			selected: [],
 			title: "",
 			body: ""
@@ -18,18 +18,18 @@ class Notifications extends Component {
 		const response = await ServiceProvider.GET("/accounts");
 		if (response.status == 200)
 			this.setState({
-				accounts: response.data.filter(account => account.profile),
+				topics: response.data.filter(account => account.profile),
 				is_loading: false
 			});
 	}
 
 	async Select(id, index) {
-		const account = this.state.accounts[index];
-		var accounts = this.state.accounts.filter(
+		const account = this.state.topics[index];
+		var topics = this.state.topics.filter(
 			account => account._id !== id
 		);
 		this.setState(prevState => ({
-			accounts,
+			topics,
 			selected: [...prevState.selected, account]
 		}));
 	}
@@ -41,7 +41,7 @@ class Notifications extends Component {
 		);
 		this.setState(prevState => ({
 			selected,
-			accounts: [...prevState.accounts, account]
+			topics: [...prevState.topics, account]
 		}));
 	}
 
@@ -57,7 +57,7 @@ class Notifications extends Component {
 			const response = await ServiceProvider.POST("/notifications",{
 				title:this.state.title,
 				body: this.state.body,
-				accounts:selected
+				topics:selected
 			})
 
 			console.log(response);
@@ -138,7 +138,7 @@ class Notifications extends Component {
 										...
 									</option>
 									{!this.state.is_loading &&
-										this.state.accounts.map(
+										this.state.topics.map(
 											(account, index) => (
 												<option
 													key={account._id}

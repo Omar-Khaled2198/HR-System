@@ -1,41 +1,48 @@
-import React from 'react';
-import {StyleSheet} from 'react-native';
-import DatePicker from 'react-native-datepicker'
-
-const DatePickerComponent = (props) => (
-
-    <DatePicker
-        style={styles.date_picker}
-        mode="date"
-        date={props.date}
-        placeholder={props.placeholder}
-        format="YYYY/MM/DD h:mm a"
-        mode = "datetime"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        customStyles={{
-            placeholderText: {
-                alignSelf: "flex-start",
-                marginLeft: 10,
-                color: "dimgray",
-                fontSize: 17,
-            },
-            dateIcon: {
-                display: "none"
-            },
-            dateInput: {
-                borderColor: "lightgray"
-            }
-        }}
-        onDateChange={(date) => {
-            props.onChangeDate(date)
-        }}
-    />
-);
+import React, { useState } from "react";
+import { StyleSheet, View, Button } from "react-native";
+import { Input, Item } from "native-base";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
+const DatePickerComponent = (props) => {
+	const [show, setShow] = useState(false);
+	const [date, setDate] = useState(new Date());
+	const showDatepicker = () => {
+		setShow(true);
+	};
+	return (
+		<View>
+			<View >
+				<Item rounded style={styles.date_picker}>
+					<Input
+						placeholder={props.placeholder}
+						onTouchStart={showDatepicker}
+						value={date}
+					/>
+				</Item>
+			</View>
+			{show && (
+				<DateTimePicker
+					testID="dateTimePicker"
+					value={new Date()}
+					mode="date"
+					is24Hour={false}
+					display="default"
+					onChange={(event, selectedDate) => {
+						setShow(false);
+						setDate(moment(selectedDate).format("YYYY/MM/DD"));
+						props.onChangeDate(selectedDate);
+					}}
+				/>
+			)}
+		</View>
+	);
+};
 const styles = StyleSheet.create({
-    date_picker: {
-        marginTop: 20,
-        width: "100%"
-    }
-})
+	date_picker: {
+		marginBottom: 20,
+		width: "100%",
+		paddingLeft:10
+		
+	},
+});
 export default DatePickerComponent;
