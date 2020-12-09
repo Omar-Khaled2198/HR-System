@@ -3,12 +3,16 @@ const configs = require("../configs");
 
 const Auth = function(roles) {
 	return function(req, res, next) {
-		const token = req.headers["authorization"];
+		let token = req.headers["authorization"];
 
 		if (!token) {
-			return res
+			if(req.query.token){
+				token = req.query.token
+			} else {
+				return res
 				.status(403)
 				.send({ auth: false, msg: "No token provided." });
+			}
 		}
 
 		jwt.verify(token, configs.token_secret, function(error, decoded) {

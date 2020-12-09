@@ -47,14 +47,15 @@ class Notifications extends Component {
 
 	async SendNotification(){
 		if(this.state.target==="all"){
-			ServiceProvider.POST("/notifications/all",{
+			const response = await ServiceProvider.POST("notifications/all",{
 				title:this.state.title,
 				body: this.state.body
 			});
+			console.log(response);
 		} else {
 			const selected = this.state.selected.map(account=>{return account._id});
 			console.log(selected);
-			const response = await ServiceProvider.POST("/notifications",{
+			const response = await ServiceProvider.POST("notifications",{
 				title:this.state.title,
 				body: this.state.body,
 				topics:selected

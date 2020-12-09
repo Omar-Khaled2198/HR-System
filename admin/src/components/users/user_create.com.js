@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ServiceProvider from "../../utils/service_provider.utils";
-import { API_BASE_URL } from "../../utils/constants.utils";
 
 class UserCreate extends Component {
 	constructor(props) {
@@ -11,7 +10,8 @@ class UserCreate extends Component {
 			email: "",
 			password: "",
 			job_title: "",
-			role: ""
+			role: "",
+			profile_picture:""
 		};
 	}
 
@@ -26,10 +26,19 @@ class UserCreate extends Component {
 				job_title: this.state.job_title
 			}
 		};
-		const response = await ServiceProvider.POST(`/accounts`,account);
-		if(response.status == 200){
-			this.props.history.push(`/admin/users/${response.data._id}/profile`);
+		const response = await ServiceProvider.POST(`accounts`,account);
+		if(response.status == 200&&!this.state.profile_picture){
+			const data = new FormData();
+			console.log(response.data._id);
+			data.append("profile_picture",this.state.profile_picture);
+			await ServiceProvider.POST(
+				`accounts/${response.data._id}/profile_picture`,
+				data,
+				{ "content-type": "multipart/form-data" }
+			);
+			
 		}
+		this.props.history.push(`/admin/users/${response.data._id}/profile`);
 		
 	}
 
@@ -85,6 +94,21 @@ class UserCreate extends Component {
 										this.setState({
 											job_title: event.target.value
 										});
+									}}
+								/>
+							</div>
+							<div className="form-group">
+								<label>
+									Profile Picture{" "}
+									<span className="text-red">*</span>
+								</label>
+								<input
+									type="file"
+									className="form-control"
+									onChange={event => {
+										this.setState({
+											profile_picture: event.target.files[0]
+										})
 									}}
 								/>
 							</div>

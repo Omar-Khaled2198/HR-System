@@ -14,7 +14,7 @@ class VacationView extends Component {
 
 	async componentDidMount() {
 		const response = await ServiceProvider.GET(
-			`/vacations/${this.props.match.params.id}`
+			`vacations/${this.props.match.params.id}`
 		);
 		this.setState({
 			vacation: response.data,

@@ -20,7 +20,7 @@ class WorkTimeUpdate extends Component {
 	}
 
 	async componentDidMount() {
-		const response = await ServiceProvider.GET(`/settings`);
+		const response = await ServiceProvider.GET(`settings`);
 		const settings = response.data;
 		var holidays = this.state.holidays;
 		response.data.holidays.map(holiday => {

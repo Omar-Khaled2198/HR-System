@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ServiceProvider from "../utils/service_provider.utils";
-import {API_BASE_URL} from "../utils/constants.utils";
 import axios from "axios";
 import FirebaseHandler from "../utils/firebase_handler.util";
 class LoginPage extends Component {
@@ -15,6 +14,7 @@ class LoginPage extends Component {
 	}
 
 	componentDidMount(){
+		document.title = process.env.REACT_APP_NAME;
 		const account = JSON.parse(localStorage.getItem("account"))
 		if(account != null && account.token){
 			axios.defaults.headers.common['authorization'] = account.token;
@@ -27,11 +27,11 @@ class LoginPage extends Component {
 			email: this.state.email,
 			password: this.state.password
 		}
-		const response = await ServiceProvider.POST(`/sign_in`,user);
+		const response = await ServiceProvider.POST(`sign_in`,user);
 		if(response.status == 200){
 			localStorage.setItem("account",JSON.stringify(response.data));
 			axios.defaults.headers.common['authorization'] = response.data.token;
-			FirebaseHandler.Authenticate();
+			await FirebaseHandler.Authenticate();
 			this.props.history.push("/admin");
 		} else {
 			console.log(response.data.msg);

@@ -19,7 +19,7 @@ import ProfileCreationScreen from "../screens/form/profile_creation.screen";
 import SettingsScreen from "../screens/settings/setting.screen";
 import LogoutScreen from "../screens/auth/logout.screen";
 import VacationScreen from "../screens/info/vacation.screen";
-import AttandanceScreen from "../screens/home/attandnace.screen";
+import NotificationsScreen from "../screens/home/notifications.screen";
 
 const VacationsStack = createStackNavigator({
     Vacations: {
@@ -54,31 +54,32 @@ const HomeNavigator = createBottomTabNavigator({
     Home: {
         screen: HomeScreen,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-home' size={25} color={tintColor}/>)
+            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-home' size={30} color={tintColor}/>)
         }
     },
-    Attandance: {
-        screen: AttandanceScreen,
-        navigationOptions: {
-            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-calendar' size={25} color={tintColor}/>)
-        }
-    },
+    
     Vacations: {
         screen: VacationsStack,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-pause' size={25} color={tintColor}/>)
+            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-pause' size={30} color={tintColor}/>)
         }
     },
     Tasks: {
         screen: TasksScreen,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-code-working' size={25} color={tintColor}/>)
+            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-code-working' size={30} color={tintColor}/>)
+        }
+    },
+    Notifications: {
+        screen: NotificationsScreen,
+        navigationOptions: {
+            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-notifications' size={30} color={tintColor}/>)
         }
     },
     Feedback: {
         screen: FeedbackScreen,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-chatboxes' size={25} color={tintColor}/>)
+            tabBarIcon: ({tintColor}) => (<Ionicons name='ios-chatboxes' size={30} color={tintColor}/>)
         }
     }
 

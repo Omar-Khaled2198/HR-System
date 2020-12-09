@@ -1,12 +1,10 @@
 import axios from "axios";
-import {API_BASE_URL} from "./constants.utils";
 
 axios.interceptors.request.use(
 	config => {
 		if(localStorage.getItem("account")){
-			const account = JSON.parse(localStorage.getItem("account"));
-			console.log("TCL: localStorage");
-			config.headers["authorization"] = account.token;
+			const STORED_ACCOUNT_INFO = JSON.parse(localStorage.getItem("account"));
+			config.headers["authorization"] = STORED_ACCOUNT_INFO.token;
 		}
 		return config;
 	},
@@ -20,7 +18,7 @@ const ServiceProvider = {
 
 	GET: async function(resource, headers) {
 		try {
-			return await axios.get(`${API_BASE_URL}/${resource}`,{
+			return await axios.get(`${process.env.REACT_APP_API_BASE_URL}/${resource}`,{
 				headers
 			});
 		} catch (error) {
@@ -31,7 +29,7 @@ const ServiceProvider = {
 	POST: async function(resource, object, headers ) {
 		
 		try {
-			return await axios.post(`${API_BASE_URL}/${resource}`, object,{
+			return await axios.post(`${process.env.REACT_APP_API_BASE_URL}/${resource}`, object,{
 				headers
 			});
 		} catch (error) {
@@ -41,7 +39,7 @@ const ServiceProvider = {
 
 	PUT: async function(resource, object, headers) {
 		try {
-			return await axios.put(`${API_BASE_URL}/${resource}`, object,{
+			return await axios.put(`${process.env.REACT_APP_API_BASE_URL}/${resource}`, object,{
 				headers
 			});
 		} catch (error) {

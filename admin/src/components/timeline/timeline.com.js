@@ -24,7 +24,6 @@ class Timeline extends Component {
 
 	async GetTimelineEvents(){
 		var events = []
-		console.log(this.state.date);
 		const snapshots = await FirebaseHandler.ReadOnce(`events/${moment(this.state.date).format("DD-MM-YYYY")}`);
 		this.setState({is_loading:true});
 		snapshots.forEach((childNodes)=>{

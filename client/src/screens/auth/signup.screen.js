@@ -13,6 +13,7 @@ class SignUpScreen extends Component {
         this.state = {
             email: "",
             password: "",
+            confirm_passowrd:"",
             error: ""
         };
     }
@@ -22,7 +23,10 @@ class SignUpScreen extends Component {
 
         if (this.state.email === "" || this.state.password === "") {
             this.setState({error: "Email and password can't be empty!"})
-        } else {
+        } if(this.state.password !== this.state.confirm_passowrd){
+            this.setState({error: "The passwords not matched!"})
+        } 
+        else {
             const response = await ServiceProvider.POST("sign_up",{
                 email: this.state.email, 
                 password: this.state.password
@@ -67,6 +71,18 @@ class SignUpScreen extends Component {
 								secureTextEntry={true}
 							/>
 						</Item>
+                        <Item rounded style={styles.input}>
+                        <Ionicons name='ios-lock' size={25}/>
+							<Input
+								placeholder="Confirm Passowrd"
+								textContentType={"password"}
+								value={this.state.confirm_passowrd}
+								onChangeText={confirm_passowrd => {
+									this.setState({ confirm_passowrd });
+								}}
+								secureTextEntry={true}
+							/>
+						</Item>
                         {this.state.error !== "" && <Text style={styles.error}>{this.state.error}</Text>}
                         <Button style={styles.signup_button} block primary onPress={() => this.SignUp()} rounded>
                             <Text style={styles.signup_text}>Sign Up</Text>
@@ -86,7 +102,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 50,
         alignSelf: "center",
-        marginTop: 80
+        marginTop: "45%"
     },
     content: {
         flexDirection: 'column',

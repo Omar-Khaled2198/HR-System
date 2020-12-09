@@ -39,7 +39,6 @@ const FirebaseHandler = {
 
     OpenNotifications: function(){
         Firebase.notifications().onNotificationOpened((notificationOpen: NotificationOpen) => {
-            console.log("ffffffffffffffffffffffffff");
             // Get the action triggered by the notification being opened
             const action = notificationOpen.action;
             console.log(action)

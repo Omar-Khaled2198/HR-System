@@ -6,9 +6,9 @@ const Firebase = firebase.initializeApp(configs.firebase);
 
 const FirebaseHandler = {
 
-    Authenticate: function(){
+    Authenticate: async function(){
         const account = JSON.parse(localStorage.getItem("account"));
-        Firebase.auth().signInWithCustomToken(account.firebase_token);
+        await Firebase.auth().signInWithCustomToken(account.firebase_token);
     },
 
     Write: function(url, object){
