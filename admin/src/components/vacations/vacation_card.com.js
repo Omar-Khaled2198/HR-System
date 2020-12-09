@@ -1,5 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom"
+import moment from "moment"
+
 function VacationCard(props) {
 
 	const {request} = props
@@ -16,9 +18,9 @@ function VacationCard(props) {
 						<dt>{request.title}</dt>
 					</div>
 					<br/>
-					<dt><i className="fa fa-circle-o text-green"></i> From: {request.from}</dt>
+					<dt><i className="fa fa-circle-o text-green"></i> From: {moment(request.from).format("YYYY/MM/DD")}</dt>
 					<br/>
-					<dt><i className="fa fa-circle-o text-red"></i> To: {request.to}</dt>
+					<dt><i className="fa fa-circle-o text-red"></i> To: {moment(request.TO).format("YYYY/MM/DD")}</dt>
 					<br/>
 					<div style={{width:"inherit",wordWrap: "break-word"}}>
 						<p>{request.description}</p>

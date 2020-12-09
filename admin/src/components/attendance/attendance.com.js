@@ -24,10 +24,10 @@ class Attendance extends Component {
 	async GetAttendance() {
 		const response = await ServiceProvider.GET(
 			`attendance?day=${moment(this.state.date).format(
-				"D"
+				"DD"
 			)}&month=${moment(this.state.date).format(
-				"M"
-			)}&year=${moment().format("Y")}`
+				"MM"
+			)}&year=${moment().format("YYYY")}`
 		);
 		console.log(response.data);
 		this.setState({ records: response.data, is_loading: false });

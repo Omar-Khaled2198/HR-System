@@ -5,7 +5,7 @@ import { Spinner } from "native-base";
 
 const Activity = props => {
 	return (
-		<View>
+		<View style={styles.view}>
 			{props.loading && (
 				<View style={styles.container}>
 					<Spinner color="blue" style={styles.spinner}/>

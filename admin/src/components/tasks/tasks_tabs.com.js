@@ -1,12 +1,10 @@
 import React,{Component} from 'react'
-import TasksList from './tasks_list.com';
 import ServiceProvider from '../../utils/service_provider.utils';
-import { API_BASE_URL } from '../../utils/constants.utils';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import TableMapper from "../../utils/table_mapper.utils";
 import {Link} from "react-router-dom"
-
+import TaskCard from "./task_card.com";
 class TasksTabs extends Component{
 
 	constructor(props) {
@@ -20,12 +18,13 @@ class TasksTabs extends Component{
 
 	async componentDidMount() {
 		const response = await ServiceProvider.GET(
-			`/tasks`
+			`tasks`
 		);
 		const tasks = response.data;
 		var current_tasks = [],
 			done = [];
 		if (response.status == 200) {
+			console.log(response.data);
 			tasks.map(task => {
 				if (task.status == "Done") {
 					done.push(task);
@@ -50,7 +49,7 @@ class TasksTabs extends Component{
 			  <section className="content">
 				  <div className="row">
 					  <div className="col-md-12">
-						  <div className="nav-tabs-custom" style={{background:"transparent",boxShadow:"none"}}>
+						  <div className="nav-tabs-custom" style={{background:"white",boxShadow:"none"}}>
 							  <ul className="nav nav-tabs">
 								  <li className="active"><a href="#tab_1" data-toggle="tab">Tasks</a></li>
 								  <li><a href="#tab_2" data-toggle="tab">History</a></li>
@@ -58,7 +57,18 @@ class TasksTabs extends Component{
 							  <div className="tab-content" style={{background:"transparent"}} >
 								  <div className="tab-pane active" id="tab_1">
 									  {!this.state.is_loading && (
-											<TasksList list={this.state.current_tasks}/>
+										  <div className="row">
+										  {
+											  this.state.current_tasks.map(task=>{
+												  return(
+													  <div className="col-md-4">
+														  <TaskCard data={task}/>
+													  </div>
+												  )
+											  })
+										  }
+									  </div>
+											// <TasksList list={this.state.current_tasks}/>
 										)}
 								  </div>
 								  <div className="tab-pane" id="tab_2">

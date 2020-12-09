@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ServiceProvider from "../../utils/service_provider.utils";
-import { API_BASE_URL } from "../../utils/constants.utils";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -20,7 +19,7 @@ class TaskCreate extends Component {
 	}
 
 	async componentDidMount() {
-        const response = await ServiceProvider.GET(`/accounts`);
+        const response = await ServiceProvider.GET(`accounts`);
         this.setState({accounts:response.data,is_loading:false});
 	}
 
@@ -34,8 +33,7 @@ class TaskCreate extends Component {
             status: this.state.status
         }
 
-        const response = await ServiceProvider.POST(`/tasks`,task);
-        console.log(response);
+        const response = await ServiceProvider.POST(`tasks`,task);
         this.props.history.push("/admin/tasks")
     }
     

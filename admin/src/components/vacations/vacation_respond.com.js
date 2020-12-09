@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import ServiceProvider from "../../utils/service_provider.utils";
-import { API_BASE_URL } from "../../utils/constants.utils";
 
 class VacationRespond extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			request: {},
-			status: "",
-			note: "",
 			is_loading: true
 		};
 	}
@@ -19,20 +16,18 @@ class VacationRespond extends Component {
 		if(this.props.history.location.state){
 			request = this.props.history.location.state.request;
 		} else {
-			const response = await ServiceProvider.GET(`/vacations/${this.props.match.params.id}`);
+			const response = await ServiceProvider.GET(`vacations/${this.props.match.params.id}`);
 			request = response.data
 		}
 		this.setState({
 			request,
 			is_loading: false
 		});
+		console.log(request);
 	}
 
 	async UpdateVacation() {
-		const response = await ServiceProvider.PUT(`/vacations/${this.props.match.params.id}`,{
-			status:this.state.status,
-			note:this.state.note
-		})
+		const response = await ServiceProvider.PUT(`vacations/${this.state.request._id}`,this.state.request)
 		console.log(response);
 		if(response.status == 200){
 			this.props.history.push("/admin/vacations");
@@ -79,9 +74,13 @@ class VacationRespond extends Component {
 										defaultValue=""
 										className="form-control"
 										onChange={event => {
-											this.setState({
-												status: event.target.value
-											});
+											const value = event.target.value;
+											this.setState(prevState => ({
+												request: {
+													...prevState.request,
+													status: value
+												}
+											}));
 										}}
 									>
 										<option
@@ -101,10 +100,14 @@ class VacationRespond extends Component {
 										className="form-control"
 										rows="3"
 										placeholder="Enter ..."
-										onChange={event => {
-											this.setState({
-												note: event.target.value
-											});
+										oonChange={event => {
+											const value = event.target.value;
+											this.setState(prevState => ({
+												request: {
+													...prevState.request,
+													note: value
+												}
+											}));
 										}}
 									/>
 								</div>

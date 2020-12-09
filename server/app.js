@@ -22,35 +22,38 @@ app.use(bodyParser.urlencoded({ extended: false }));
 mongoose.set("useCreateIndex", true);
 mongoose.set("useFindAndModify", false);
 mongoose
-	.connect(configs.mongodb.atlas_uri, { useNewUrlParser: true })
-	.then(() => {
-		console.log("MongoDB Cluster connected");
-		app.emit("ready");
-	})
-	.catch(err => console.log("MongoDB connection error", err));
+  .connect(configs.mongodb.atlas_uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB Cluster connected");
+    app.emit("ready");
+  })
+  .catch((err) => console.log("MongoDB connection error", err));
 
 //API Routes
 app.use(cors());
 app.use(
-	"/api/public",
-	Auth("*"),
-	express.static(path.resolve(__dirname, "public"))
+  "/api/public",
+  Auth(["employee", "hr"]),
+  express.static(path.resolve(__dirname, "public"))
 );
 
 // app.use(Events);
 app.use("/api", [
-	AuthRoutes,
-	AccountRoutes,
-	VacationRoutes,
-	TaskRoutes,
-	SettingsRoutes,
-	AttendanceRoutes,
-	NotificationRoutes
+  AuthRoutes,
+  AccountRoutes,
+  VacationRoutes,
+  TaskRoutes,
+  SettingsRoutes,
+  AttendanceRoutes,
+  NotificationRoutes,
 ]);
 
 const PORT = process.env.PORT || 5000;
-app.on("ready", function() {
-	app.listen(PORT, () =>
-		console.log(`Server is up and running on http://127.0.0.1:${PORT}`)
-	);
+app.on("ready", function () {
+  app.listen(PORT, () =>
+    console.log(`Server is up and running on http://127.0.0.1:${PORT}`)
+  );
 });

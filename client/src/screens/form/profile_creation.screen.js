@@ -127,7 +127,7 @@ class ProfileCreationScreen extends Component {
 							size={130}
 							source={
 								this.state.profile_picture == ""
-									? require("../../assets/images/default_avatar.png")
+									? require("../../assets/images/default_profile_picture.png")
 									: { uri: this.state.profile_picture }
 							}
 							showEditButton

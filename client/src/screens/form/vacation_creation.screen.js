@@ -83,7 +83,7 @@ class VacationCreationScreen extends Component {
 				</Header>
 				<Content>
 					<View>
-                        <Spinner visible={this.state.loading} />
+                        <Spinner visible={this.state.loading} color={"blue"}/>
                     </View>
 					<Form style={styles.form}>
 						<Item rounded style={styles.title_input}>

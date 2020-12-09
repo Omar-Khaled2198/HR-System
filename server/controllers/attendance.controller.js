@@ -13,9 +13,9 @@ const CheckIn = async function(req, res) {
 		req.body = {
 			employee: req.params.employee_id,
 			status: "Attended",
-			day: moment().format("D"),
-			month: moment().format("M"),
-			year: moment().format("Y"),
+			day: moment().format("DD"),
+			month: moment().format("MM"),
+			year: moment().format("YYYY"),
 			check_in: moment().format("hh:mm:ss a"),
 			check_out: ""
 		};
@@ -30,9 +30,9 @@ const CheckOut = async function(req, res) {
 	if (check) {
 		const update = { $set: {check_out: moment().format("hh:mm:ss a")} };
 		var record = await AttendanceRepositoryInstance.Update({
-			day: moment().format("D"),
-			month: moment().format("M"),
-			year: moment().format("Y"),
+			day: moment().format("DD"),
+			month: moment().format("MM"),
+			year: moment().format("YYYY"),
 			employee: req.params.employee_id
 		},update);
 		const recordJSON = record.toJSON();
@@ -69,7 +69,7 @@ const GetRecord = async function(req, res) {
 	try {
 		var populate = {
 			path: "employee",
-			select: "_id profile.first_name profile.last_name"
+			select: "_id profile"
 		};
 		const record = await AttendanceRepositoryInstance.Get(
 			{ _id: req.params.record_id },
@@ -98,7 +98,7 @@ const GetAllRecords = async function(req, res) {
 		if (!req.query.employee) {
 			populate = {
 				path: "employee",
-				select: "_id profile.first_name profile.last_name"
+				select: "_id profile"
 			};
 		}
 

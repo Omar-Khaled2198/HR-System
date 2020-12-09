@@ -1,4 +1,5 @@
 const Firebase = require("../utils/firebase.util");
+const moment = require("moment");
 
 const PushNotificationByTopic = async function(req, res) {
 
@@ -14,7 +15,12 @@ const PushNotificationByTopic = async function(req, res) {
 			
 		};
 		
-		Firebase.messaging().sendToTopic(req.body.topics[i],notification);
+		await Firebase.messaging().sendToTopic(req.body.topics[i],notification);
+		Firebase.database().ref(`notifications/${req.body.topics[i]}`).push({
+			title: req.body.title,
+			body: req.body.body,
+			at : moment().unix()
+		});
 		
 	}
 	
@@ -25,7 +31,7 @@ const PushNotificationByTopic = async function(req, res) {
 
 const SubscribeToTopic = async function(req, res) {
 
-	Firebase.messaging().subscribeToTopic(req.body.device_token,req.params.topic);
+	await Firebase.messaging().subscribeToTopic(req.body.device_token,req.params.topic);
 	return res.status(200).send({ msg: "done" });
 };
 
@@ -40,6 +46,11 @@ const PushNotificationToAll = async function(req, res) {
 		}
 	};
 	Firebase.messaging().sendToTopic("public",notification);
+	Firebase.database().ref(`notifications/public`).push({
+		title: req.body.title,
+		body: req.body.body,
+		at : moment().unix()
+	});
 	return res.status(200).send({ msg: "done" });
 };
 

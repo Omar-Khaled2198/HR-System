@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 function TreeItem(props) {
 	return (
 		<li className="treeview">
-			<a style={{ color: "#b8c7ce" }}>
+			
+			<a href="#" style={{ color: "#b8c7ce",textDecoration:"none" }}>
 				<i className={props.icon} /> <span>{props.name}</span>
 				<span className="pull-right-container">
 					<i className="fa fa-angle-left pull-right" />
