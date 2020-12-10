@@ -16,7 +16,7 @@ import {
   Input,
   Label,
 } from "native-base";
-
+import Ionicons from "react-native-vector-icons/Ionicons";
 class ForgetPasswordScreen extends Component {
   static navigationOptions = { header: null };
 
@@ -46,7 +46,7 @@ class ForgetPasswordScreen extends Component {
               <Label>Email</Label>
               <Input />
             </Item>
-            <Button style={styles.reset_button} block primary>
+            <Button style={styles.reset_button} block rounded primary>
               <Text
                 style={styles.reset_text}
                 uppercase={false}
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     alignSelf: "center",
-    marginTop: 90,
+    marginTop: "55%",
     fontWeight: "bold",
   },
   content: {

@@ -33,6 +33,8 @@ import ServiceProvider from "../../utils/service_provider.utils";
 import { SetAccountGlobal } from "../../utils/global.util";
 import FirebaseHandler from "../../utils/firebase_handler.util";
 import AttandanceComponent from "../../components/attandnace.com";
+import { API_BASE_URL } from "../../utils/constants.util";
+
 class HomeScreen extends Component {
   static navigationOptions = { header: null };
 
@@ -52,6 +54,8 @@ class HomeScreen extends Component {
   }
 
   async componentDidMount() {
+
+
     const response = await ServiceProvider.GET(
       `attendance?employee=${global.account._id}&day=${moment().format(
         "DD"
@@ -156,7 +160,7 @@ class HomeScreen extends Component {
       `notifications/${global.account._id}`
     );
     await snapshots.forEach((childNodes) => {
-      notifications.push({...childNodes.val(),key:childNodes.key});
+      notifications.push({ ...childNodes.val(), key: childNodes.key });
     });
 
     this.setState({
@@ -189,7 +193,15 @@ class HomeScreen extends Component {
           <Avatar
             rounded
             size={120}
-            source={require("../../assets/images/default_profile_picture.png")}
+            source={
+              global.account.profile.profile_picture
+                ? {
+                    uri: `${API_BASE_URL}/${
+                      global.account.profile.profile_picture
+                    }?token=${global.account.token}`,
+                  }
+                : require("../../assets/images/default_profile_picture.png")
+            }
           />
           <Text style={{ marginTop: 10, fontWeight: "bold" }}>
             Hi, {global.account.profile.first_name}
@@ -280,8 +292,7 @@ class HomeScreen extends Component {
           )}
         </Content>
         <Content style={{ marginTop: 20 }}>
-          <AttandanceComponent/>
-         
+          <AttandanceComponent />
         </Content>
       </Container>
     );

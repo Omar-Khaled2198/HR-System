@@ -75,8 +75,8 @@ class HomePage extends Component {
             path={"/admin/tasks/:id/update"}
             component={(props) => <TaskUpdate {...props} />}
           />
-          <Route exact path={"/admin/coordinates/update"} component={Map} />
-          <Route exact path={"/admin/time/update"} component={WorkTimeUpdate} />
+          <Route exact path={"/admin/settings/coordinates/update"} component={Map} />
+          <Route exact path={"/admin/settings/time/update"} component={WorkTimeUpdate} />
           <Route exact path={"/admin/attendance"} component={Attendance} />
           <Route
             exact

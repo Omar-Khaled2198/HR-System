@@ -31,8 +31,8 @@ class UserUpdate extends Component {
     const response = await ServiceProvider.PUT(
       `accounts/${this.state.account._id}`,
       this.state.account
-	);
-	console.log(response);
+    );
+    console.log(response);
     if (response.status == 200 && this.state.profile_picture) {
       const data = new FormData();
       data.append("profile_picture", this.state.profile_picture);
@@ -42,8 +42,8 @@ class UserUpdate extends Component {
         { "content-type": "multipart/form-data" }
       );
       this.props.history.push(`/admin/users/${response.data._id}/profile`);
-	}
-	
+    }
+
     this.props.history.push(`/admin/users/${response.data._id}/profile`);
   }
 
@@ -72,13 +72,12 @@ class UserUpdate extends Component {
                     className="form-control"
                     defaultValue={this.state.account.profile.first_name}
                     onChange={(event) => {
-					  const value = event.target.value;
-					  this.setState(prevState => {
-						let account_copy = Object.assign({}, prevState.account);
-						account_copy.profile.first_name = value; 
-						return { account_copy };
-					  })
-                      
+                      const value = event.target.value;
+                      this.setState((prevState) => {
+                        let account_copy = Object.assign({}, prevState.account);
+                        account_copy.profile.first_name = value;
+                        return { account_copy };
+                      });
                     }}
                   />
                 </div>
@@ -91,12 +90,12 @@ class UserUpdate extends Component {
                     className="form-control"
                     defaultValue={this.state.account.profile.last_name}
                     onChange={(event) => {
-						const value = event.target.value;
-						this.setState(prevState => {
-						  let account_copy = Object.assign({}, prevState.account);
-						  account_copy.profile.last_name = value; 
-						  return { account_copy };
-						})
+                      const value = event.target.value;
+                      this.setState((prevState) => {
+                        let account_copy = Object.assign({}, prevState.account);
+                        account_copy.profile.last_name = value;
+                        return { account_copy };
+                      });
                     }}
                   />
                 </div>
@@ -110,12 +109,12 @@ class UserUpdate extends Component {
                     className="form-control"
                     defaultValue={this.state.account.profile.job_title}
                     onChange={(event) => {
-						const value = event.target.value;
-						this.setState(prevState => {
-						  let account_copy = Object.assign({}, prevState.account);
-						  account_copy.profile.job_title = value; 
-						  return { account_copy };
-						})
+                      const value = event.target.value;
+                      this.setState((prevState) => {
+                        let account_copy = Object.assign({}, prevState.account);
+                        account_copy.profile.job_title = value;
+                        return { account_copy };
+                      });
                     }}
                   />
                 </div>

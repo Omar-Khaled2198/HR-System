@@ -20,6 +20,7 @@ import SettingsScreen from "../screens/settings/setting.screen";
 import LogoutScreen from "../screens/auth/logout.screen";
 import VacationScreen from "../screens/info/vacation.screen";
 import NotificationsScreen from "../screens/home/notifications.screen";
+import SplashScreen from "../screens/splash/splash.screen";
 
 const VacationsStack = createStackNavigator({
     Vacations: {
@@ -132,6 +133,9 @@ const HomeDrawerNavigator = createDrawerNavigator({
 
 const AppNavigator = createStackNavigator({
 
+    Splash: {
+        screen: SplashScreen
+    },
     Auth: {
         screen: AuthNavigator
     },

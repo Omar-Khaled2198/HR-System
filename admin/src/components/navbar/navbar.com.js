@@ -13,7 +13,8 @@ function NavBar(props) {
           </span>
           {/* logo for regular state and mobile devices */}
           <span className="logo-lg">
-            <b>HR</b>System
+            <b>Linkage </b>
+            Dashboard
           </span>
         </a>
         {/* Header Navbar: style can be found in header.less */}

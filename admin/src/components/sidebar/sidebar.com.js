@@ -35,11 +35,11 @@ function SideBar() {
 						<TreeItem icon="fa fa-gear" name="Settings" tree_items={[{
 							name: "Work Time",
 							icon: "fa fa-clock-o",
-							to: "/admin/time/update"
+							to: "/admin/settings/time/update"
 						},{
 							name: "Coordinates",
 							icon: "fa fa-map-marker",
-							to: "/admin/coordinates/update"
+							to: "/admin/settings/coordinates/update"
 						}]}/>
                     {/* <SingleItemComponent icon="fa fa-tasks" name="Tasks"/> */}
                   	</ul>

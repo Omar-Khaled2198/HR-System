@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet,Image } from "react-native";
 import {
   Container,
   Button,
@@ -24,37 +24,36 @@ class LoginScreen extends Component {
       email: "omar2@gmail.com",
       password: "123456789",
       error: "",
-      is_loading: true,
+      is_loading: false,
     };
   }
 
   async componentDidMount() {
-    const account = await StorageManger.Fetch("account");
-    if (account != null && account.token) {
-	  SetAccountGlobal(account);
-	  this.props.navigation.navigate("Home");
-	  this.setState({ is_loading: false });
-	}
-	else {
-      const response = await ServiceProivder.POST("sign_in", {
-        email: this.state.email,
-        password: this.state.password,
-      });
-      if (response.status === 200) {
-        SetAccountGlobal(response.data);
-        await FirebaseHandler.Authenticate();
-        const device_token = await FirebaseHandler.GetToken();
-        await ServiceProivder.PUT(`accounts/${global.account._id}`, {
-          device_token,
-        });
-        await ServiceProivder.POST(`notifications/${global.account._id}`, {
-          device_token,
-        });
-		this.props.navigation.navigate("Home");
-		this.setState({ is_loading: false });
-      }
-	  this.setState({ is_loading: false });
-	}
+    // const account = await StorageManger.Fetch("account");
+    // if (account != null && account.token) {
+    //   SetAccountGlobal(account);
+    //   this.props.navigation.navigate("Home");
+    //   this.setState({ is_loading: false });
+    // } else {
+    //   const response = await ServiceProivder.POST("sign_in", {
+    //     email: this.state.email,
+    //     password: this.state.password,
+    //   });
+    //   if (response.status === 200) {
+    //     SetAccountGlobal(response.data);
+    //     await FirebaseHandler.Authenticate();
+    //     const device_token = await FirebaseHandler.GetToken();
+    //     await ServiceProivder.PUT(`accounts/${global.account._id}`, {
+    //       device_token,
+    //     });
+    //     await ServiceProivder.POST(`notifications/${global.account._id}`, {
+    //       device_token,
+    //     });
+    //     this.props.navigation.navigate("Home");
+    //     this.setState({ is_loading: false });
+    //   }
+    //   this.setState({ is_loading: false });
+    // }
   }
 
   async SignIn() {
@@ -98,10 +97,14 @@ class LoginScreen extends Component {
       <Container style={styles.content}>
         <Content>
           <Spinner visible={this.state.is_loading} />
-          <Text style={styles.title}>HR System</Text>
+          {/* <Text style={styles.title}>HR System</Text> */}
+		  <Image 
+				style={styles.logo}
+				source={require("../../assets/icons/linkage_icon_rounded.png")}
+			/>
           <Form style={styles.form}>
             <Item rounded style={styles.input}>
-              <Ionicons name="md-person" size={25} />
+              <Ionicons name="md-person" size={25} color={"#0000b2"}/>
               <Input
                 placeholder="Email"
                 textContentType={"emailAddress"}
@@ -112,7 +115,7 @@ class LoginScreen extends Component {
               />
             </Item>
             <Item rounded style={styles.input}>
-              <Ionicons name="ios-lock" size={25} />
+              <Ionicons name="ios-lock" size={25} color={"#0000b2"}/>
               <Input
                 placeholder="Password"
                 textContentType={"password"}
@@ -193,6 +196,7 @@ const styles = StyleSheet.create({
   },
   forget_password: {
     alignSelf: "center",
+    fontWeight:"bold",
     marginTop: 20,
     marginLeft: 15,
     textDecorationLine: "underline",
@@ -206,5 +210,11 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     marginBottom: 20,
   },
+  logo: {
+	marginTop: "30%",
+	width: 250,
+	height: 250,
+	alignSelf:"center"
+},
 });
 export default LoginScreen;
