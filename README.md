@@ -15,7 +15,7 @@
 
 ## Mobile Application Features
 
-* Employee can check-in and check out through the mobile app.
+* Employee can check-in and check out Using GPS (GEOFENCING) through the mobile app.
 * Employee can request vacations, see their status, and view their vacation history through the year.
 * Employee can receive general tasks over their mobile app and mark them as done.
 * Employee can receive general and specific notifications about their tasks and vacation requests status.
