@@ -13,24 +13,29 @@ const path = require("path");
 const cors = require("cors");
 const Auth = require("./middleware/auth.middleware");
 const Events = require("./middleware/events.middleware");
+const Seeder = require("./utils/seeder.util");
+const MongoDBConenct = require("./utils/mongodb_connect.util");
+
 var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Database Connect
-mongoose.set("useCreateIndex", true);
-mongoose.set("useFindAndModify", false);
-mongoose
-  .connect(configs.mongodb.atlas_uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("MongoDB Cluster connected");
-    app.emit("ready");
-  })
-  .catch((err) => console.log("MongoDB connection error", err));
+// mongoose.set("useCreateIndex", true);
+// mongoose.set("useFindAndModify", false);
+// mongoose
+//   .connect(configs.mongodb.atlas_uri, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => {
+//     console.log("MongoDB Cluster connected");
+//     app.emit("ready");
+//   })
+//   .catch((err) => console.log("MongoDB connection error", err));
+MongoDBConenct(()=>{app.emit("ready")});
+
 
 //API Routes
 app.use(cors());
@@ -51,6 +56,7 @@ app.use("/api", [
   NotificationRoutes,
 ]);
 
+//Seeder("account",1)
 const PORT = process.env.PORT || 5000;
 app.on("ready", function () {
   app.listen(PORT, () =>

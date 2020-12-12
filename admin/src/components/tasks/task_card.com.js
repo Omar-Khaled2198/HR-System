@@ -14,7 +14,7 @@ function TaskCard(props) {
       <div className="box-header with-border">
         <h3 className="box-title">{data.title}</h3>
       </div>
-      <div className="box-body">
+      <div className="box-body" style={{height:"200px"}}>
         <p>
           <b>Assigned To:</b>{" "}
           <Link

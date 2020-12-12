@@ -54,8 +54,6 @@ class HomeScreen extends Component {
   }
 
   async componentDidMount() {
-
-
     const response = await ServiceProvider.GET(
       `attendance?employee=${global.account._id}&day=${moment().format(
         "DD"
@@ -81,10 +79,13 @@ class HomeScreen extends Component {
   UpdateState(attandance) {
     this.setState({
       check_in: attandance.check_in,
-      check_in_disabled: attandance.check_in ? true : false,
+      check_in_disabled:
+        attandance.status == "Atttended" || attandance.status == "Vacation" || attandance.status == "Absent"
+          ? true
+          : false,
       check_out: attandance.check_out,
       check_out_disabled:
-        attandance.check_out || !attandance.check_in ? true : false,
+        attandance.check_out || !attandance.check_in ||attandance.status =="Vacation" ? true : false,
       status: attandance.status,
       is_loading_activity: false,
     });

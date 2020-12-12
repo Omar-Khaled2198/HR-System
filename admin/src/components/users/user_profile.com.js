@@ -75,10 +75,10 @@ class UserProfile extends Component {
                     </p>
                     <ul className="list-group list-group-unbordered">
                       <li className="list-group-item">
-                        <b>Vacations</b> <a className="pull-right">1,322</a>
+                        <b>Checkin</b> <a className="pull-right"></a>
                       </li>
                       <li className="list-group-item">
-                        <b>Tasks</b> <a className="pull-right">543</a>
+                        <b>Checkout</b> <a className="pull-right"></a>
                       </li>
                     </ul>
                     <Link

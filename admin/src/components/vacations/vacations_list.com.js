@@ -5,10 +5,10 @@ function VacationsList(props) {
 	const { requests } = props;
 	return (
 		<div>
-			<div className="row">
+			<div className="row row-eq-height">
 				{requests.map(request => {
 					return (
-						<div key={request._id} className="col-md-3">
+						<div key={request._id} className="col-md-4 ">
 							<VacationCard request={request}/>
 						</div>
 					);

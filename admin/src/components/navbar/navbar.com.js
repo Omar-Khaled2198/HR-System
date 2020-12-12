@@ -13,7 +13,7 @@ function NavBar(props) {
           </span>
           {/* logo for regular state and mobile devices */}
           <span className="logo-lg">
-            <b>Linkage </b>
+            <b>LINKAGE </b>
             Dashboard
           </span>
         </a>

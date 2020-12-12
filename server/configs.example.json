@@ -1,0 +1,20 @@
+{
+    "basedomain":"",
+    "token_secret" : "",
+    "saltRounds": "",
+    "mongodb": {
+      "atlas_uri": "",
+      "local_uri": ""
+    },
+    "nodemailer":{
+      "host": "",
+      "port": "",
+      "auth": {
+        "user": "",
+        "pass": ""
+      }
+    },
+    "firebase":{
+      "databaseURL": ""
+    }
+  }

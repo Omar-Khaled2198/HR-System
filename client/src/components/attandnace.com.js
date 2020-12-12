@@ -19,7 +19,6 @@ import {
 import moment from "moment";
 import ServiceProvider from "../utils/service_provider.utils";
 
-
 class AttandanceComponent extends Component {
   static navigationOptions = { header: null };
 
@@ -82,24 +81,16 @@ class AttandanceComponent extends Component {
               }
             : record.status == "Vacation"
             ? {
-                customStyles: {
-                  container: {
-                    backgroundColor: "yellow",
-                  },
-                  text: {
-                    color: "white",
-                  },
-                },
+                disabled: true,
+                startingDay: true,
+                color: "orange",
+                endingDay: true,
               }
             : {
-                customStyles: {
-                  container: {
-                    backgroundColor: "red",
-                  },
-                  text: {
-                    color: "white",
-                  },
-                },
+                disabled: true,
+                startingDay: true,
+                color: "red",
+                endingDay: true,
               };
       });
       this.setState({ days, marked, is_loading: false });

@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "seed": "node utils/seeder.util.js --model $MODEL --number $NUMBER"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-validator": "^6.2.0",
+    "faker": "^5.1.0",
     "firebase": "^7.1.0",
     "firebase-admin": "^8.6.0",
     "jsonwebtoken": "^8.5.1",
@@ -24,6 +26,7 @@
     "multer": "^1.4.1",
     "nodemailer": "^6.2.1",
     "nodemon": "^1.19.1",
-    "point-in-polygon": "^1.0.1"
+    "point-in-polygon": "^1.0.1",
+    "yargs": "^16.2.0"
   }
 }
