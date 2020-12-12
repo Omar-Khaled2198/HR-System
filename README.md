@@ -34,7 +34,7 @@
 Module                          |  Technology Stack
 ----------------------------------|------------------------------------------------------------------------------------
 Server                         |  - NodeJS <br/>- Express  <br/>- MonogDB  <br/>- Firebase
-Web Application                |  - ReactJS <br/>- Bootstrap
+Web Application                |  - ReactJS <br/>- Bootstrap (Customized AdminLTE)
 Mobile Application             |  - React Native
 ## Mobile Application
 
